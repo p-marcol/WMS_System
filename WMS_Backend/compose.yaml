@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=WMS_DB'
+      - 'MYSQL_PASSWORD=HwLH0o8w984Y'
+      - 'MYSQL_ROOT_PASSWORD=D5^678SZ&Xng'
+      - 'MYSQL_USER=wms_user'
+    ports:
+      - '3306:3306'

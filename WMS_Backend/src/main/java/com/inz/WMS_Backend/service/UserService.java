@@ -26,6 +26,11 @@ public class UserService implements iUserService {
     }
 
     @Override
+    public User findByEmail(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmailIgnoreCase(email);
+    }
+
+    @Override
     public void registerUser(registerRequest request) {
         User user = new User();
         user.setUsername(request.getUsername());

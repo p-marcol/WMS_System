@@ -32,7 +32,6 @@ import java.util.Objects;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenUtils jwtTokenUtils;
     private final UserService userService;
 
     @PostMapping("/login")
@@ -65,8 +64,9 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<registerResponse> register(@RequestBody @Valid registerRequest request) {
         User existingUser = userService.findByUsername(request.getUsername());
+        User existingEmail = userService.findByEmail(request.getEmail());
 
-        if (existingUser != null) {
+        if (existingUser != null || existingEmail != null) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
                     .body(registerResponse.builder()

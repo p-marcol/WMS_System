@@ -9,4 +9,5 @@ import java.util.List;
 public interface iUserService {
     void registerUser(registerRequest request);
     User findByUsername(String username) throws UsernameNotFoundException;
+    User findByEmail(String email) throws UsernameNotFoundException;
 }

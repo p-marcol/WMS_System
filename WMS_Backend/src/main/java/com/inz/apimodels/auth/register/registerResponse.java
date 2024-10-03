@@ -10,7 +10,7 @@ import java.util.Collection;
 @Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class registerResponse {
+public class RegisterResponse {
     public int statusCode;
     public String message;
     public String token;

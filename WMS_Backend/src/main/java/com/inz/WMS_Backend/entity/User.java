@@ -1,5 +1,6 @@
 package com.inz.WMS_Backend.entity;
 
+import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,6 +45,10 @@ public class User {
     @Basic
     @Column(length = 15)
     private String phone;
+
+    @Basic
+    @Column(name = "is_archived", nullable = false, columnDefinition = "boolean default false")
+    private boolean isArchived;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(

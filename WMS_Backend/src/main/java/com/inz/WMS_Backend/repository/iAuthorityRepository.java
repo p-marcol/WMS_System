@@ -1,6 +1,6 @@
 package com.inz.WMS_Backend.repository;
 
-import com.inz.WMS_Backend.entity.Authority;
+import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

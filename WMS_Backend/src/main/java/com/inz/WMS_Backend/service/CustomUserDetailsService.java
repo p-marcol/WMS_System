@@ -1,6 +1,6 @@
 package com.inz.WMS_Backend.service;
 
-import com.inz.WMS_Backend.entity.Authority;
+import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import jakarta.transaction.Transactional;

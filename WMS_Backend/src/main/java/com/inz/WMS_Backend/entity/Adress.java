@@ -1,5 +1,6 @@
 package com.inz.WMS_Backend.entity;
 
+import com.inz.WMS_Backend.entity.dictionaries.AddressType;
 import jakarta.persistence.*;
 import lombok.*;
 

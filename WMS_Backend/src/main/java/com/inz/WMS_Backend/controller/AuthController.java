@@ -1,16 +1,14 @@
 package com.inz.WMS_Backend.controller;
 
 import com.inz.WMS_Backend.entity.User;
-import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.WMS_Backend.service.UserService;
-import com.inz.apimodels.auth.login.loginRequest;
-import com.inz.apimodels.auth.login.loginResponse;
-import com.inz.apimodels.auth.register.registerRequest;
-import com.inz.apimodels.auth.register.registerResponse;
+import com.inz.apimodels.auth.login.LoginRequest;
+import com.inz.apimodels.auth.login.LoginResponse;
+import com.inz.apimodels.auth.register.RegisterRequest;
+import com.inz.apimodels.auth.register.RegisterResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Objects;
-
 @RestController
 @RequestMapping("/auth")
 @AllArgsConstructor
@@ -35,7 +31,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<loginResponse> login(@RequestBody loginRequest request) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         Authentication authentication;
         try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
@@ -50,7 +46,7 @@ public class AuthController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, token)
-                .body(loginResponse.builder()
+                .body(LoginResponse.builder()
                         .username(request.getUsername())
                         .message("Login successful")
                         .statusCode(HttpStatus.OK.value())
@@ -62,14 +58,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<registerResponse> register(@RequestBody @Valid registerRequest request) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) {
         User existingUser = userService.findByUsername(request.getUsername());
         User existingEmail = userService.findByEmail(request.getEmail());
 
         if (existingUser != null || existingEmail != null) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body(registerResponse.builder()
+                    .body(RegisterResponse.builder()
                             .message("User already exists")
                             .statusCode(HttpStatus.CONFLICT.value())
                             .build()
@@ -79,7 +75,7 @@ public class AuthController {
         userService.registerUser(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(registerResponse.builder()
+                .body(RegisterResponse.builder()
                         .message("User registered successfully")
                         .statusCode(HttpStatus.CREATED.value())
                         .build()

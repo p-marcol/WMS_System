@@ -1,0 +1,8 @@
+{
+    "login": {
+        "login": "Login",
+        "usernameOrEmail": "Username or Email",
+        "password": "Password",
+        "forgotPassword": "Forgot your Password?"
+    }
+}

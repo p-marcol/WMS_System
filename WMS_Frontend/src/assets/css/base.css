@@ -1,0 +1,63 @@
+/* color palette from <https://github.com/vuejs/theme> */
+:root {
+    --vt-c-white: #ffffff;
+    --vt-c-white-soft: #f8f8f8;
+    --vt-c-white-mute: #f2f2f2;
+
+    --vt-c-black: #181818;
+    --vt-c-black-soft: #222222;
+    --vt-c-black-mute: #282828;
+
+    --vt-c-indigo: #2c3e50;
+
+    --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
+    --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
+    --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
+    --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
+
+    --vt-c-text-light-1: var(--vt-c-indigo);
+    --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
+    --vt-c-text-dark-1: var(--vt-c-white);
+    --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+}
+
+/* semantic color variables for this project */
+:root {
+    --color-bg: #fffffa;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-secondary: #3772ff;
+    --color-primary: #fcab10;
+    --color-tetriary: #ace849;
+    --color-success: #4bb543;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-dark: #2d3142;
+    --color-link-active: #3772ff;
+    --color-card: #fff;
+    --color-user-accent: #fcab10;
+    --color-manager-accent: #ace849;
+    --color-admin-accent: #3772ff;
+    --color-user-light: #fcab10;
+    --color-small-button-primary: #3772ff;
+    --color-small-button-secondary: #3772ff;
+    --color-user-accent-light: rgba(252, 171, 16, 0.3);
+    --color-input-placeholder: rgba(55, 114, 255, 0.6);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

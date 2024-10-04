@@ -1,0 +1,201 @@
+@font-face {
+    font-family: OpenSans;
+    src: url(../fonts/Open_Sans/static/OpenSans-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: OpenSans-Semibold;
+    src: url(../fonts/Open_Sans/static/OpenSans-SemiBold.ttf) format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: OpenSans-Bold;
+    src: url(../fonts/Open_Sans/static/OpenSans-Bold.ttf) format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: OpenSans-ExtraBold;
+    src: url(../fonts/Open_Sans/static/OpenSans-ExtraBold.ttf) format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-stretch: normal;
+}
+.Header-P1 {
+    font-family: OpenSans-Bold;
+    font-size: 4rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Topbar-user {
+    font-family: OpenSans-SemiBold;
+    font-size: 4rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Popup-title-P1 {
+    font-family: OpenSans-ExtraBold;
+    font-size: 3rem;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Big-button-text-P1 {
+    font-family: OpenSans-ExtraBold;
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Header-P2 {
+    font-family: OpenSans-Bold;
+    font-size: 3rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Topbar-info {
+    font-family: OpenSans-SemiBold;
+    font-size: 3rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Header-P3 {
+    font-family: OpenSans-SemiBold;
+    font-size: 2.25rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Text-P1-bold {
+    font-family: OpenSans;
+    font-size: 2.25rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Small-button-primary {
+    font-family: OpenSans-ExtraBold;
+    font-size: 2rem;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Small-button-secondary {
+    font-family: OpenSans-SemiBold;
+    font-size: 2rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Label-P1 {
+    font-family: OpenSans;
+    font-size: 2rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Input-text-P1 {
+    font-family: OpenSans;
+    font-size: 1.2rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Table-header-P1 {
+    font-family: OpenSans-Bold;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Label-P2 {
+    font-family: OpenSans-SemiBold;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.6px;
+}
+.Label-P3 {
+    font-family: OpenSans;
+    font-size: 1.25rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Time-P1 {
+    font-family: OpenSans;
+    font-size: 1.25rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Table-data-P1 {
+    font-family: OpenSans;
+    font-size: 1.25rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Link-text-P1 {
+    font-family: OpenSans;
+    font-size: 1rem;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--color-link-active);
+}
+.Sidebar-P1 {
+    font-family: OpenSans-Bold;
+    font-size: 1.125rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--color-white);
+}

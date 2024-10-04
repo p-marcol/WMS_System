@@ -1,0 +1,1 @@
+<template>Dashboard page</template>

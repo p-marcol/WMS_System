@@ -181,7 +181,7 @@
 }
 .Link-text-P1 {
     font-family: OpenSans;
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -191,11 +191,12 @@
 }
 .Sidebar-P1 {
     font-family: OpenSans-Bold;
-    font-size: 1.125rem;
+    font-size: 0.8rem;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
     color: var(--color-white);
+    text-transform: uppercase;
 }

@@ -1,6 +1,6 @@
 <script setup>
-import InputWithLabel from '@/components/InputWithLabel.vue'
-import PasswordInput from '@/components/PasswordInput.vue'
+import InputWithLabel from '@/components/input/InputWithLabel.vue'
+import PasswordInput from '@/components/input/PasswordInput.vue'
 </script>
 
 <template>
@@ -10,12 +10,12 @@ import PasswordInput from '@/components/PasswordInput.vue'
     </div>
     <div id="loginPane" class="">
         <h1 class="Header-P1">{{ $t('login.login') }}</h1>
-        <form action="#" @submit.prevent>
+        <form action="#" @submit.prevent="login">
             <InputWithLabel :label="$t('login.usernameOrEmail')" v-model="username" />
             <PasswordInput v-model="password" />
             <div id="formFooter">
                 <input type="submit" value="Login" class="wms-big-button Big-button-text-P1" />
-                <a href="#" class="Link-P1">{{ $t('login.forgotPassword') }}</a>
+                <a href="#" class="Link-text-P1">{{ $t('login.forgotPassword') }}</a>
             </div>
         </form>
     </div>
@@ -23,6 +23,7 @@ import PasswordInput from '@/components/PasswordInput.vue'
 
 <script>
 export default {
+    name: 'LoginPage',
     components: {
         InputWithLabel,
         PasswordInput,
@@ -32,6 +33,24 @@ export default {
             username: '',
             password: '',
         }
+    },
+    methods: {
+        async login() {
+            await this.axios
+                .post('/auth/login', {
+                    username: this.username,
+                    password: this.password,
+                })
+                .then((response) => {
+                    console.log(response)
+                    localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('refresh', response.data.refreshToken)
+                    alert('Login successful')
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+        },
     },
 }
 </script>

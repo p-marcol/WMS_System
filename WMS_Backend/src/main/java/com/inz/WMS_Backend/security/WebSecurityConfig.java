@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() //!IMPORTANT: Change to .authenticated() when done
                 )
                 .userDetailsService(customUserDetailsService)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)

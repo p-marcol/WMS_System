@@ -26,6 +26,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // Pass if request is for login
+        if(request.getRequestURI().equals("/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // Get jwt token and validate
         final String token = extractToken(request);
         if(token == null || !JwtTokenUtils.validate(token)) {
@@ -33,14 +39,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
+        // Get user identity and set it on the spring security context
         String username = JwtTokenUtils.extractUsername(token);
         List<SimpleGrantedAuthority> grantedAuthorities = JwtTokenUtils.extractAuthorities(token)
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();
 
-        // Get user identity and set it on the spring security context
-        UserDetails userDetails = new User(username, null, grantedAuthorities);
+        UserDetails userDetails = new User(username, "", grantedAuthorities);
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
                 grantedAuthorities);

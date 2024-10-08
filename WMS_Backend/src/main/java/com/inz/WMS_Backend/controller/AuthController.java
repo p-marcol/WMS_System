@@ -5,6 +5,7 @@ import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.auth.login.LoginRequest;
 import com.inz.apimodels.auth.login.LoginResponse;
+import com.inz.apimodels.auth.my_info.MyInfoResponse;
 import com.inz.apimodels.auth.register.RegisterRequest;
 import com.inz.apimodels.auth.register.RegisterResponse;
 import jakarta.validation.Valid;
@@ -17,10 +18,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -48,13 +46,13 @@ public class AuthController {
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .body(LoginResponse.builder()
                         .username(request.getUsername())
+                        .role(userDetails.getAuthorities())
                         .message("Login successful")
                         .statusCode(HttpStatus.OK.value())
                         .token(token)
                         .refreshToken(refreshToken)
                         .build()
                 );
-
     }
 
     @PostMapping("/register")
@@ -78,6 +76,37 @@ public class AuthController {
                 .body(RegisterResponse.builder()
                         .message("User registered successfully")
                         .statusCode(HttpStatus.CREATED.value())
+                        .build()
+                );
+    }
+
+    @GetMapping("/getMyInfo")
+    public ResponseEntity<MyInfoResponse> getMyInfo() {
+        var userDetails = JwtTokenUtils.getUserFromContext();
+        if(userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User user = userService.findByUsername(userDetails.getUsername());
+        if(user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        String firstName = user.getFirstName(); // nullable
+        String lastName = user.getLastName(); // nullable
+
+        String shortName = firstName != null && lastName != null ?
+                firstName + " " + lastName.charAt(0) + "."  : user.getUsername();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(MyInfoResponse.builder()
+                        .username(user.getUsername())
+                        .firstName(user.getFirstName())
+                        .lastName(user.getLastName())
+                        .shortName(shortName)
+                        .email(user.getEmail())
+                        .role(user.getAuthorities())
+                        .statusCode(HttpStatus.OK.value())
                         .build()
                 );
     }

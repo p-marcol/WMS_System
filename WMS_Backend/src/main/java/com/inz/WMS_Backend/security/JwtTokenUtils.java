@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import com.inz.WMS_Backend.config.JwtConfigResource;
@@ -21,7 +23,7 @@ public class JwtTokenUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenUtils.class);
 
-    private static String getToken(UserDetails userDetails, long expirationTime) {
+    private static String getNewToken(UserDetails userDetails, long expirationTime) {
         List<String> authorities = userDetails.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
@@ -39,11 +41,11 @@ public class JwtTokenUtils {
     }
 
     public static String generateToken(UserDetails userDetails) {
-        return getToken(userDetails, JwtConfigResource.EXPIRATION_TIME);
+        return getNewToken(userDetails, JwtConfigResource.EXPIRATION_TIME);
     }
 
     public static String generateRefreshToken(UserDetails userDetails) {
-        return getToken(userDetails, JwtConfigResource.REFRESH_EXPIRATION_TIME);
+        return getNewToken(userDetails, JwtConfigResource.REFRESH_EXPIRATION_TIME);
     }
 
     private static Claims extractClaims(String token) {
@@ -67,10 +69,19 @@ public class JwtTokenUtils {
             Jwts.parser().verifyWith(JwtConfigResource.SECRET_KEY).build().parseSignedClaims(token);
             return true;
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException e) {
-            logger.error("Invalid token");
+            logger.error("Invalid token" + e.getMessage());
         } catch (ExpiredJwtException e) {
             logger.error("Token has expired");
         }
         return false;
+    }
+
+    public static User getUserFromContext() {
+        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            return (User) principal;
+        } else {
+            return null;
+        }
     }
 }

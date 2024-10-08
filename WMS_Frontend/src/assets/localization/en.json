@@ -4,5 +4,11 @@
         "usernameOrEmail": "Username or Email",
         "password": "Password",
         "forgotPassword": "Forgot your Password?"
+    },
+    "card": {
+        "yourTeam": "Your Team",
+        "myTeam": "My Team",
+        "schedule": "Schedule",
+        "timesheet": "Timesheet"
     }
 }

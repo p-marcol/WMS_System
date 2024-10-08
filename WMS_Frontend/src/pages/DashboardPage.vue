@@ -1,17 +1,14 @@
 <script setup>
-import Sidebar from '@/components/layout/SideBar.vue'
-import CardContainer from '@/components/layout/CardContainer.vue'
-import TopBar from '@/components/layout/TopBar.vue'
+import MainLayout from '@/components/layout/MainLayout.vue'
+import CardContainer from '@/components/CardContainer.vue'
 </script>
 
 <template>
-    <Sidebar />
-    <main>
-        <TopBar />
-        <div id="dashboard">
-            <CardContainer> <p>Card content</p> </CardContainer>
-        </div>
-    </main>
+    <MainLayout>
+        <CardContainer :title="$t('card.yourTeam')"> <p>Card content</p> </CardContainer>
+        <CardContainer :title="$t('card.schedule')"> <p>Card content</p> </CardContainer>
+        <CardContainer :title="$t('card.timesheet')"> <p>Card content</p> </CardContainer>
+    </MainLayout>
 </template>
 
 <script>
@@ -27,9 +24,4 @@ export default {
 }
 </style>
 
-<style scoped>
-#dashboard {
-    width: 100dvw;
-    height: 100dvh;
-}
-</style>
+<style scoped></style>

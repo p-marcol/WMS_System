@@ -1,33 +1,29 @@
-<script>
-import DashboardPage from './pages/DashboardPage.vue'
-import LoginPage from './pages/LoginPage.vue'
-import NotFound from './pages/NotFound.vue'
-
-const routes = {
-    '/': LoginPage,
-    '/dashboard': DashboardPage,
-}
-
-export default {
-    name: 'App',
-    data() {
-        return {
-            currentPath: window.location.hash,
-        }
-    },
-    computed: {
-        currentView() {
-            return routes[this.currentPath.slice(1) || '/'] || NotFound
-        },
-    },
-    mounted() {
-        window.addEventListener('hashchange', () => {
-            this.currentPath = window.location.hash
-        })
-    },
-}
+<script setup>
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
-    <component :is="currentView" />
+    <RouterView />
 </template>
+
+<script>
+export default {
+    name: 'App',
+    components: {
+        RouterView,
+    },
+    beforeCreate() {
+        console.log(this.$route.fullPath)
+        this.axios
+            .get('/auth/getMyInfo')
+            .then((res) => {
+                if (res.data) {
+                    this.$router.push('/dashboard')
+                }
+            })
+            .catch(() => {
+                this.$router.push('/login')
+            })
+    },
+}
+</script>

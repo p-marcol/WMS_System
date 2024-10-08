@@ -45,10 +45,10 @@ export default {
                     console.log(response)
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('refresh', response.data.refreshToken)
-                    alert('Login successful')
+                    this.$router.push('/dashboard')
                 })
                 .catch((error) => {
-                    alert(error)
+                    console.error(error)
                 })
         },
     },

@@ -43,6 +43,12 @@ public class UserService implements iUserService {
     }
 
     @Override
+    public User saveUser(User user) {
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -61,8 +67,6 @@ public class UserService implements iUserService {
     @Override
     public void registerUser(RegisterRequest request) {
         User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setEmail(request.getEmail());
         user.setAuthorities(Set.of(authorityRepository.findByAuthority(eAuthority.USER.name())));
         userRepository.save(user);

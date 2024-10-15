@@ -15,6 +15,10 @@ public class LoginResponse {
     public String message;
     public String token;
     public String refreshToken;
+    public String firstName;
+    public String lastName;
+    public String shortName;
+    public String email;
     public Collection<? extends GrantedAuthority> role;
     public String username;
 }

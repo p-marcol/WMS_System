@@ -12,6 +12,7 @@ public interface iUserService {
     User findByUsername(String username) throws UsernameNotFoundException;
     User findByEmail(String email) throws UsernameNotFoundException;
     void archiveUser(Long id);
+    User saveUser(User user);
     List<User> getAllUsers();
     void setUserDetails(UpsertDetailsRequest request);
 }

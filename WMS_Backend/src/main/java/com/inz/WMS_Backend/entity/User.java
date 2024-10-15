@@ -50,6 +50,13 @@ public class User {
     @Column(name = "is_archived", nullable = false, columnDefinition = "boolean default false")
     private boolean isArchived;
 
+    @ManyToOne
+    private User creator;
+
+    @Basic
+    @Column(name = "last_password_reset_date")
+    private Date lastPasswordResetDate;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "USER_AUTHORITY",

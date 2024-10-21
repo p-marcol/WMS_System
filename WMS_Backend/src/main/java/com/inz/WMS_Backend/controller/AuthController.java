@@ -6,6 +6,7 @@ import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.auth.login.LoginRequest;
 import com.inz.apimodels.auth.login.LoginResponse;
 import com.inz.apimodels.auth.my_info.MyInfoResponse;
+import com.inz.apimodels.auth.refresh.RefreshResponse;
 import com.inz.apimodels.auth.register.RegisterRequest;
 import com.inz.apimodels.auth.register.RegisterResponse;
 import com.inz.apimodels.auth.set_password.SetPasswordRequest;
@@ -18,9 +19,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller for handling authentication related requests
@@ -167,6 +171,30 @@ public class AuthController {
                         .email(user.getEmail())
                         .role(user.getAuthorities())
                         .statusCode(HttpStatus.OK.value())
+                        .build()
+                );
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<RefreshResponse> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        if(!JwtTokenUtils.validate(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        String username = JwtTokenUtils.extractUsername(token);
+        List<SimpleGrantedAuthority> grantedAuthorities = JwtTokenUtils.extractAuthorities(token)
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .toList();
+
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(username, "", grantedAuthorities);
+
+        String newToken = JwtTokenUtils.generateToken(userDetails);
+        String newRefreshToken = JwtTokenUtils.generateRefreshToken(userDetails);
+
+        return ResponseEntity.ok()
+                .body(RefreshResponse.builder()
+                        .token(newToken)
+                        .refreshToken(newRefreshToken)
                         .build()
                 );
     }

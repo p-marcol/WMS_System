@@ -3,7 +3,7 @@ import Sidebar from '@/components/layout/SideBar.vue'
 import TopBar from '@/components/layout/TopBar.vue'
 </script>
 
-<template v-if="!loading">
+<template>
     <Sidebar :user="user" />
     <main>
         <TopBar :user="user" />
@@ -18,7 +18,6 @@ export default {
     name: 'MainLayout',
     data() {
         return {
-            loading: true,
             user: null,
         }
     },
@@ -44,9 +43,6 @@ export default {
                 .catch(() => {
                     this.$router.push('/login')
                 })
-                .finally(() => {
-                    this.loading = false
-                })
         },
     },
 }
@@ -54,13 +50,17 @@ export default {
 
 <style scoped>
 main {
+    height: 100vh !important;
     display: grid;
     grid-template-rows: auto 1fr;
 }
 
 #dashboard {
-    padding: 1rem;
+    padding: 0.5rem;
     width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(10, 1fr);

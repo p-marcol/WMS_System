@@ -44,5 +44,25 @@ export default {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-rows: auto 1fr;
+    overflow: auto;
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: var(--color-secondary) rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+    border: 4px solid rgba(0, 0, 0, 0);
 }
 </style>

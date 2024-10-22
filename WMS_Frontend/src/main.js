@@ -11,7 +11,7 @@ import router from './services/router'
 import VueAxios from 'vue-axios'
 
 import PrimeVue from 'primevue/config'
-
+import ToastService from 'primevue/toastservice'
 import Lara from '@primevue/themes/aura'
 
 const app = createApp(App)
@@ -33,6 +33,7 @@ const primeVueConfig = {
 
 app.use(i18n)
 app.use(PrimeVue, primeVueConfig)
+app.use(ToastService)
 app.use(VueAxios, axios)
 app.use(router)
 

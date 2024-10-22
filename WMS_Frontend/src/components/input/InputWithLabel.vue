@@ -13,12 +13,29 @@
 
 <script>
 export default {
-    props: ['label', 'modelValue', 'type'],
+    props: {
+        label: {
+            type: String,
+            required: true,
+        },
+        modelValue: {
+            type: String,
+            required: true,
+        },
+        type: {
+            type: String,
+            default: 'text',
+        },
+        error: {
+            type: String,
+            default: '',
+        },
+    },
     emits: ['update:modelValue'],
     data() {
         return {
             labelValue: this.label,
-            id: this.label.toLowerCase(),
+            id: this.label.toLowerCase().replace(' ', '-'),
             inputType: this.type || 'text',
         }
     },

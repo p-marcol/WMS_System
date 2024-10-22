@@ -11,8 +11,14 @@ import PasswordInput from '@/components/input/PasswordInput.vue'
     <div id="loginPane" class="">
         <h1 class="Header-P1">{{ $t('login.login') }}</h1>
         <form action="#" @submit.prevent="login">
-            <InputWithLabel :label="$t('login.usernameOrEmail')" v-model="username" />
-            <PasswordInput v-model="password" />
+            <InputWithLabel
+                :label="$t('login.usernameOrEmail')"
+                :error="!error"
+                v-model="username"
+                required="true"
+            />
+            <PasswordInput :error="!error" v-model="password" />
+            <div id="error" class="Label-P3">{{ this.error }}</div>
             <div id="formFooter">
                 <input type="submit" value="Login" class="wms-big-button Big-button-text-P1" />
                 <a href="#" class="Link-text-P1">{{ $t('login.forgotPassword') }}</a>
@@ -32,6 +38,7 @@ export default {
         return {
             username: '',
             password: '',
+            error: null,
         }
     },
     methods: {
@@ -48,6 +55,16 @@ export default {
                     this.$router.push('/dashboard')
                 })
                 .catch((error) => {
+                    if (error.response.status === 401) {
+                        this.error = 'Invalid username or password'
+                    } else {
+                        this.$toast.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'An error occurred',
+                            life: 3000,
+                        })
+                    }
                     console.error(error)
                 })
         },
@@ -65,7 +82,7 @@ form {
     display: grid;
     align-items: center;
     width: 80%;
-    grid-template-rows: auto auto 3fr 1fr;
+    grid-template-rows: auto auto 0.4fr 3fr 1fr;
     gap: 1rem;
     align-items: center;
 }
@@ -116,5 +133,12 @@ form {
     display: grid;
     grid-template-rows: 2fr 4fr;
     justify-items: center;
+}
+
+#error {
+    color: var(--color-danger);
+    text-align: center;
+    justify-self: center;
+    align-self: center;
 }
 </style>

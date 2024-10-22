@@ -175,8 +175,10 @@ public class AuthController {
                 );
     }
 
+    //! Refresh token endpoint must be set properly!!!
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponse> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        token = token.substring(7);
         if(!JwtTokenUtils.validate(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

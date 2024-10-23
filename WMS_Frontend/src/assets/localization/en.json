@@ -12,9 +12,11 @@
         "timesheet": "Timesheet"
     },
     "users": {
-        "users": "Users"
+        "users": "Users",
+        "newUser": "New User"
     },
     "filter": {
-        "clear": "Clear filters"
+        "clear": "Clear filters",
+        "search": "Search"
     }
 }

@@ -4,7 +4,10 @@ import ProgressSpinner from 'primevue/progressspinner'
 
 <template>
     <div :id="id" class="card">
-        <h1 class="Header-P2">{{ this.title }}</h1>
+        <div id="cardHeader">
+            <h1 class="Header-P2">{{ this.title }}</h1>
+            <slot name="header" />
+        </div>
         <ProgressSpinner
             v-if="loading"
             style="justify-self: center; align-self: center"
@@ -45,6 +48,13 @@ export default {
     display: grid;
     grid-template-rows: auto 1fr;
     overflow: auto;
+}
+
+.card > #cardHeader {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: space-between;
 }
 
 * {

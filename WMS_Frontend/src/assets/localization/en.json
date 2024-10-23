@@ -10,5 +10,11 @@
         "myTeam": "My Team",
         "schedule": "Schedule",
         "timesheet": "Timesheet"
+    },
+    "users": {
+        "users": "Users"
+    },
+    "filter": {
+        "clear": "Clear filters"
     }
 }

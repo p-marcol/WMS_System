@@ -98,18 +98,18 @@
     line-height: normal;
     letter-spacing: normal;
 }
-.Small-button-primary {
+.Small-button-primary-P1 {
     font-family: OpenSans-ExtraBold;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
     letter-spacing: normal;
 }
-.Small-button-secondary {
+.Small-button-secondary-P1 {
     font-family: OpenSans-SemiBold;
-    font-size: 2rem;
+    font-size: 1.2rem;
     font-weight: 600;
     font-stretch: normal;
     font-style: normal;

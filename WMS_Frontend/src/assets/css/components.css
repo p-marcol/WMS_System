@@ -37,3 +37,21 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.wms-small-button-primary {
+    background-color: var(--color-small-button-primary);
+    border: 2px solid var(--color-small-button-primary);
+    color: var(--color-white);
+    border-radius: 10px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}
+
+.wms-small-button-secondary {
+    background-color: var(--color-small-button-secondary);
+    border: 2px solid var(--color-small-button-primary);
+    color: var(--color-small-button-primary);
+    border-radius: 10px;
+    padding: 0.2rem 0.5rem;
+    cursor: pointer;
+}

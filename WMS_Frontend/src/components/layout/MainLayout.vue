@@ -37,7 +37,6 @@ export default {
                             role: res.data.role[0].authority,
                             email: res.data.email,
                         }
-                        this.$router.push('/dashboard')
                     }
                 })
                 .catch(() => {

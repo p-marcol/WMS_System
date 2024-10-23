@@ -6,6 +6,8 @@ const routes = [
     { path: '/', component: null },
     { path: '/login', component: pages.loginPage },
     { path: '/dashboard', component: pages.dashboardPage },
+    { path: '/users', component: pages.usersPage },
+    { path: '/:pathMatch(.*)*', component: pages.notFound },
 ]
 
 export default createRouter({

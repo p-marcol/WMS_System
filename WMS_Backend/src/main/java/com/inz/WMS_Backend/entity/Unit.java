@@ -32,11 +32,15 @@ public class Unit {
     @Column(name="work_ended", nullable = false, columnDefinition = "boolean default false")
     private boolean workEnded;
 
+
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
+    private Set<Position> positions;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "POSITIONS",
+            name = "UNIT_SCHEDULE",
             joinColumns = @JoinColumn(name = "unit_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "schedule_id")
     )
-    private Set<User> users;
+    private Set<Schedule> schedules;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Builder
-public class GetAllUsersResponse {
+public class GetAllUsersResponseModel {
     public Long id;
     public String firstName;
     public String lastName;

@@ -3,6 +3,8 @@
 @import './components.css';
 
 #app {
+    font-family: OpenSans;
+    color: var(--color-black);
     background-color: var(--color-bg);
     font-weight: normal;
 }

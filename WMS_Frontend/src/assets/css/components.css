@@ -1,3 +1,8 @@
+.wms-required label::after {
+    content: '*';
+    color: var(--color-danger);
+}
+
 .wms-input-container {
     display: flex;
     flex-direction: column;

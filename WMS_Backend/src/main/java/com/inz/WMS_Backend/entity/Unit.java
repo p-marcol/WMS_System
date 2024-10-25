@@ -28,11 +28,15 @@ public class Unit {
     @Column(nullable = false, length = 128)
     private String description;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @Basic
+    @Column(name="work_ended", nullable = false, columnDefinition = "boolean default false")
+    private boolean workEnded;
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "UNIT_MANAGER",
+            name = "POSITIONS",
             joinColumns = @JoinColumn(name = "unit_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<User> managers;
+    private Set<User> users;
 }

@@ -39,9 +39,7 @@ export default {
     watch: {
         user() {
             const userTypeName = this.user.role
-            console.log(userTypeName)
             if (!userType[userTypeName]) {
-                console.error('User type not found')
                 return
             }
             this.sidebarContent = userType[userTypeName].content

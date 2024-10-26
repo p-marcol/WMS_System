@@ -49,7 +49,6 @@ export default {
                     password: this.password,
                 })
                 .then((response) => {
-                    console.log(response)
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('refresh', response.data.refreshToken)
                     this.$router.push('/dashboard')
@@ -65,7 +64,6 @@ export default {
                             life: 3000,
                         })
                     }
-                    console.error(error)
                 })
         },
     },

@@ -29,7 +29,6 @@ export default {
             await this.axios
                 .get('/auth/getMyInfo')
                 .then((res) => {
-                    console.log(res.data)
                     if (res.data) {
                         this.user = {
                             shortName: res.data.shortName,

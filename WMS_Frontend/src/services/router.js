@@ -3,7 +3,7 @@ import { createMemoryHistory, createRouter } from 'vue-router'
 import pages from '@/pages/pageList'
 
 const routes = [
-    { path: '/', component: null },
+    { path: '/', component: pages.emptyPage },
     { path: '/login', component: pages.loginPage },
     { path: '/dashboard', component: pages.dashboardPage },
     { path: '/users', component: pages.usersPage },

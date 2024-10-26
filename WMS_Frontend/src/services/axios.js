@@ -11,13 +11,18 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = localStorage.getItem('token')
-            ? `Bearer ${localStorage.getItem('token')}`
-            : null
+        if (config._retry) {
+            config.headers.Authorization = localStorage.getItem('token')
+                ? `Bearer ${localStorage.getItem('token')}`
+                : null
+        } else {
+            config.headers.Authorization = localStorage.getItem('refresh')
+                ? `Bearer ${localStorage.getItem('refresh')}`
+                : null
+        }
         return config
     },
     (error) => {
-        // Do something with request error
         return Promise.reject(error)
     }
 )
@@ -49,13 +54,9 @@ instance.interceptors.response.use(
                 )
                 .then((response) => {
                     localStorage.setItem('token', response.data.token)
-                    localStorage.setItem('refresh', response.data.refresh)
-                    // Update the original request with the new token
-                    originalRequest.headers.Authorization = `Bearer ${response.data.token}`
-                    // Update the axios instance
-                    instance.defaults.headers.Authorization = `Bearer ${response.data.token}`
+                    localStorage.setItem('refresh', response.data.refreshToken)
                     // Retry the original request
-                    return axios(originalRequest)
+                    return instance(originalRequest)
                 })
                 .catch(() => {
                     // Clear the local storage

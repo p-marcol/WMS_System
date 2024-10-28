@@ -1,10 +1,13 @@
 package com.inz.WMS_Backend.controller;
 
+import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.user.get_all_users.GetAllUsersResponseModel;
+import com.inz.apimodels.user.get_details.GetDetailsResponse;
 import com.inz.apimodels.user.upsert_details.UpsertDetailsRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,30 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getDetails/{id}")
+    public ResponseEntity<?> getDetails(@PathVariable Long id) {
+        try {
+            User user = userService.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    GetDetailsResponse.builder()
+                            .id(user.getId())
+                            .username(user.getUsername())
+                            .email(user.getEmail())
+                            .firstName(user.getFirstName())
+                            .lastName(user.getLastName())
+                            .birthdate(user.getBirthdate())
+                            .phone(user.getPhone())
+                            .isArchived(user.isArchived())
+                            .authority(user.getAuthority())
+                            .build()
+            );
+        } catch (NullPointerException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers() {
         try {
@@ -34,7 +61,7 @@ public class UserController {
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .email(user.getEmail())
-                    .authorities(user.getAuthorities().stream().toList())
+                    .authority(user.getAuthority())
                     .isArchived(user.isArchived())
                     .build())
                     .toList();

@@ -181,7 +181,7 @@ public class AuthController {
                         .lastName(user.getLastName())
                         .shortName(shortName)
                         .email(user.getEmail())
-                        .role(user.getAuthorities())
+                        .authority(user.getAuthority())
                         .statusCode(HttpStatus.OK.value())
                         .build()
                 );

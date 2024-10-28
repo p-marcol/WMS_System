@@ -68,4 +68,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserPayoffData userPayoffData;
+
+
+    public String getAuthority() {
+        return !authorities.isEmpty() ? authorities.iterator().next().getAuthority() : null;
+    }
 }

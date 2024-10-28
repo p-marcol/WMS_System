@@ -13,6 +13,6 @@ public class GetAllUsersResponseModel {
     public String firstName;
     public String lastName;
     public String email;
-    public List<Authority> authorities;
+    public String authority;
     public boolean isArchived;
 }

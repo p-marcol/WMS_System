@@ -19,5 +19,5 @@ public class MyInfoResponse {
     public String lastName;
     public String shortName;
     public String email;
-    public Collection<Authority> role;
+    public String authority;
 }

@@ -37,19 +37,21 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final com.inz.WMS_Backend.repository.iUserRepository iUserRepository;
 
     /**
      * Get user from context
+     *
      * @return User instance from context
      * @throws BadCredentialsException if user not found in context or in database
      */
     private User getUserFromContext() throws BadCredentialsException {
         var userDetails = JwtTokenUtils.getUserFromContext();
-        if(userDetails == null) {
+        if (userDetails == null) {
             throw new BadCredentialsException("User not found");
         }
         User user = userService.findByUsername(userDetails.getUsername());
-        if(user == null) {
+        if (user == null) {
             throw new BadCredentialsException("User not found");
         }
         return user;
@@ -57,12 +59,21 @@ public class AuthController {
 
     /**
      * Login endpoint
+     *
      * @param request LoginRequest object
      * @return Response with token and refresh token if successful, 401 if bad credentials
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Authentication authentication;
+
+        if (request.getPassword() != null && !request.getPassword().trim().isEmpty()) {
+            User user = userService.findByUsername(request.getUsername());
+            if (user != null && user.getPassword().trim().isEmpty()) {
+                return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body("No password set");
+            }
+        }
+
         try {
             authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         } catch (BadCredentialsException e) {
@@ -72,7 +83,7 @@ public class AuthController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.findByUsername(userDetails.getUsername());
 
-        if(user.isArchived())
+        if (user.isArchived())
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         String token = JwtTokenUtils.generateToken(userDetails);
@@ -89,6 +100,7 @@ public class AuthController {
 
     /**
      * Register endpoint
+     *
      * @param request RegisterRequest object
      * @return Response with status 201 if successful, 409 if user already exists
      */
@@ -119,20 +131,19 @@ public class AuthController {
 
     /**
      * Set new password endpoint
+     *
      * @param request SetPasswordRequest object
      * @return Status 200 if successful, 400 if passwords don't match
      */
-    @PostMapping("/setNewPassword")
+    @PostMapping("/setPassword")
     public ResponseEntity<?> setPassword(@RequestBody SetPasswordRequest request) {
-        User user;
-        try {
-            user = getUserFromContext();
-        } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        User user = userService.findById(request.getId());
+
+        if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        if(!request.getPassword().equals(request.getConfirmPassword()))
-        {
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
@@ -144,6 +155,7 @@ public class AuthController {
 
     /**
      * Get my info endpoint
+     *
      * @return User info
      */
     @GetMapping("/getMyInfo")
@@ -159,7 +171,7 @@ public class AuthController {
         String lastName = user.getLastName(); // nullable
 
         String shortName = firstName != null || lastName != null ?
-                firstName + " " + lastName.charAt(0) + "."  : user.getUsername();
+                firstName + " " + lastName.charAt(0) + "." : user.getUsername();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -175,11 +187,10 @@ public class AuthController {
                 );
     }
 
-    //! Refresh token endpoint must be set properly!!!
     @PostMapping("/refresh")
     public ResponseEntity<RefreshResponse> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         token = token.substring(7);
-        if(!JwtTokenUtils.validate(token)) {
+        if (!JwtTokenUtils.validate(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         String username = JwtTokenUtils.extractUsername(token);

@@ -11,6 +11,7 @@ public interface iUserService {
     void registerUser(RegisterRequest request);
     User findByUsername(String username) throws UsernameNotFoundException;
     User findByEmail(String email) throws UsernameNotFoundException;
+    User findById(Long id) throws UsernameNotFoundException;
     void archiveUser(Long id);
     User saveUser(User user);
     List<User> getAllUsers();

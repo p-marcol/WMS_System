@@ -34,6 +34,11 @@ public class UserService implements iUserService {
     }
 
     @Override
+    public User findById(Long id) throws NullPointerException {
+        return userRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public void archiveUser(Long id) {
         userRepository.findById(id).ifPresent(user -> {
             user.setArchived(true);
@@ -68,11 +73,9 @@ public class UserService implements iUserService {
     public void registerUser(RegisterRequest request) {
         User user = User.builder()
                 .username(request.getUsername())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(null)
                 .email(request.getEmail())
                 .authorities(Set.of(authorityRepository.findByAuthority(eAuthority.USER.name())))
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
                 .build();
         userRepository.save(user);
     }

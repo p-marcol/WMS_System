@@ -13,7 +13,16 @@
     },
     "users": {
         "users": "Users",
-        "newUser": "New User"
+        "newUser": "New user",
+        "editUser": "Edit user",
+        "username": "Username",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "role": "Role"
+    },
+    "table": {
+        "actions": "Actions"
     },
     "filter": {
         "clear": "Clear filters",

@@ -1,14 +1,15 @@
 <template>
-    <div class="wms-input-container">
+    <span class="wms-input-container">
         <label :for="id" class="Label-P2">{{ labelValue }}</label>
         <input
             :type="inputType"
             :id="id"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
+            :pattern="pattern"
             class="Input-text-P1"
         />
-    </div>
+    </span>
 </template>
 
 <script>
@@ -26,9 +27,14 @@ export default {
             type: String,
             default: 'text',
         },
-        error: {
-            type: String,
-            default: '',
+        required: {
+            type: Boolean,
+            default: false,
+        },
+        pattern: {
+            type: Object,
+            required: false,
+            default: null,
         },
     },
     emits: ['update:modelValue'],

@@ -9,6 +9,8 @@ import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
+import UserDrawer from '@/components/drawer/UserDrawer.vue'
+import { XMarkIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
@@ -18,7 +20,7 @@ import Drawer from 'primevue/drawer'
                 <Button
                     type="button"
                     :label="$t('users.newUser')"
-                    @click="openNewUserDrawer"
+                    @click="openUserDrawer"
                     class="wms-small-button wms-small-button-primary Small-button-primary-P1"
                     unstyled
                 />
@@ -55,30 +57,51 @@ import Drawer from 'primevue/drawer'
                     </div>
                 </template>
                 <Column field="id" header="ID" style="width: 5rem" />
-                <Column field="firstName" header="First name" />
-                <Column field="lastName" header="Last name" />
-                <Column field="email" header="Email" />
+                <Column field="username" :header="$t('users.username')" />
+                <Column field="firstName" :header="$t('users.firstName')" />
+                <Column field="lastName" :header="$t('users.lastName')" />
+                <Column field="email" :header="$t('users.email')" />
                 <Column
                     field="role"
-                    header="Role"
+                    :header="$t('users.role')"
                     :filterMenuStyle="{ width: '14rem' }"
                     style="width: 6rem"
                 >
                     <template #body="{ data }">
-                        <Tag :value="data.role" :severity="data.severity" rounded />
+                        <Tag
+                            class="wms-text-bold"
+                            :value="data.role"
+                            :severity="data.severity"
+                            rounded
+                        />
                     </template>
                 </Column>
-                <Column header="Actions" style="width: 10rem">
+                <Column :header="$t('table.actions')" style="width: 10rem">
                     <template #body="{ data }">
-                        <p>Action column: {{ data.id }}</p>
+                        <PencilSquareIcon
+                            class="wms-table-icon"
+                            @click="openEditUserDrawer(data.id)"
+                        />
                     </template>
                 </Column>
             </DataTable>
         </CardContainer>
     </MainLayout>
-    <Drawer v-model:visible="upsertUserDrawerOpen" header="right drawer" position="right"
-        >drawer content</Drawer
-    >
+    <Drawer v-model:visible="upsertUserDrawerOpen" position="right">
+        <template #container="{ closeCallback }">
+            <div class="wms-drawer">
+                <div class="wms-drawer-header">
+                    <h3 class="Header-P3">
+                        {{ currentUserId ? $t('users.editUser') : $t('users.newUser') }}
+                    </h3>
+                    <XMarkIcon @click="closeCallback" />
+                </div>
+                <div class="wms-drawer-body">
+                    <UserDrawer @close="closeCallback" :userId="currentUserId" />
+                </div>
+            </div>
+        </template>
+    </Drawer>
 </template>
 
 <script>
@@ -101,6 +124,7 @@ export default {
             filters: null,
             error: false,
             upsertUserDrawerOpen: false,
+            currentUserId: null,
         }
     },
     created() {
@@ -111,17 +135,21 @@ export default {
     },
     methods: {
         fetchUsers() {
+            this.loading = true
             this.axios
                 .get('/user/getAllUsers')
                 .then((res) => {
                     this.users = res.data.map((user) => {
                         return {
                             id: user.id,
+                            username: user.username,
                             firstName: user.firstName,
                             lastName: user.lastName,
                             email: user.email,
-                            role: user.authorities[0].authority,
-                            severity: severityMap[user.authorities[0].authority.toLowerCase()],
+                            role: user.authority,
+                            severity: user.isArchived
+                                ? 'secondary'
+                                : severityMap[user.authority.toLowerCase()],
                         }
                     })
                 })
@@ -143,7 +171,12 @@ export default {
                 },
             }
         },
-        openNewUserDrawer() {
+        openEditUserDrawer(id) {
+            this.currentUserId = id
+            this.upsertUserDrawerOpen = true
+        },
+        openUserDrawer() {
+            this.currentUserId = null
             this.upsertUserDrawerOpen = true
         },
     },

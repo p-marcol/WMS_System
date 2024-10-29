@@ -23,7 +23,7 @@ export default {
                     this.user = {
                         shortName: res.data.shortName,
                         username: res.data.username,
-                        role: res.data.role[0].authority,
+                        role: res.data.authority,
                         email: res.data.email,
                     }
                     this.$router.push('/dashboard')

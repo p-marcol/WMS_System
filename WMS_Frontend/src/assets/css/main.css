@@ -1,6 +1,7 @@
 @import './base.css';
 @import './typography.css';
 @import './components.css';
+@import './primeExtension.css';
 
 #app {
     font-family: OpenSans;

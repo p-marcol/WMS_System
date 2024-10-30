@@ -9,6 +9,7 @@ import com.inz.apimodels.auth.my_info.MyInfoResponse;
 import com.inz.apimodels.auth.refresh.RefreshResponse;
 import com.inz.apimodels.auth.register.RegisterRequest;
 import com.inz.apimodels.auth.register.RegisterResponse;
+import com.inz.apimodels.auth.set_new_password.SetNewPasswordRequest;
 import com.inz.apimodels.auth.set_password.SetPasswordRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -133,7 +134,7 @@ public class AuthController {
      * Set new password endpoint
      *
      * @param request SetPasswordRequest object
-     * @return Status 200 if successful, 400 if passwords don't match
+     * @return Response with status 200 if successful, 403 if password already set, 400 if passwords don't match
      */
     @PostMapping("/setPassword")
     public ResponseEntity<?> setPassword(@RequestBody SetPasswordRequest request) {
@@ -151,6 +152,41 @@ public class AuthController {
         user.setLastPasswordResetDate(new java.sql.Date(System.currentTimeMillis()));
         userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody SetNewPasswordRequest request) {
+        try {
+            User user = getUserFromContext();
+
+            if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+
+            if (!request.getNewPassword().equals(request.getNewPasswordRepeat())) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+
+            user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+            user.setLastPasswordResetDate(new java.sql.Date(System.currentTimeMillis()));
+            userService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @PutMapping("/resetPassword/{id}")
+    public ResponseEntity<?> resetPassword(@PathVariable Long id) {
+        try {
+            User user = userService.findById(id);
+            user.setPassword(null);
+            user.setLastPasswordResetDate(new java.sql.Date(System.currentTimeMillis()));
+            userService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     /**

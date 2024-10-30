@@ -1,10 +1,12 @@
 package com.inz.WMS_Backend.service;
 
 import com.inz.WMS_Backend.entity.User;
+import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import com.inz.WMS_Backend.entity.enums.eAuthority;
 import com.inz.WMS_Backend.repository.iAuthorityRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.apimodels.auth.register.RegisterRequest;
+import com.inz.apimodels.user.change_authority.ChangeAuthorityRequest;
 import com.inz.apimodels.user.upsert_details.UpsertDetailsRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -62,13 +64,13 @@ public class UserService implements iUserService {
 
     @Override
     public void setUserDetails(UpsertDetailsRequest request) {
-        userRepository.findById(request.getUserId()).ifPresent(user -> {
-            user.setFirstName(request.getFirstName());
-            user.setLastName(request.getLastName());
-            user.setPhone(request.getPhoneNumber());
-            user.setBirthdate(new Date(request.getDateOfBirth().getTime()));
-            userRepository.save(user);
-        });
+        User user = userRepository.findById(request.getUserId()).orElseThrow();
+        user.setEmail(Optional.ofNullable(request.getEmail()).orElse(user.getEmail()));
+        user.setFirstName(Optional.ofNullable(request.getFirstName()).orElse(user.getFirstName()));
+        user.setLastName(Optional.ofNullable(request.getLastName()).orElse(user.getLastName()));
+        user.setPhone(Optional.ofNullable(request.getPhoneNumber()).orElse(user.getPhone()));
+        user.setBirthdate((Date) Optional.ofNullable(request.getDateOfBirth()).orElse(user.getBirthdate()));
+        userRepository.save(user);
     }
 
     @Override
@@ -97,9 +99,17 @@ public class UserService implements iUserService {
                 .username(request.getUsername())
                 .password(null)
                 .email(request.getEmail())
-                .authorities(Set.of(authorityRepository.findByAuthority(eAuthority.USER.name())))
+                .authority(authorityRepository.findByAuthority(eAuthority.USER.name()))
                 .creator(creator)
                 .build();
+        userRepository.save(user);
+    }
+
+    @Override
+    public void changeAuthority(ChangeAuthorityRequest request) {
+        User user = userRepository.findById(request.getUserId()).orElseThrow();
+        Authority authority = authorityRepository.findById(request.getAuthorityId()).orElseThrow();
+        user.setAuthority(authority);
         userRepository.save(user);
     }
 }

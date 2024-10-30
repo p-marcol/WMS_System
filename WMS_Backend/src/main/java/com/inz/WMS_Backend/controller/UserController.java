@@ -2,6 +2,7 @@ package com.inz.WMS_Backend.controller;
 
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.service.UserService;
+import com.inz.apimodels.user.change_authority.ChangeAuthorityRequest;
 import com.inz.apimodels.user.get_all_users.GetAllUsersResponseModel;
 import com.inz.apimodels.user.get_details.GetDetailsResponse;
 import com.inz.apimodels.user.upsert_details.UpsertDetailsRequest;
@@ -56,6 +57,17 @@ public class UserController {
             return ResponseEntity.ok("User unarchived successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Denied");
+        }
+    }
+
+    @PostMapping("/changeAuthority")
+    public ResponseEntity<?> changeAuthority(@RequestBody ChangeAuthorityRequest request) {
+        try {
+            //TODO: Check if user can be downgraded
+            userService.changeAuthority(request);
+            return ResponseEntity.ok("Authority changed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error while changing authority");
         }
     }
 

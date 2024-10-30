@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
@@ -57,20 +56,15 @@ public class User {
     @Column(name = "last_password_reset_date")
     private Date lastPasswordResetDate;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(
-            name = "USER_AUTHORITY",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id")
-    )
-    private Set<Authority> authorities;
+    @ManyToOne
+    private Authority authority;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserPayoffData userPayoffData;
 
     public String getAuthority() {
-        return !authorities.isEmpty() ? authorities.iterator().next().getAuthority() : null;
+        return authority.getAuthority();
     }
 
     public Boolean isDeletable() {

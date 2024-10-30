@@ -1,6 +1,5 @@
 package com.inz.WMS_Backend.service;
 
-import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import jakarta.transaction.Transactional;
@@ -25,14 +24,12 @@ public class CustomUserDetailsService implements iCustomUserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsernameIgnoreCase(username);
 
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
 
         Set<GrantedAuthority> authorities = new HashSet<>();
-        for(Authority authority : user.getAuthorities()) {
-            authorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
-        }
+        authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }

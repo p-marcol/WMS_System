@@ -39,6 +39,26 @@ public class UserController {
         }
     }
 
+    @PutMapping("/archiveUser/{id}")
+    public ResponseEntity<?> archiveUser(@PathVariable Long id) {
+        try {
+            userService.archiveUser(id);
+            return ResponseEntity.ok("User archived successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Denied");
+        }
+    }
+
+    @PutMapping("/activateUser/{id}")
+    public ResponseEntity<?> activateUser(@PathVariable Long id) {
+        try {
+            userService.activateUser(id);
+            return ResponseEntity.ok("User unarchived successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Denied");
+        }
+    }
+
     @GetMapping("/getDetails/{id}")
     public ResponseEntity<?> getDetails(@PathVariable Long id) {
         try {

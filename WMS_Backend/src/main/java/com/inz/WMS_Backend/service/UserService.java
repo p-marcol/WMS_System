@@ -40,10 +40,12 @@ public class UserService implements iUserService {
 
     @Override
     public void archiveUser(Long id) {
-        userRepository.findById(id).ifPresent(user -> {
+        userRepository.findById(id).ifPresentOrElse(user -> {
             user.setArchived(true);
-            user.setEmail(null);
+            user.setEmail("");
             userRepository.save(user);
+        }, () -> {
+            throw new IllegalArgumentException("User not found");
         });
     }
 
@@ -77,6 +79,16 @@ public class UserService implements iUserService {
             throw new IllegalArgumentException("User cannot be deleted");
         }
         userRepository.delete(user);
+    }
+
+    @Override
+    public void activateUser(Long id) {
+        userRepository.findById(id).ifPresentOrElse(user -> {
+            user.setArchived(false);
+            userRepository.save(user);
+        }, () -> {
+            throw new IllegalArgumentException("User not found");
+        });
     }
 
     @Override

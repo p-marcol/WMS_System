@@ -74,6 +74,6 @@ public class User {
     }
 
     public Boolean isDeletable() {
-        return password == null || password.trim().isEmpty();
+        return lastPasswordResetDate == null;
     }
 }

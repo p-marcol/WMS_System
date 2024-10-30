@@ -1,23 +1,23 @@
 <script setup>
+import InputText from 'primevue/inputtext'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
+import InputContainer from './InputContainer.vue'
 </script>
 
 <template>
-    <div class="wms-input-container">
-        <label :for="id" class="Label-P2">{{ $t('login.password') }}</label>
-        <input
+    <InputContainer :label="$t('login.password')" :label-for="id">
+        <InputText
             :id="id"
             :value="modelValue"
             @input="$emit('update:modelValue', $event.target.value)"
             :type="mask ? 'password' : 'text'"
             class="Input-text-P1"
-            unstyled
         />
-        <span @click="() => (this.mask = !this.mask)">
+        <span id="eye" @click="() => (this.mask = !this.mask)">
             <EyeIcon v-if="mask" />
             <EyeSlashIcon v-else />
         </span>
-    </div>
+    </InputContainer>
 </template>
 
 <script>
@@ -47,8 +47,8 @@ input {
     padding-right: 50px;
 }
 
-span {
-    margin: 6px 10px;
+#eye {
+    margin: 3px 10px;
     padding: 0;
     position: absolute;
     right: 0;
@@ -56,7 +56,7 @@ span {
     cursor: pointer;
 }
 
-span * {
+#eye * {
     height: 2rem;
     color: var(--color-secondary);
 }

@@ -1,6 +1,7 @@
 <script setup>
-import InputWithLabel from '@/components/input/InputWithLabel.vue'
+import InputText from 'primevue/inputtext'
 import PasswordInput from '@/components/input/PasswordInput.vue'
+import InputContainer from '@/components/input/InputContainer.vue'
 </script>
 
 <template>
@@ -11,13 +12,10 @@ import PasswordInput from '@/components/input/PasswordInput.vue'
     <div id="loginPane" class="">
         <h1 class="Header-P1">{{ $t('login.login') }}</h1>
         <form action="#" @submit.prevent="login">
-            <InputWithLabel
-                :label="$t('login.usernameOrEmail')"
-                :error="!error"
-                v-model="username"
-                required="true"
-            />
-            <PasswordInput :error="!error" v-model="password" />
+            <InputContainer :label="$t('login.usernameOrEmail')" label-for="username">
+                <InputText id="username" v-model="username" />
+            </InputContainer>
+            <PasswordInput v-model="password" />
             <div id="error" class="Label-P3">{{ this.error }}</div>
             <div id="formFooter">
                 <input type="submit" value="Login" class="wms-big-button Big-button-text-P1" />
@@ -31,7 +29,6 @@ import PasswordInput from '@/components/input/PasswordInput.vue'
 export default {
     name: 'LoginPage',
     components: {
-        InputWithLabel,
         PasswordInput,
     },
     data() {

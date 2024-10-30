@@ -16,4 +16,5 @@ public interface iUserService {
     User saveUser(User user);
     List<User> getAllUsers();
     void setUserDetails(UpsertDetailsRequest request);
+    void deleteUser(Long id);
 }

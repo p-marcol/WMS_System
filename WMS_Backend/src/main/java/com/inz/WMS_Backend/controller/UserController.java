@@ -29,6 +29,16 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Denied");
+        }
+    }
+
     @GetMapping("/getDetails/{id}")
     public ResponseEntity<?> getDetails(@PathVariable Long id) {
         try {
@@ -57,13 +67,14 @@ public class UserController {
     public ResponseEntity<?> getAllUsers() {
         try {
             List<GetAllUsersResponseModel> users = userService.getAllUsers().stream().map(user -> GetAllUsersResponseModel.builder()
-                    .id(user.getId())
-                    .firstName(user.getFirstName())
-                    .lastName(user.getLastName())
-                    .email(user.getEmail())
-                    .authority(user.getAuthority())
-                    .isArchived(user.isArchived())
-                    .build())
+                            .id(user.getId())
+                            .username(user.getUsername())
+                            .firstName(user.getFirstName())
+                            .lastName(user.getLastName())
+                            .email(user.getEmail())
+                            .authority(user.getAuthority())
+                            .isArchived(user.isArchived())
+                            .build())
                     .toList();
             return ResponseEntity.ok(users);
         } catch (Exception e) {

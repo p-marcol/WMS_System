@@ -10,8 +10,6 @@ public class UpsertDetailsRequest {
     private Long userId;
     private String firstName;
     private String lastName;
-
-    @Pattern(regexp = "^$|^\\+?[0-9]{9,14}$", message = "Invalid phone number format")
     private String phoneNumber;
     private Date dateOfBirth;
 }

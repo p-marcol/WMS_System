@@ -10,6 +10,7 @@ import java.util.List;
 @Builder
 public class GetAllUsersResponseModel {
     public Long id;
+    public String username;
     public String firstName;
     public String lastName;
     public String email;

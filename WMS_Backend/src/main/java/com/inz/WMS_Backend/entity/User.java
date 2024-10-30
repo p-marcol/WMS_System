@@ -69,8 +69,11 @@ public class User {
     @PrimaryKeyJoinColumn
     private UserPayoffData userPayoffData;
 
-
     public String getAuthority() {
         return !authorities.isEmpty() ? authorities.iterator().next().getAuthority() : null;
+    }
+
+    public Boolean isDeletable() {
+        return password == null || password.trim().isEmpty();
     }
 }

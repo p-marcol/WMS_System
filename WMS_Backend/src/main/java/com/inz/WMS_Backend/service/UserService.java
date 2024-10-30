@@ -70,6 +70,16 @@ public class UserService implements iUserService {
     }
 
     @Override
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        String password = user.getPassword();
+        if (!user.isDeletable()) {
+            throw new IllegalArgumentException("User cannot be deleted");
+        }
+        userRepository.delete(user);
+    }
+
+    @Override
     public void registerUser(RegisterRequest request) {
         User user = User.builder()
                 .username(request.getUsername())

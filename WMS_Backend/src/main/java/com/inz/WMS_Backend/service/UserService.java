@@ -92,12 +92,13 @@ public class UserService implements iUserService {
     }
 
     @Override
-    public void registerUser(RegisterRequest request) {
+    public void registerUser(RegisterRequest request, User creator) {
         User user = User.builder()
                 .username(request.getUsername())
                 .password(null)
                 .email(request.getEmail())
                 .authorities(Set.of(authorityRepository.findByAuthority(eAuthority.USER.name())))
+                .creator(creator)
                 .build();
         userRepository.save(user);
     }

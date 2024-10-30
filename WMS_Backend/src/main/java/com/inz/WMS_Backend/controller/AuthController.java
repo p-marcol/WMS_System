@@ -107,27 +107,33 @@ public class AuthController {
      */
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) {
-        User existingUser = userService.findByUsername(request.getUsername());
-        User existingEmail = userService.findByEmail(request.getEmail());
+        try {
+            User creator = getUserFromContext();
 
-        if (existingUser != null || existingEmail != null) {
+            User existingUser = userService.findByUsername(request.getUsername());
+            User existingEmail = userService.findByEmail(request.getEmail());
+
+            if (existingUser != null || existingEmail != null) {
+                return ResponseEntity
+                        .status(HttpStatus.CONFLICT)
+                        .body(RegisterResponse.builder()
+                                .message("User already exists")
+                                .statusCode(HttpStatus.CONFLICT.value())
+                                .build()
+                        );
+            }
+
+            userService.registerUser(request, creator);
             return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
+                    .status(HttpStatus.CREATED)
                     .body(RegisterResponse.builder()
-                            .message("User already exists")
-                            .statusCode(HttpStatus.CONFLICT.value())
+                            .message("User registered successfully")
+                            .statusCode(HttpStatus.CREATED.value())
                             .build()
                     );
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        userService.registerUser(request);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(RegisterResponse.builder()
-                        .message("User registered successfully")
-                        .statusCode(HttpStatus.CREATED.value())
-                        .build()
-                );
     }
 
     /**

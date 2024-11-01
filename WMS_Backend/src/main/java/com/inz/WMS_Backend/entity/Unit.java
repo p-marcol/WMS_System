@@ -1,5 +1,7 @@
 package com.inz.WMS_Backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,14 +12,15 @@ import java.util.Set;
 @Getter @Setter
 @Builder
 @Table(name = "UNITS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Unit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "parent_unit_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "parent_unit_id")
     private Unit parentUnit;
 
     @Basic
@@ -32,6 +35,8 @@ public class Unit {
     @Column(name="work_ended", nullable = false, columnDefinition = "boolean default false")
     private boolean workEnded;
 
+    @OneToMany(mappedBy = "parentUnit", cascade = CascadeType.ALL)
+    private Set<Unit> subunits;
 
     @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL)
     private Set<Position> positions;

@@ -6,11 +6,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
 public class UnitService implements iUnitService {
     private final iUnitRepository unitRepository;
+
+    @Override
+    public Unit getUnit(Long id) {
+        return unitRepository.findById(id).orElseThrow();
+    }
 
     @Override
     public void addUnit(Unit unit) {
@@ -30,5 +36,15 @@ public class UnitService implements iUnitService {
     @Override
     public List<Unit> getAllUnits() {
         return unitRepository.findAll();
+    }
+
+    @Override
+    public Set<Unit> getSubunits(Long id) {
+        return unitRepository.findById(id).orElseThrow().getSubunits();
+    }
+
+    @Override
+    public Set<Unit> getTopUnits() {
+        return unitRepository.findByParentUnitIsNull();
     }
 }

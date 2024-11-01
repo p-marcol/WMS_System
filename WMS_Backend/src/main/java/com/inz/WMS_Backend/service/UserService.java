@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,5 +112,10 @@ public class UserService implements iUserService {
         Authority authority = authorityRepository.findById(request.getAuthorityId()).orElseThrow();
         user.setAuthority(authority);
         userRepository.save(user);
+    }
+
+    @Override
+    public Collection<User> getUserByAuthorityName(String authorityName) {
+        return userRepository.findAllByAuthority(authorityRepository.findByAuthority(authorityName));
     }
 }

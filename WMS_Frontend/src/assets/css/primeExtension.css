@@ -2,3 +2,12 @@
     width: 40vw !important;
     border-radius: 1rem 0 0 1rem;
 }
+
+.p-toast {
+    font-family: OpenSans;
+}
+
+.p-dialog {
+    min-width: 30vw;
+    font-family: OpenSans;
+}

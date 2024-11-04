@@ -9,8 +9,9 @@ import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
-import UserDrawer from '@/components/drawer/UserDrawer.vue'
+import UserDrawer from '@/components/drawer/EditUserDrawer.vue'
 import { XMarkIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
+import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
 </script>
 
 <template>
@@ -20,7 +21,7 @@ import { XMarkIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
                 <Button
                     type="button"
                     :label="$t('users.newUser')"
-                    @click="openUserDrawer"
+                    @click="openAddNewUserDialog"
                     class="wms-small-button wms-small-button-primary Small-button-primary-P1"
                     unstyled
                 />
@@ -102,6 +103,7 @@ import { XMarkIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
             </div>
         </template>
     </Drawer>
+    <AddNewUserDialog ref="addNewUserDialogRef" />
 </template>
 
 <script>
@@ -112,10 +114,14 @@ const severityMap = {
 }
 
 export default {
+    name: 'UsersPage',
     components: {
         CardContainer,
         DataTable,
         Column,
+        InputText,
+        Tag,
+        AddNewUserDialog,
     },
     data() {
         return {
@@ -124,7 +130,9 @@ export default {
             filters: null,
             error: false,
             upsertUserDrawerOpen: false,
+            showDialog: false,
             currentUserId: null,
+            addNewUserDialogRef: AddNewUserDialog,
         }
     },
     created() {
@@ -170,6 +178,9 @@ export default {
                     matchMode: FilterMatchMode.CONTAINS,
                 },
             }
+        },
+        openAddNewUserDialog() {
+            this.$refs.addNewUserDialogRef.open()
         },
         openEditUserDrawer(id) {
             this.currentUserId = id

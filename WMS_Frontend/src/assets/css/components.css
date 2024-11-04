@@ -49,8 +49,8 @@
 }
 
 .wms-input-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto, auto;
     width: 100%;
 }
 
@@ -89,9 +89,9 @@
 }
 
 .wms-small-button {
+    border: none;
     display: grid;
     grid-template-columns: 1fr auto;
-    border: 2px solid var(--color-small-button-primary);
     border-radius: 10px;
     padding: 0.2rem 0.5rem;
     cursor: pointer;
@@ -103,13 +103,25 @@
 }
 
 .wms-small-button-primary {
+    border: 2px solid var(--color-small-button-primary);
     background-color: var(--color-small-button-primary);
     color: var(--color-white);
 }
 
 .wms-small-button-secondary {
+    border: 2px solid var(--color-small-button-primary);
     background-color: var(--color-small-button-secondary);
     color: var(--color-small-button-primary);
+}
+
+.wms-small-button-save {
+    background-color: var(--color-success);
+    color: var(--color-white);
+}
+
+.wms-small-button-cancel {
+    background-color: var(--color-danger);
+    color: var(--color-white);
 }
 
 .wms-table-input {

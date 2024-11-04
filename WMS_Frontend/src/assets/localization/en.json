@@ -27,5 +27,11 @@
     "filter": {
         "clear": "Clear filters",
         "search": "Search"
+    },
+    "form": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "fieldRequired": "This field is required",
+        "invalidFormat": "Invalid format"
     }
 }

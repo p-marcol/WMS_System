@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.5",
+    "@primevue/forms": "^4.2.1",
     "@primevue/themes": "^4.0.7",
     "axios": "^1.7.7",
     "primevue": "^4.0.7",
+    "valibot": "^0.42.1",
     "vue": "^3.4.29",
     "vue-axios": "^3.5.2",
     "vue-i18n": "^10.0.3",

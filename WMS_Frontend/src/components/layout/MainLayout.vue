@@ -54,7 +54,7 @@ main {
 }
 
 #dashboard {
-    padding: 0.5rem;
+    padding: 1rem;
     width: 100%;
     height: 100%;
     min-width: 0;

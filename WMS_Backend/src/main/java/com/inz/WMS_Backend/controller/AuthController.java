@@ -8,7 +8,6 @@ import com.inz.apimodels.auth.login.LoginResponse;
 import com.inz.apimodels.auth.my_info.MyInfoResponse;
 import com.inz.apimodels.auth.refresh.RefreshResponse;
 import com.inz.apimodels.auth.register.RegisterRequest;
-import com.inz.apimodels.auth.register.RegisterResponse;
 import com.inz.apimodels.auth.set_new_password.SetNewPasswordRequest;
 import com.inz.apimodels.auth.set_password.SetPasswordRequest;
 import jakarta.validation.Valid;
@@ -106,7 +105,7 @@ public class AuthController {
      * @return Response with status 201 if successful, 409 if user already exists
      */
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterRequest request) {
         try {
             User creator = getUserFromContext();
 
@@ -116,21 +115,13 @@ public class AuthController {
             if (existingUser != null || existingEmail != null) {
                 return ResponseEntity
                         .status(HttpStatus.CONFLICT)
-                        .body(RegisterResponse.builder()
-                                .message("User already exists")
-                                .statusCode(HttpStatus.CONFLICT.value())
-                                .build()
-                        );
+                        .body("User already exists");
             }
 
             userService.registerUser(request, creator);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(RegisterResponse.builder()
-                            .message("User registered successfully")
-                            .statusCode(HttpStatus.CREATED.value())
-                            .build()
-                    );
+                    .body("User registered successfully");
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

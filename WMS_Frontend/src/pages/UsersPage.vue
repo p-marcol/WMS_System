@@ -103,7 +103,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
             </div>
         </template>
     </Drawer>
-    <AddNewUserDialog ref="addNewUserDialogRef" />
+    <AddNewUserDialog ref="addNewUserDialogRef" @refresh="fetchUsers" />
 </template>
 
 <script>

@@ -17,15 +17,15 @@ import * as v from 'valibot'
         <Form id="modalBody" @submit="submit">
             <InputContainer :label="$t('users.username')">
                 <InputText v-model="username" :invalid="usernameInvalid" required />
-                <Message v-if="errors.usernameInvalid" severity="error" text="Invalid username">{{
-                    errors.usernameInvalid
-                }}</Message>
+                <Message v-if="errors.usernameInvalid" severity="error" text="Invalid username">
+                    {{ errors.usernameInvalid }}
+                </Message>
             </InputContainer>
             <InputContainer :label="$t('users.email')">
                 <InputText v-model="email" :invalid="emailInvalid" required />
-                <Message v-if="errors.emailInvalid" severity="error" text="Invalid username">{{
-                    errors.emailInvalid
-                }}</Message>
+                <Message v-if="errors.emailInvalid" severity="error" text="Invalid username">
+                    {{ errors.emailInvalid }}
+                </Message>
             </InputContainer>
         </Form>
 
@@ -67,12 +67,16 @@ export default {
         close() {
             this.visible = false
         },
-        send() {
+        async send() {
             const newUserSchema = v.object({
-                email: v.pipe(v.string(), v.nonEmpty(), v.email()),
-                username: v.pipe(v.string(), v.nonEmpty()),
+                email: v.pipe(
+                    v.string(),
+                    v.email(this.$t('form.invalidFormat')),
+                    v.nonEmpty(this.$t('form.fieldRequired'))
+                ),
+                username: v.pipe(v.string(), v.nonEmpty(this.$t('form.fieldRequired'))),
             })
-            console.log('send')
+
             const result = v.safeParse(newUserSchema, {
                 email: this.email,
                 username: this.username,
@@ -93,6 +97,20 @@ export default {
                 })
                 return
             }
+
+            // If validation passed, send the data
+            await this.axios
+                .post('/auth/register', {
+                    email: this.email,
+                    username: this.username,
+                })
+                .then(() => {
+                    this.$emit('refresh')
+                    this.close()
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
         },
     },
     expose: ['open'],

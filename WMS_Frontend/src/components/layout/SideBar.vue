@@ -8,7 +8,7 @@ import userType from '@/data/usertypeSidebar'
     <div id="sidebar" :class="userTypeColorClass">
         <div class="upper bar">
             <IconWithLabel
-                :label="item.label"
+                :label="$t(`sidebar.${item.label}`)"
                 :route="item.route"
                 v-for="item in sidebarContent"
                 :key="item.index"
@@ -17,10 +17,10 @@ import userType from '@/data/usertypeSidebar'
             </IconWithLabel>
         </div>
         <div class="lower bar">
-            <IconWithLabel label="Settings">
+            <IconWithLabel :label="$t('sidebar.settings')">
                 <Cog6ToothIcon />
             </IconWithLabel>
-            <IconWithLabel label="Logout" @click="logout">
+            <IconWithLabel :label="$t('sidebar.logout')" @click="logout">
                 <ArrowRightStartOnRectangleIcon />
             </IconWithLabel>
         </div>

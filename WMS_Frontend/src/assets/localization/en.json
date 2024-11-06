@@ -1,4 +1,15 @@
 {
+    "sidebar": {
+        "home": "Home",
+        "schedule": "Schedule",
+        "timesheet": "Timesheet",
+        "reports": "Reports",
+        "teams": "Teams",
+        "users": "Users",
+        "units": "Units",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
     "login": {
         "login": "Login",
         "usernameOrEmail": "Username or Email",

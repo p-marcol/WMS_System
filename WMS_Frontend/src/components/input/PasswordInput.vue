@@ -5,7 +5,10 @@ import InputContainer from './InputContainer.vue'
 </script>
 
 <template>
-    <InputContainer :label="$t('login.password')" :label-for="id">
+    <InputContainer
+        :label="confirm ? $t('login.confirmPassword') : $t('login.password')"
+        :label-for="id"
+    >
         <InputText
             :id="id"
             :value="modelValue"
@@ -26,7 +29,17 @@ export default {
         EyeIcon,
         EyeSlashIcon,
     },
-    props: ['modelValue'],
+    props: {
+        modelValue: {
+            type: String,
+            required: true,
+        },
+        confirm: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
+    },
     emits: ['update:modelValue'],
     data() {
         return {

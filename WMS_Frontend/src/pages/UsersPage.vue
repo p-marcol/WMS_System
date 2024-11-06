@@ -66,7 +66,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                     field="role"
                     :header="$t('users.role')"
                     :filterMenuStyle="{ width: '14rem' }"
-                    style="width: 6rem"
+                    style="width: 9rem"
                 >
                     <template #body="{ data }">
                         <Tag
@@ -111,6 +111,7 @@ const severityMap = {
     user: 'warn',
     manager: 'success',
     admin: 'info',
+    'new user': 'secondary',
 }
 
 export default {

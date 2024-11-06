@@ -2,6 +2,7 @@
 import InputText from 'primevue/inputtext'
 import PasswordInput from '@/components/input/PasswordInput.vue'
 import InputContainer from '@/components/input/InputContainer.vue'
+import Message from 'primevue/message'
 </script>
 
 <template>
@@ -12,14 +13,17 @@ import InputContainer from '@/components/input/InputContainer.vue'
     <div id="loginPane" class="">
         <h1 class="Header-P1">{{ $t('login.login') }}</h1>
         <form action="#" @submit.prevent="login">
-            <InputContainer :label="$t('login.usernameOrEmail')" label-for="username">
-                <InputText id="username" v-model="username" />
-            </InputContainer>
-            <PasswordInput v-model="password" />
-            <div id="error" class="Label-P3">{{ this.error }}</div>
+            <div>
+                <InputContainer :label="$t('login.usernameOrEmail')" label-for="username">
+                    <InputText id="username" v-model="username" />
+                </InputContainer>
+                <PasswordInput v-model="password" />
+                <PasswordInput v-model="confirmPassword" v-if="noPassword" confirm />
+            </div>
             <div id="formFooter">
+                <Message class="Label-P3" v-if="error">{{ this.error }}</Message>
                 <input type="submit" value="Login" class="wms-big-button Big-button-text-P1" />
-                <a href="#" class="Link-text-P1">{{ $t('login.forgotPassword') }}</a>
+                <a href="#" class="Link-text-P1" @click="nyi">{{ $t('login.forgotPassword') }}</a>
             </div>
         </form>
     </div>
@@ -35,24 +39,43 @@ export default {
         return {
             username: '',
             password: '',
+            confirmPassword: '',
+            noPassword: false,
             error: null,
         }
     },
     methods: {
         async login() {
+            if (this.noPassword && this.confirmPassword !== '') {
+                if (this.password !== this.confirmPassword) {
+                    this.error = this.$t('login.passwordMismatch')
+                    return
+                } else {
+                    await this.axios.post('/auth/setPassword', {
+                        username: this.username,
+                        password: this.password,
+                        confirmPassword: this.confirmPassword,
+                    })
+                }
+            }
             await this.axios
                 .post('/auth/login', {
                     username: this.username,
                     password: this.password,
                 })
                 .then((response) => {
+                    if (response.status === 206) {
+                        this.noPassword = true
+                        this.error = this.$t('login.noPassword')
+                        return
+                    }
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('refresh', response.data.refreshToken)
                     this.$router.push('/dashboard')
                 })
                 .catch((error) => {
                     if (error.response.status === 401) {
-                        this.error = 'Invalid username or password'
+                        this.error = this.$t('login.invalid')
                     } else {
                         this.$toast.add({
                             severity: 'error',
@@ -63,11 +86,26 @@ export default {
                     }
                 })
         },
+        nyi() {
+            this.$toast.add({
+                severity: 'info',
+                summary: 'Not Yet Implemented',
+                detail: 'This feature is not yet implemented',
+                life: 3000,
+            })
+        },
     },
 }
 </script>
 
 <style scoped>
+#formHeader {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
 h1 {
     text-transform: uppercase;
     align-self: center;
@@ -128,12 +166,5 @@ form {
     display: grid;
     grid-template-rows: 2fr 4fr;
     justify-items: center;
-}
-
-#error {
-    color: var(--color-danger);
-    text-align: center;
-    justify-self: center;
-    align-self: center;
 }
 </style>

@@ -3,7 +3,11 @@
         "login": "Login",
         "usernameOrEmail": "Username or Email",
         "password": "Password",
-        "forgotPassword": "Forgot your Password?"
+        "confirmPassword": "Confirm Password",
+        "forgotPassword": "Forgot your Password?",
+        "invalid": "Invalid username or password",
+        "noPassword": "You must set a password",
+        "passwordMismatch": "Passwords do not match"
     },
     "card": {
         "yourTeam": "Your Team",

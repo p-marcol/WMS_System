@@ -1,6 +1,7 @@
 package com.inz.WMS_Backend.controller;
 
 import com.inz.WMS_Backend.entity.User;
+import com.inz.WMS_Backend.entity.enums.eAuthority;
 import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.auth.login.LoginRequest;
@@ -38,6 +39,7 @@ public class AuthController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final com.inz.WMS_Backend.repository.iUserRepository iUserRepository;
+    private final com.inz.WMS_Backend.repository.iAuthorityRepository iAuthorityRepository;
 
     /**
      * Get user from context
@@ -67,9 +69,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Authentication authentication;
 
-        if (request.getPassword() != null && !request.getPassword().trim().isEmpty()) {
+        if (request.getPassword() != null && request.getPassword().trim().isEmpty()) {
             User user = userService.findByUsername(request.getUsername());
-            if (user != null && user.getPassword().trim().isEmpty()) {
+            if (user != null && user.getPassword() == null) {
                 return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).body("No password set");
             }
         }
@@ -135,7 +137,7 @@ public class AuthController {
      */
     @PostMapping("/setPassword")
     public ResponseEntity<?> setPassword(@RequestBody SetPasswordRequest request) {
-        User user = userService.findById(request.getId());
+        User user = userService.findByUsername(request.getUsername());
 
         if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
@@ -147,6 +149,7 @@ public class AuthController {
 
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setLastPasswordResetDate(new java.sql.Date(System.currentTimeMillis()));
+        user.setAuthority(iAuthorityRepository.findByAuthority(eAuthority.USER.name()));
         userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

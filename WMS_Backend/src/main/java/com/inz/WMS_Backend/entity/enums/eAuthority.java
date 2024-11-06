@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum eAuthority {
+    NEW_USER("NEW USER"),
     USER("USER"),
     ADMIN("ADMIN"),
     MANAGER("MANAGER");

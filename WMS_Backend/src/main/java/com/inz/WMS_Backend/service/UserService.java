@@ -100,7 +100,7 @@ public class UserService implements iUserService {
                 .username(request.getUsername())
                 .password(null)
                 .email(request.getEmail())
-                .authority(authorityRepository.findByAuthority(eAuthority.USER.name()))
+                .authority(authorityRepository.findByAuthority(eAuthority.NEW_USER.getRole()))
                 .creator(creator)
                 .build();
         userRepository.save(user);

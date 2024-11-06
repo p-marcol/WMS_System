@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class SetPasswordRequest {
-    private Long id;
+    private String username;
     private String password;
     private String confirmPassword;
 }

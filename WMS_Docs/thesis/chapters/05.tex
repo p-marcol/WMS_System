@@ -1,65 +1,22 @@
 \chapter{Specyfikacja wewnętrzna}
 \label{ch:05}
 
+\section{Architektura systemu}
 
-% Jeśli „Specyfikacja wewnętrzna”:
-% \begin{itemize}
-% \item przedstawienie idei
-% \item architektura systemu
-% \item opis struktur danych (i organizacji baz danych)
-% \item komponenty, moduły, biblioteki, przegląd ważniejszych klas (jeśli występują)
-% \item przegląd ważniejszych algorytmów (jeśli występują)
-% \item szczegóły implementacji wybranych fragmentów, zastosowane wzorce projektowe
-% \item diagramy UML
-% \end{itemize}
+\note{W tej części pracy należy opisać, jakie komponenty składają się na system. Należy zaznaczyć, jakie są relacje między nimi. Można również opisać, jakie wzorce projektowe zostały zastosowane. Głównie chodzi o to, aby czytelnik mógł zrozumieć, jak działa system.}
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% Pakiet minted wymaga importu: \usepackage{minted}                 %
-% i specjalnego kompilowania:                                       %
-% pdflatex -shell-escape main                                       %
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+\section{Modele i struktury danych}
 
+\note{W tej części pracy należy opisać, jakie modele danych zostały zastosowane w systemie. Należy zaznaczyć, jakie są relacje między nimi.}
 
-% Krótka wstawka kodu w linii tekstu jest możliwa, np.  \lstinline|int a;| (biblioteka \texttt{listings})% lub  \mintinline{C++}|int a;| (biblioteka \texttt{minted})
-% . 
-% Dłuższe fragmenty lepiej jest umieszczać jako rysunek, np. kod na rys \ref{fig:pseudokod:listings}% i rys. \ref{fig:pseudokod:minted}
-% , a naprawdę długie fragmenty – w załączniku.
+\section{Struktura bazy danych}
 
+\note{W tej części pracy należy opisać, jakie tabele i relacje między nimi występują w bazie danych. Można dodać diagramy ERD.}
 
-% \begin{figure}
-% \centering
-% \begin{lstlisting}
-% class test : public basic
-% {
-%     public:
-%       test (int a);
-%       friend std::ostream operator<<(std::ostream & s, 
-%                                      const test & t);
-%     protected:
-%       int _a;  
-      
-% };
-% \end{lstlisting}
-% \caption{Pseudokod w \texttt{listings}.}
-% \label{fig:pseudokod:listings}
-% \end{figure}
+\section{Algorytmy}
 
-%\begin{figure}
-%\centering
-%\begin{minted}[linenos,frame=lines]{c++}
-%class test : public basic
-%{
-%    public:
-%      test (int a);
-%      friend std::ostream operator<<(std::ostream & s, 
-%                                     const test & t);
-%    protected:
-%      int _a;  
-%      
-%};
-%\end{minted}
-%\caption{Pseudokod w \texttt{minted}.}
-%\label{fig:pseudokod:minted}
-%\end{figure}
+\section{Problem harmonogramowania}
 
+\section{Użyte biblioteki i frameworki}
 
+\note{Ta część może się znaleźć przy przeglądzie technologii.}

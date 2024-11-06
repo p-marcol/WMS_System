@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from '@/components/layout/MainLayout.vue'
 import CardContainer from '@/components/CardContainer.vue'
+import LocaleChanger from '@/components/LocaleChanger.vue'
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import CardContainer from '@/components/CardContainer.vue'
         <CardContainer :title="$t('card.yourTeam')" id="yourTeam" :loading="false">
             <p>Card content</p>
             <button @click="show">Show Toast</button>
+            <LocaleChanger />
         </CardContainer>
         <CardContainer :title="$t('card.schedule')" id="schedule" :loading="false">
             <span

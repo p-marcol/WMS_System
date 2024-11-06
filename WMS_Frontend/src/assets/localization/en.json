@@ -23,7 +23,8 @@
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",
-        "role": "Role"
+        "role": "Role",
+        "addNewUser": "Add new user"
     },
     "table": {
         "actions": "Actions"

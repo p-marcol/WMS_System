@@ -1,0 +1,42 @@
+{
+    "login": {
+        "login": "Login",
+        "usernameOrEmail": "Nazwa użytkownika lub Email",
+        "password": "Hasło",
+        "confirmPassword": "Potwierdź hasło",
+        "forgotPassword": "Zapomniałeś hasła?",
+        "invalid": "Nieprawidłowa nazwa użytkownika lub hasło",
+        "noPassword": "Musisz ustawić hasło",
+        "passwordMismatch": "Hasła nie są takie same"
+    },
+    "card": {
+        "yourTeam": "Twój zespół",
+        "myTeam": "Mój zespół",
+        "schedule": "Harmonogram",
+        "timesheet": "Timesheet"
+    },
+    "users": {
+        "users": "Użytkownicy",
+        "newUser": "Nowy użytkownik",
+        "editUser": "Edytuj użytkownika",
+        "username": "Nazwa użytkownika",
+        "firstName": "Imię",
+        "lastName": "Nazwisko",
+        "email": "Email",
+        "role": "Rola",
+        "addNewUser": "Dodaj nowego użytkownika"
+    },
+    "table": {
+        "actions": "Akcje"
+    },
+    "filter": {
+        "clear": "Wyczyść filtry",
+        "search": "Szukaj"
+    },
+    "form": {
+        "save": "Zapisz",
+        "cancel": "Anuluj",
+        "fieldRequired": "To pole jest wymagane",
+        "invalidFormat": "Nieprawidłowy format"
+    }
+}

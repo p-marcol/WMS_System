@@ -17,7 +17,7 @@ import Lara from '@primevue/themes/aura'
 const app = createApp(App)
 
 const i18n = createI18n({
-    locale: 'pl',
+    locale: 'en',
     fallbackLocale: 'en',
     messages: i18nMesssages,
 })

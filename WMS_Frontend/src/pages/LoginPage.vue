@@ -50,13 +50,12 @@ export default {
                 if (this.password !== this.confirmPassword) {
                     this.error = this.$t('login.passwordMismatch')
                     return
-                } else {
-                    await this.axios.post('/auth/setPassword', {
-                        username: this.username,
-                        password: this.password,
-                        confirmPassword: this.confirmPassword,
-                    })
                 }
+                await this.axios.post('/auth/setPassword', {
+                    username: this.username,
+                    password: this.password,
+                    confirmPassword: this.confirmPassword,
+                })
             }
             await this.axios
                 .post('/auth/login', {
@@ -74,13 +73,22 @@ export default {
                     this.$router.push('/dashboard')
                 })
                 .catch((error) => {
-                    if (error.response.status === 401) {
-                        this.error = this.$t('login.invalid')
+                    if (error.response) {
+                        if (error.response.status === 401) {
+                            this.error = this.$t('login.invalid')
+                        } else {
+                            this.$toast.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: 'An error occurred',
+                                life: 3000,
+                            })
+                        }
                     } else {
                         this.$toast.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: 'An error occurred',
+                            detail: 'Server is not responding',
                             life: 3000,
                         })
                     }

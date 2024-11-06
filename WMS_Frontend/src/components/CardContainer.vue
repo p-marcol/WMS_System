@@ -43,7 +43,7 @@ export default {
 .card {
     background-color: var(--color-white);
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     display: grid;
     grid-template-rows: auto 1fr;

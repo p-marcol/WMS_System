@@ -11,7 +11,7 @@ import * as v from 'valibot'
 <template>
     <Dialog v-model:visible="visible" modal :draggable="false">
         <template #header>
-            <h3 class="Header-P3">Add New User</h3>
+            <h3 class="Header-P3">{{ $t('users.addNewUser') }}</h3>
         </template>
 
         <Form id="modalBody" @submit="submit">

@@ -4,15 +4,13 @@ import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.service.UnitService;
+import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_all_units.GetAllUnitsResponseModel;
 import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -87,6 +85,36 @@ public class UnitController {
             return ResponseEntity.ok(subunits);
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addUnit(@RequestBody AddUnitRequest request) {
+        try {
+            unitService.addUnit(request);
+            return ResponseEntity.ok("Unit added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteUnit(@PathVariable Long id) {
+        try {
+            unitService.deleteUnit(id);
+            return ResponseEntity.ok("Unit deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}/subunits")
+    public ResponseEntity<?> deleteUnitAndSubunits(@PathVariable Long id) {
+        try {
+            unitService.deleteUnitAndSubunits(id);
+            return ResponseEntity.ok("Unit and subunits deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");
         }

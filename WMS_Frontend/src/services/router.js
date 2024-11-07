@@ -7,6 +7,7 @@ const routes = [
     { path: '/login', component: pages.loginPage },
     { path: '/dashboard', component: pages.dashboardPage },
     { path: '/users', component: pages.usersPage },
+    { path: '/units', component: pages.unitsPage },
     { path: '/:pathMatch(.*)*', component: pages.notFound },
 ]
 

@@ -3,6 +3,7 @@ import LoginPage from './LoginPage.vue'
 import NotFound from './NotFound.vue'
 import UserPage from './UsersPage.vue'
 import EmptyPage from './EmptyPage.vue'
+import UnitsPage from './UnitsPage.vue'
 
 export default {
     emptyPage: EmptyPage,
@@ -10,4 +11,5 @@ export default {
     loginPage: LoginPage,
     notFound: NotFound,
     usersPage: UserPage,
+    unitsPage: UnitsPage,
 }

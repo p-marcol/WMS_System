@@ -88,7 +88,8 @@ public class UserController {
                             .birthdate(user.getBirthdate())
                             .phone(user.getPhone())
                             .isArchived(user.isArchived())
-                            .authority(user.getAuthority())
+                            .authorityName(user.getAuthority())
+                            .authorityId(user.getAuthorityId())
                             .build()
             );
         } catch (NullPointerException e) {

@@ -1,7 +1,6 @@
 package com.inz.apimodels.user.get_details;
 
 import lombok.Builder;
-import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
@@ -16,6 +15,7 @@ public class GetDetailsResponse {
     public String lastName;
     public Date birthdate;
     public String phone;
-    public String authority;
+    public String authorityName;
+    public Long authorityId;
     public Boolean isArchived;
 }

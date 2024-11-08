@@ -67,6 +67,10 @@ public class User {
         return authority.getAuthority();
     }
 
+    public Long getAuthorityId() {
+        return authority.getId();
+    }
+
     public Boolean isDeletable() {
         return lastPasswordResetDate == null;
     }

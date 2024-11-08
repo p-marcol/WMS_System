@@ -110,6 +110,9 @@ public class UserController {
                             .email(user.getEmail())
                             .authority(user.getAuthority())
                             .isArchived(user.isArchived())
+                            .isArchivable(user.isArchivable())
+                            .isEditable(user.isEditable())
+                            .isDeletable(user.isDeletable())
                             .build())
                     .toList();
             return ResponseEntity.ok(users);

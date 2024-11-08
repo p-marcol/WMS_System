@@ -1,6 +1,7 @@
 package com.inz.WMS_Backend.entity;
 
 import com.inz.WMS_Backend.entity.dictionaries.Authority;
+import com.inz.WMS_Backend.entity.enums.eAuthority;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -73,5 +74,13 @@ public class User {
 
     public Boolean isDeletable() {
         return lastPasswordResetDate == null;
+    }
+
+    public boolean isEditable() {
+        return !isArchived;
+    }
+
+    public boolean isArchivable() {
+        return !getAuthority().equals(eAuthority.NEW_USER.name());
     }
 }

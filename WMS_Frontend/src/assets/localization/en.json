@@ -35,7 +35,15 @@
         "lastName": "Last name",
         "email": "Email",
         "role": "Role",
-        "addNewUser": "Add new user"
+        "addNewUser": "Add new user",
+        "userDetails": "User details",
+        "id": "User ID",
+        "status": "Status",
+        "archived": "User Archived",
+        "active": "Active",
+        "birthdate": "Birthdate",
+        "phone": "Phone",
+        "authority": "Authority"
     },
     "table": {
         "actions": "Actions"
@@ -48,6 +56,7 @@
         "save": "Save",
         "cancel": "Cancel",
         "fieldRequired": "This field is required",
-        "invalidFormat": "Invalid format"
+        "invalidFormat": "Invalid format",
+        "cantChangeHere": "You can't change this here"
     }
 }

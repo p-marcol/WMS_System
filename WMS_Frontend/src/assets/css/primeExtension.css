@@ -11,3 +11,8 @@
     min-width: 30vw;
     font-family: OpenSans;
 }
+
+.p-select,
+.p-select-list {
+    font-family: OpenSans;
+}

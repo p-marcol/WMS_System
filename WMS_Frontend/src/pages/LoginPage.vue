@@ -15,7 +15,7 @@ import Message from 'primevue/message'
         <form action="#" @submit.prevent="login">
             <div>
                 <InputContainer :label="$t('login.usernameOrEmail')" label-for="username">
-                    <InputText id="username" v-model="username" />
+                    <InputText id="username" class="Input-text-P1" v-model="username" />
                 </InputContainer>
                 <PasswordInput v-model="password" />
                 <PasswordInput v-model="confirmPassword" v-if="noPassword" confirm />

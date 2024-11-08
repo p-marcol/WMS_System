@@ -1,38 +1,14 @@
 <script setup>
 import ProgressSpinner from 'primevue/progressspinner'
-// import regexRules from '@/data/regexRules'
-import DatePicker from 'primevue/datepicker'
-import InputContainer from '../input/InputContainer.vue'
+import UserEditDrawer from '@/components/drawer/UserEditDrawer.vue'
+import UserDetailsDrawer from '@/components/drawer/UserDetailsDrawer.vue'
 </script>
 
 <template>
     <div class="wms-drawer-content">
         <template v-if="!loading">
-            <div class="wms-row-2">
-                <!-- <InputWithLabel
-                    label="First name"
-                    :modelValue="user.firstName"
-                    class="wms-required"
-                />
-                <InputWithLabel
-                    label="Last name"
-                    :modelValue="user.lastName"
-                    class="wms-required"
-                /> -->
-            </div>
-            <!-- <InputWithLabel
-                label="Email"
-                :modelValue="user.email"
-                class="wms-required"
-                :pattern="regexRules.email"
-            /> -->
-            <InputContainer label="data" required>
-                <DatePicker
-                    v-model="user.date"
-                    class="wms-input-container Input-text-P1"
-                    date-format="dd-mm-yy"
-                />
-            </InputContainer>
+            <UserDetailsDrawer v-if="!edit" :user="user" />
+            <UserEditDrawer v-else :user="user" />
         </template>
         <template v-else>
             <ProgressSpinner style="justify-self: center; align-self: center" stroke-width="5" />
@@ -47,10 +23,13 @@ export default {
             type: Number,
             default: null,
         },
+        edit: {
+            type: Boolean,
+            required: true,
+        },
     },
     data() {
         return {
-            sourceUser: Object,
             user: Object,
             loading: {
                 type: Boolean,
@@ -68,7 +47,6 @@ export default {
                         .then((response) => {
                             console.log(response.data)
                             this.user = response.data
-                            this.sourceUser = response.data
                         })
                         .catch((err) => {
                             console.warn(err)
@@ -76,7 +54,6 @@ export default {
                         .finally(() => {})
                 } else {
                     this.user = {}
-                    this.sourceUser = {}
                 }
                 this.loading = false
             },

@@ -126,8 +126,8 @@
     letter-spacing: normal;
 }
 .Input-text-P1 {
-    font-family: OpenSans;
-    font-size: 1.2rem;
+    font-family: OpenSans !important;
+    font-size: 1.2rem !important;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -199,4 +199,13 @@
     letter-spacing: normal;
     color: var(--color-white);
     text-transform: uppercase;
+}
+.Header-P4 {
+    font-family: OpenSans-Bold;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
 }

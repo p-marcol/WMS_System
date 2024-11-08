@@ -9,8 +9,8 @@ import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
-import UserDrawer from '@/components/drawer/EditUserDrawer.vue'
-import { XMarkIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
+import UserDrawer from '@/components/drawer/UserDrawer.vue'
+import { XMarkIcon, PencilSquareIcon, MagnifyingGlassCircleIcon } from '@heroicons/vue/24/outline'
 import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
 </script>
 
@@ -81,7 +81,11 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                     <template #body="{ data }">
                         <PencilSquareIcon
                             class="wms-table-icon"
-                            @click="openEditUserDrawer(data.id)"
+                            @click="openUserDrawer(data.id, true)"
+                        />
+                        <MagnifyingGlassCircleIcon
+                            class="wms-table-icon"
+                            @click="openUserDrawer(data.id, false)"
                         />
                     </template>
                 </Column>
@@ -93,12 +97,12 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
             <div class="wms-drawer">
                 <div class="wms-drawer-header">
                     <h3 class="Header-P3">
-                        {{ currentUserId ? $t('users.editUser') : $t('users.newUser') }}
+                        {{ editUser ? $t('users.editUser') : $t('users.userDetails') }}
                     </h3>
                     <XMarkIcon @click="closeCallback" />
                 </div>
                 <div class="wms-drawer-body">
-                    <UserDrawer @close="closeCallback" :userId="currentUserId" />
+                    <UserDrawer @close="closeCallback" :userId="currentUserId" :edit="editUser" />
                 </div>
             </div>
         </template>
@@ -133,7 +137,7 @@ export default {
             upsertUserDrawerOpen: false,
             showDialog: false,
             currentUserId: null,
-            addNewUserDialogRef: AddNewUserDialog,
+            editUser: false,
         }
     },
     created() {
@@ -183,12 +187,9 @@ export default {
         openAddNewUserDialog() {
             this.$refs.addNewUserDialogRef.open()
         },
-        openEditUserDrawer(id) {
+        openUserDrawer(id, edit) {
+            this.editUser = edit
             this.currentUserId = id
-            this.upsertUserDrawerOpen = true
-        },
-        openUserDrawer() {
-            this.currentUserId = null
             this.upsertUserDrawerOpen = true
         },
     },

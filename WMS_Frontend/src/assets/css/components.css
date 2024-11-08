@@ -58,10 +58,16 @@
     margin-bottom: 2px;
 }
 
-.wms-input-container > input {
-    padding: 10px 10px 10px 10px;
+.wms-input-container input,
+.wms-input-container .p-select {
     border: 2px solid var(--color-secondary);
     border-radius: 5px;
+    font-family: OpenSans;
+    font-size: 1rem;
+}
+
+.wms-input-container input {
+    padding: 10px 10px 10px 10px;
 }
 
 .wms-big-button {
@@ -128,4 +134,22 @@
     padding: 0.2rem 0.5rem;
     border: 2px solid var(--color-secondary);
     border-radius: 5px;
+}
+
+.wms-col-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.wms-col-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.wms-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }

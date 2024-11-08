@@ -43,7 +43,8 @@
         "active": "Active",
         "birthdate": "Birthdate",
         "phone": "Phone",
-        "authority": "Authority"
+        "authority": "Authority",
+        "userData": "User data"
     },
     "table": {
         "actions": "Actions"

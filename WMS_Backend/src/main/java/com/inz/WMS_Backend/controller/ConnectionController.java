@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConnectionController {
 
     @GetMapping("/ping")
-    public ResponseEntity<?>  ping() {
-        Object pong = new Object() {
-            public final String pong = "pong";
-            public final long timestamp = System.currentTimeMillis();
+    public ResponseEntity<?> ping() {
+        long timestamp = System.currentTimeMillis();
+        return ResponseEntity.ok(timestamp);
+    }
+
+    @GetMapping("/handshake")
+    public ResponseEntity<?> handshake() {
+        Object handshake = new Object() {
+            public final String device = "SYMBOL";
         };
-        return ResponseEntity.ok(pong);
+        return ResponseEntity.ok(handshake);
     }
 }

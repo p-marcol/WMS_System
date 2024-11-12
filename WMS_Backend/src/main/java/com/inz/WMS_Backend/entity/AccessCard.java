@@ -21,11 +21,6 @@ public class AccessCard {
     private User user;
 
     @Basic
-    @Column(name = "card_serial", nullable = false, length = 64)
-    private String cardSerial;
-
-    @Basic
-    @Column(name = "card_hash", nullable = false, length = 64)
-    private String cardHash;
-
+    @Column(name = "card_uid", nullable = false, length = 64)
+    private String cardUid;
 }

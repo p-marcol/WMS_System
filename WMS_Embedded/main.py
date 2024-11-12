@@ -106,7 +106,7 @@ def connect_to_wifi():
 def send_uid(uid):
     setRGB(1, 1, 0)
     try:
-        res = requests.get(f"http://{server}:{port}/access/{uid}")
+        res = requests.get(f"http://{server}:{port}/access/{symbol}/{uid}")
     except:
         return False
     if res.text == "true":

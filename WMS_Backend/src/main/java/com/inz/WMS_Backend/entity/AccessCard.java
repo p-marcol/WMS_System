@@ -16,11 +16,11 @@ public class AccessCard {
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Basic
-    @Column(name = "card_uid", nullable = false, length = 64)
+    @Column(name = "card_uid", nullable = false, length = 64, unique = true)
     private String cardUid;
 }

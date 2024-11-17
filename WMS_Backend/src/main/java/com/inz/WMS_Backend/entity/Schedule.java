@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -17,17 +17,23 @@ public class Schedule {
     @Column(nullable = false)
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Unit unit;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
     @Basic
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDate createdAt;
 
     @Basic
     @Column(name = "start_at", nullable = false)
-    private Date startDate;
+    private LocalDate startDate;
 
     @Basic
-    @Column(name = "end_at", nullable = false)
-    private Date endDate;
+    @Column(name = "end_at")
+    private LocalDate endDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User createdBy;

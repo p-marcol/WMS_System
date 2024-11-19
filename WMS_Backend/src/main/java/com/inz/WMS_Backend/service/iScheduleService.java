@@ -12,7 +12,7 @@ public interface iScheduleService {
 
     List<Schedule> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate);
 
-    void createNewSchedule(Long unitId, Long userId, LocalDate startDate, LocalDate endDate, List<ScheduleBlockDTO> scheduleBlocks);
+    void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks);
 
     Calendar generateCalendarFromSchedules(List<Schedule> schedules);
 }

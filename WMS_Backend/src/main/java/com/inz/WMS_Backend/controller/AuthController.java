@@ -2,6 +2,7 @@ package com.inz.WMS_Backend.controller;
 
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.entity.enums.eAuthority;
+import com.inz.WMS_Backend.repository.iAuthorityRepository;
 import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.auth.login.LoginRequest;
@@ -38,8 +39,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-    private final com.inz.WMS_Backend.repository.iUserRepository iUserRepository;
-    private final com.inz.WMS_Backend.repository.iAuthorityRepository iAuthorityRepository;
+    private final iAuthorityRepository iAuthorityRepository;
 
     /**
      * Get user from context
@@ -47,7 +47,7 @@ public class AuthController {
      * @return User instance from context
      * @throws BadCredentialsException if user not found in context or in database
      */
-    private User getUserFromContext() throws BadCredentialsException {
+    public User getUserFromContext() throws BadCredentialsException {
         var userDetails = JwtTokenUtils.getUserFromContext();
         if (userDetails == null) {
             throw new BadCredentialsException("User not found");

@@ -33,11 +33,11 @@ public class ScheduleBlock {
     @Column(name = "end_hour", nullable = false)
     private Time endHour;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
     private Schedule schedule;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "unit_id", nullable = false)
     private Unit unit;
 }

@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface iScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findAllByUnitId(Long unitId);
+
+    Schedule findFirstByUnitIdOrderByStartDateDesc(Long unitId);
+
+    Schedule findFirstByUserIdOrderByStartDateDesc(Long userId);
 }

@@ -1,15 +1,19 @@
 package com.inz.WMS_Backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "SCHEDULES")
 public class Schedule {
     @Id
@@ -23,9 +27,9 @@ public class Schedule {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    @Basic
-    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDate createdAt;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private Timestamp createdAt;
 
     @Basic
     @Column(name = "start_at", nullable = false)
@@ -38,6 +42,6 @@ public class Schedule {
     @ManyToOne(cascade = CascadeType.ALL)
     private User createdBy;
 
-    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "schedule")
     private Set<ScheduleBlock> scheduleBlocks;
 }

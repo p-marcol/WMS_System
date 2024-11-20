@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class Unit {
     @Column(name="work_ended", nullable = false, columnDefinition = "boolean default false")
     private boolean workEnded;
 
-    @Basic
+    @CreationTimestamp
     @Column(name="created_at", nullable = false, columnDefinition = "timestamp default current_timestamp")
     private Date createdAt;
 

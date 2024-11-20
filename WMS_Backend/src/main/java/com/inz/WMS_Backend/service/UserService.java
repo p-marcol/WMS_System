@@ -5,6 +5,7 @@ import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import com.inz.WMS_Backend.entity.enums.eAuthority;
 import com.inz.WMS_Backend.repository.iAuthorityRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
+import com.inz.WMS_Backend.utils.DateUtils;
 import com.inz.apimodels.auth.register.RegisterRequest;
 import com.inz.apimodels.user.change_authority.ChangeAuthorityRequest;
 import com.inz.apimodels.user.upsert_details.UpsertDetailsRequest;
@@ -13,7 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +70,7 @@ public class UserService implements iUserService {
         user.setFirstName(Optional.ofNullable(request.getFirstName()).orElse(user.getFirstName()));
         user.setLastName(Optional.ofNullable(request.getLastName()).orElse(user.getLastName()));
         user.setPhone(Optional.ofNullable(request.getPhoneNumber()).orElse(user.getPhone()));
-        user.setBirthdate((Date) Optional.ofNullable(request.getDateOfBirth()).orElse(user.getBirthdate()));
+        user.setBirthdate(DateUtils.asSqlDate(Optional.ofNullable(request.getDateOfBirth()).orElse(user.getBirthdate().toLocalDate())));
         userRepository.save(user);
     }
 
@@ -117,5 +117,16 @@ public class UserService implements iUserService {
     @Override
     public Collection<User> getUserByAuthorityName(String authorityName) {
         return userRepository.findAllByAuthority(authorityRepository.findByAuthority(authorityName));
+    }
+
+    @Override
+    public void deactivateUser(Long id) {
+        userRepository.findById(id).ifPresentOrElse(user -> {
+            user.setArchived(true);
+            user.setEmail("");
+            userRepository.save(user);
+        }, () -> {
+            throw new IllegalArgumentException("User not found");
+        });
     }
 }

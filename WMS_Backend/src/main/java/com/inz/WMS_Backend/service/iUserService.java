@@ -33,4 +33,6 @@ public interface iUserService {
     void changeAuthority(ChangeAuthorityRequest request);
 
     Collection<User> getUserByAuthorityName(String authorityName);
+
+    void deactivateUser(Long id);
 }

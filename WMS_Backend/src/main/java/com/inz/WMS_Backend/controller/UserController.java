@@ -57,7 +57,17 @@ public class UserController {
     public ResponseEntity<?> activateUser(@PathVariable Long id) {
         try {
             userService.activateUser(id);
-            return ResponseEntity.ok("User unarchived successfully");
+            return ResponseEntity.ok("User activated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Denied");
+        }
+    }
+
+    @PutMapping("/archiveUser/{id}")
+    public ResponseEntity<?> deactivateUser(@PathVariable Long id) {
+        try {
+            userService.deactivateUser(id);
+            return ResponseEntity.ok("User deactivated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Denied");
         }

@@ -4,6 +4,28 @@
     cursor: pointer;
 }
 
+.wms-action-column {
+    display: grid;
+    grid-template-areas: 'view edit lock delete';
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.wms-action-edit {
+    grid-area: edit;
+}
+
+.wms-action-delete {
+    grid-area: delete;
+}
+
+.wms-action-view {
+    grid-area: view;
+}
+
+.wms-action-archive {
+    grid-area: lock;
+}
+
 .wms-text-bold {
     font-family: OpenSans-Bold;
     font-weight: bold !important;

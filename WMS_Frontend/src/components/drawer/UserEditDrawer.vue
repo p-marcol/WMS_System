@@ -33,9 +33,6 @@ import Dropdown from 'primevue/dropdown'
         <ItemLabel :label="$t('users.username')">
             <div class="Header-P4" id="username">{{ user.username }}</div>
         </ItemLabel>
-        <ItemLabel v-if="!user.isArchived" :label="$t('users.email')">
-            <div class="Header-P4" id="email">{{ user.email }}</div>
-        </ItemLabel>
     </div>
     <div class="wms-col-2">
         <InputContainer :label="$t('users.firstName')" label-for="firstName">
@@ -45,6 +42,9 @@ import Dropdown from 'primevue/dropdown'
             <InputText id="lastName" v-model="editUser.lastName" :readonly="user.isArchived" />
         </InputContainer>
     </div>
+    <InputContainer v-if="!user.isArchived" :label="$t('users.email')" required>
+        <InputText id="email" v-model="editUser.email" :readonly="user.isArchived" />
+    </InputContainer>
     <InputContainer :label="$t('users.birthdate')" :label-for="birthdate">
         <DatePicker id="birthdate" v-model="editUser.birthdate" :readonly="user.isArchived" />
     </InputContainer>
@@ -88,12 +88,10 @@ export default {
                 console.warn(err)
             })
     },
-    computed: {
+    methods: {
         isDirty() {
             return JSON.stringify(this.user) !== JSON.stringify(this.editUser)
         },
-    },
-    methods: {
         cantChangeHere() {
             this.$toast.add({
                 severity: 'warn',
@@ -109,9 +107,11 @@ export default {
             })
         },
         cancel() {
+            const dirty = this.isDirty
             this.$toast.add({
                 severity: 'info',
                 summary: this.$t('form.canceled'),
+                detail: dirty ? 'Changes not saved' : '',
                 life: 3000,
             })
         },

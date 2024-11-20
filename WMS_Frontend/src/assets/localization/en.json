@@ -44,7 +44,12 @@
         "birthdate": "Birthdate",
         "phone": "Phone",
         "authority": "Authority",
-        "userData": "User data"
+        "userData": "User data",
+        "confirm": {
+            "delete": "Are you sure you want to delete this user?",
+            "archiveHeader": "Archive user",
+            "archive": "Are you sure you want to archive this user?"
+        }
     },
     "table": {
         "actions": "Actions"
@@ -55,6 +60,8 @@
     },
     "form": {
         "save": "Save",
+        "delete": "Delete",
+        "archive": "Archive",
         "cancel": "Cancel",
         "fieldRequired": "This field is required",
         "invalidFormat": "Invalid format",

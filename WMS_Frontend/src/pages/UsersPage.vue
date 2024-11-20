@@ -10,8 +10,16 @@ import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
 import UserDrawer from '@/components/drawer/UserDrawer.vue'
-import { XMarkIcon, PencilSquareIcon, MagnifyingGlassCircleIcon } from '@heroicons/vue/24/outline'
+import {
+    XMarkIcon,
+    PencilSquareIcon,
+    MagnifyingGlassCircleIcon,
+    LockClosedIcon,
+    LockOpenIcon,
+    TrashIcon,
+} from '@heroicons/vue/24/outline'
 import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
+import ConfirmDialog from 'primevue/confirmdialog'
 </script>
 
 <template>
@@ -35,7 +43,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                 :loading="loading"
                 showGridlines
                 filterDisplay="menu"
-                :globalFilterFields="['id', 'firstName', 'lastName', 'email', 'role']"
+                :globalFilterFields="['id', 'concatName', 'email', 'authority']"
             >
                 <template #header>
                     <div id="tableHeader">
@@ -63,7 +71,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                 <Column field="lastName" :header="$t('users.lastName')" />
                 <Column field="email" :header="$t('users.email')" />
                 <Column
-                    field="role"
+                    field="authority"
                     :header="$t('users.role')"
                     :filterMenuStyle="{ width: '14rem' }"
                     style="width: 9rem"
@@ -71,7 +79,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                     <template #body="{ data }">
                         <Tag
                             class="wms-text-bold"
-                            :value="data.role"
+                            :value="data.authority"
                             :severity="data.severity"
                             rounded
                         />
@@ -79,14 +87,32 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
                 </Column>
                 <Column :header="$t('table.actions')" style="width: 10rem">
                     <template #body="{ data }">
-                        <PencilSquareIcon
-                            class="wms-table-icon"
-                            @click="openUserDrawer(data.id, true)"
-                        />
-                        <MagnifyingGlassCircleIcon
-                            class="wms-table-icon"
-                            @click="openUserDrawer(data.id, false)"
-                        />
+                        <div class="wms-action-column">
+                            <MagnifyingGlassCircleIcon
+                                class="wms-table-icon wms-action-view"
+                                @click="openUserDrawer(data.id, false)"
+                            />
+                            <PencilSquareIcon
+                                v-if="data.isEditable"
+                                class="wms-table-icon wms-action-edit"
+                                @click="openUserDrawer(data.id, true)"
+                            />
+                            <LockClosedIcon
+                                v-if="!data.isArchived && data.isArchivable"
+                                class="wms-table-icon wms-action-archive"
+                                @click="archiveUser(data.id)"
+                            />
+                            <LockOpenIcon
+                                v-if="data.isArchived && data.isArchivable"
+                                class="wms-table-icon wms-action-archive"
+                                @click="activateUser(data.id)"
+                            />
+                            <TrashIcon
+                                v-if="data.isDeletable"
+                                class="wms-table-icon wms-action-delete"
+                                @click="deleteUser(data.id)"
+                            />
+                        </div>
                     </template>
                 </Column>
             </DataTable>
@@ -108,6 +134,7 @@ import AddNewUserDialog from '@/components/dialog/AddNewUserDialog.vue'
         </template>
     </Drawer>
     <AddNewUserDialog ref="addNewUserDialogRef" @refresh="fetchUsers" />
+    <ConfirmDialog :draggable="false"> </ConfirmDialog>
 </template>
 
 <script>
@@ -152,19 +179,14 @@ export default {
             this.axios
                 .get('/user/getAllUsers')
                 .then((res) => {
-                    this.users = res.data.map((user) => {
-                        return {
-                            id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            email: user.email,
-                            role: user.authority,
-                            severity: user.isArchived
-                                ? 'secondary'
-                                : severityMap[user.authority.toLowerCase()],
-                        }
+                    this.users = res.data
+                    this.users.forEach((user) => {
+                        user.severity = user.isArchived
+                            ? 'secondary'
+                            : severityMap[user.authority.toLowerCase()]
+                        user.concatName = `${user.firstName} ${user.lastName}`
                     })
+                    console.log(this.users)
                 })
                 .catch(() => {
                     this.error = true
@@ -191,6 +213,88 @@ export default {
             this.editUser = edit
             this.currentUserId = id
             this.upsertUserDrawerOpen = true
+        },
+        archiveUser(id) {
+            this.$confirm.require({
+                message: this.$t('users.confirm.archive'),
+                header: this.$t('users.confirm.archiveHeader', { id: id }),
+                rejectProps: {
+                    label: this.$t('form.cancel'),
+                    severity: 'secondary',
+                    outlined: true,
+                },
+                acceptProps: {
+                    label: this.$t('form.archive'),
+                },
+                accept: () => {
+                    this.axios
+                        .put(`/user/archiveUser/${id}`)
+                        .then(() => {
+                            this.fetchUsers()
+                        })
+                        .catch(() => {
+                            this.$toast.add({
+                                severity: 'error',
+                                summary: this.$t('error'),
+                                detail: this.$t('users.error.archive'),
+                                life: 3000,
+                            })
+                        })
+                },
+                reject: () => {},
+            })
+        },
+        activateUser(id) {
+            this.axios
+                .put(`/user/activateUser/${id}`)
+                .then(() => {
+                    this.fetchUsers()
+                })
+                .catch(() => {
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: this.$t('error'),
+                        detail: this.$t('users.error.activate'),
+                        life: 3000,
+                    })
+                })
+        },
+        deleteUser(id) {
+            this.$confirm.require({
+                message: this.$t('users.confirm.delete'),
+                header: this.$t('users.confirm.deleteHeader', { id: id }),
+                rejectProps: {
+                    label: this.$t('form.cancel'),
+                    severity: 'secondary',
+                    outlined: true,
+                },
+                acceptProps: {
+                    label: this.$t('form.delete'),
+                    severity: 'danger',
+                },
+                accept: () => {
+                    this.axios
+                        .delete(`/user/deleteUser/${id}`)
+                        .then(() => {
+                            this.$toast.add({
+                                severity: 'success',
+                                summary: this.$t('success'),
+                                detail: this.$t('users.success.delete'),
+                                life: 3000,
+                            })
+                            this.fetchUsers()
+                        })
+                        .catch(() => {
+                            this.$toast.add({
+                                severity: 'error',
+                                summary: this.$t('error'),
+                                detail: this.$t('users.error.delete'),
+                                life: 3000,
+                            })
+                        })
+                },
+                reject: () => {},
+            })
         },
     },
 }

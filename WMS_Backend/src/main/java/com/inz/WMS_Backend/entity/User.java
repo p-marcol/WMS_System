@@ -19,7 +19,7 @@ public class User {
     private Long id;
 
     @Basic
-    @Column(nullable = false, unique = true, length = 128)
+    @Column(nullable = false, length = 128)
     private String email;
 
     @Basic
@@ -81,6 +81,6 @@ public class User {
     }
 
     public boolean isArchivable() {
-        return !getAuthority().equals(eAuthority.NEW_USER.name());
+        return !getAuthority().toUpperCase().equals(eAuthority.NEW_USER.name());
     }
 }

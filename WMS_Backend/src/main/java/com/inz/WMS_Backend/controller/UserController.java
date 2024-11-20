@@ -63,16 +63,6 @@ public class UserController {
         }
     }
 
-    @PutMapping("/archiveUser/{id}")
-    public ResponseEntity<?> deactivateUser(@PathVariable Long id) {
-        try {
-            userService.deactivateUser(id);
-            return ResponseEntity.ok("User deactivated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Denied");
-        }
-    }
-
     @PostMapping("/changeAuthority")
     public ResponseEntity<?> changeAuthority(@RequestBody ChangeAuthorityRequest request) {
         try {

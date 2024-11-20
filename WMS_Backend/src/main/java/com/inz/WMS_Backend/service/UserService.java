@@ -118,15 +118,4 @@ public class UserService implements iUserService {
     public Collection<User> getUserByAuthorityName(String authorityName) {
         return userRepository.findAllByAuthority(authorityRepository.findByAuthority(authorityName));
     }
-
-    @Override
-    public void deactivateUser(Long id) {
-        userRepository.findById(id).ifPresentOrElse(user -> {
-            user.setArchived(true);
-            user.setEmail("");
-            userRepository.save(user);
-        }, () -> {
-            throw new IllegalArgumentException("User not found");
-        });
-    }
 }

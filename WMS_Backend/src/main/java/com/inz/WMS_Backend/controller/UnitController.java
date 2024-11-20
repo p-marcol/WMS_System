@@ -24,6 +24,9 @@ public class UnitController {
     private final UnitService unitService;
     private final iPositionNameRepository positionNameRepository;
 
+    /**
+     * @return list of all units with their worker and manager count
+     */
     @GetMapping("/all")
     public ResponseEntity<?> getAllUnits() {
         try {
@@ -54,6 +57,10 @@ public class UnitController {
     }
 
     // units are top level when parent is null
+
+    /**
+     * @return list of top level units
+     */
     @GetMapping("/subunits/")
     public ResponseEntity<?> getTopUnits() {
         try {
@@ -71,6 +78,10 @@ public class UnitController {
         }
     }
 
+    /**
+     * @param id unit id
+     * @return list of subunits of given unit
+     */
     @GetMapping("/subunits/{id}")
     public ResponseEntity<?> getSubunits(@PathVariable Long id) {
         try {
@@ -90,6 +101,10 @@ public class UnitController {
         }
     }
 
+    /**
+     * @param request unit data
+     * @return response
+     */
     @PostMapping("/add")
     public ResponseEntity<?> addUnit(@RequestBody AddUnitRequest request) {
         try {
@@ -100,6 +115,10 @@ public class UnitController {
         }
     }
 
+    /**
+     * @param id unit id
+     * @return response
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteUnit(@PathVariable Long id) {
         try {
@@ -110,6 +129,10 @@ public class UnitController {
         }
     }
 
+    /**
+     * @param id unit id
+     * @return response
+     */
     @DeleteMapping("/delete/{id}/subunits")
     public ResponseEntity<?> deleteUnitAndSubunits(@PathVariable Long id) {
         try {

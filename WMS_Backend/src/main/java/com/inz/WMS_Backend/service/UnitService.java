@@ -1,7 +1,11 @@
 package com.inz.WMS_Backend.service;
 
+import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.Unit;
 import com.inz.WMS_Backend.entity.User;
+import com.inz.WMS_Backend.entity.dictionaries.PositionName;
+import com.inz.WMS_Backend.repository.iPositionNameRepository;
+import com.inz.WMS_Backend.repository.iPositionRepository;
 import com.inz.WMS_Backend.repository.iUnitRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
@@ -21,6 +25,8 @@ import java.util.Set;
 public class UnitService implements iUnitService {
     private final iUnitRepository unitRepository;
     private final iUserRepository userRepository;
+    private final iPositionRepository positionRepository;
+    private final iPositionNameRepository positionNameRepository;
 
     @Override
     public Unit getUnit(Long id) {
@@ -46,6 +52,17 @@ public class UnitService implements iUnitService {
                 .build();
 
         unitRepository.save(unit);
+
+        PositionName managerName = positionNameRepository.findByName("MANAGER");
+
+        unit.getManagers().forEach(manager -> {
+            Position position = Position.builder()
+                    .unit(unit)
+                    .user(manager)
+                    .positionName(managerName)
+                    .build();
+            positionRepository.save(position);
+        });
     }
 
     @Override

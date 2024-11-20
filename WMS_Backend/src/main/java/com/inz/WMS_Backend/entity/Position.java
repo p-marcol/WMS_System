@@ -2,12 +2,14 @@ package com.inz.WMS_Backend.entity;
 
 import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "POSITIONS")
 public class Position {
     @Id

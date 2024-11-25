@@ -6,6 +6,12 @@ import { axiosContext, AxiosContextType } from "@/providers/axios";
 export default function Index() {
 	const axios = useContext(axiosContext)!.axios;
 
+	const [serverIp, setServerIp] = useState<string>("192.168.1.160");
+	const [serverPort, setServerPort] = useState<string>("8080");
+	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
+	const [login, setLogin] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
+
 	const pingServer = async () => {
 		axios
 			.get(`http://${serverIp}:${serverPort}/connection/ping`)
@@ -60,10 +66,6 @@ export default function Index() {
 		}
 	};
 
-	const [serverIp, setServerIp] = useState<string>("192.168.1.47");
-	const [serverPort, setServerPort] = useState<string>("8080");
-	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
-
 	return (
 		<View
 			style={{
@@ -71,14 +73,11 @@ export default function Index() {
 				justifyContent: "center",
 				alignItems: "center",
 			}}
+			className="bg-blue-500"
 		>
 			<Text>Server IP:</Text>
 			<TextInput
-				style={{
-					borderWidth: 1,
-					width: 200,
-					textAlign: "center",
-				}}
+				className="bg-red-500"
 				onChangeText={(text) => setServerIp(text)}
 				value={serverIp}
 			/>
@@ -92,7 +91,17 @@ export default function Index() {
 				onChangeText={(text) => setServerPort(text)}
 				value={serverPort}
 			/>
-			<Button
+			<Text className="text-red-500">Login:</Text>
+			<TextInput
+				style={{
+					borderWidth: 1,
+					width: 200,
+					textAlign: "center",
+				}}
+				onChangeText={(text) => setLogin(text)}
+				value={login}
+			/>
+			{/* <Button
 				title="Ping Server"
 				onPress={pingServer}
 			/>
@@ -103,7 +112,7 @@ export default function Index() {
 			<Button
 				title="WRITE NFC"
 				onPress={writeNfc}
-			/>
+			/> */}
 		</View>
 	);
 }

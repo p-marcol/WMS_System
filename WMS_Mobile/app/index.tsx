@@ -2,19 +2,22 @@ import { useState, useContext } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import NfcManager, { NfcTech, Ndef } from "react-native-nfc-manager";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
+import { serverContext, ServerContextType } from "@/providers/server";
+import { authContext, AuthContextType } from "@/providers/auth";
+import { router } from "expo-router";
 
 export default function Index() {
 	const axios = useContext(axiosContext)!.axios;
+	const server = useContext(serverContext)! as ServerContextType;
+	const auth = useContext(authContext)! as AuthContextType;
 
-	const [serverIp, setServerIp] = useState<string>("192.168.1.160");
-	const [serverPort, setServerPort] = useState<string>("8080");
 	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
-	const [login, setLogin] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [login, setLogin] = useState<string>("admin");
+	const [password, setPassword] = useState<string>("admin");
 
 	const pingServer = async () => {
 		axios
-			.get(`http://${serverIp}:${serverPort}/connection/ping`)
+			.get(`${server.getPath()}/connection/ping`)
 			.then((response) => {
 				alert(`Server responded with: ${response.data}`);
 			})
@@ -24,42 +27,37 @@ export default function Index() {
 			});
 	};
 
+	const Login = async () => {
+		axios
+			.post(`${server.getPath()}/auth/login`, {
+				username: login,
+				password: password,
+			})
+			.then((response) => {
+				alert(`Login successful`);
+				console.log(response.data);
+
+				auth.setToken(response.data.token);
+				auth.setRefreshToken(response.data.refreshToken);
+
+				//! Change to replace on release
+				router.push({ pathname: "/tabs" });
+			})
+			.catch((error) => {
+				alert(`Login failed: ${error}`);
+				console.error(error);
+			});
+	};
+
 	const scanNfc = async () => {
 		if (nfcSearching) return;
 		setNfcSearching(true);
 		try {
-			await NfcManager.requestTechnology(NfcTech.MifareUltralight);
+			await NfcManager.requestTechnology(NfcTech.Ndef);
 			const tag = await NfcManager.getTag();
-			const payload = Ndef.text.decodePayload(
-				new Uint8Array(tag!.ndefMessage[0].payload)
-			);
-			console.log(tag?.id, payload);
+			console.log(tag?.id);
 		} catch (error) {
 			console.warn(error);
-		} finally {
-			NfcManager.cancelTechnologyRequest();
-			setNfcSearching(false);
-		}
-	};
-
-	const writeNfc = async () => {
-		if (nfcSearching) return;
-		setNfcSearching(true);
-		try {
-			await NfcManager.requestTechnology(NfcTech.Ndef);
-
-			const text = "Hello, World!" + Math.random();
-
-			const bytes = Ndef.encodeMessage([Ndef.textRecord(text)]);
-
-			console.log(text);
-
-			if (bytes) {
-				await NfcManager.ndefHandler.writeNdefMessage(bytes);
-				alert("NFC tag written!");
-			}
-		} catch (error) {
-			console.error(error);
 		} finally {
 			NfcManager.cancelTechnologyRequest();
 			setNfcSearching(false);
@@ -73,13 +71,16 @@ export default function Index() {
 				justifyContent: "center",
 				alignItems: "center",
 			}}
-			className="bg-blue-500"
 		>
 			<Text>Server IP:</Text>
 			<TextInput
-				className="bg-red-500"
-				onChangeText={(text) => setServerIp(text)}
-				value={serverIp}
+				style={{
+					borderWidth: 1,
+					width: 200,
+					textAlign: "center",
+				}}
+				onChangeText={(text) => server.setServerIp(text)}
+				value={server.serverIp}
 			/>
 			<Text>Server Port:</Text>
 			<TextInput
@@ -88,8 +89,12 @@ export default function Index() {
 					width: 200,
 					textAlign: "center",
 				}}
-				onChangeText={(text) => setServerPort(text)}
-				value={serverPort}
+				onChangeText={(text) => server.setServerPort(text)}
+				value={server.serverPort}
+			/>
+			<Button
+				title="Ping Server"
+				onPress={pingServer}
 			/>
 			<Text className="text-red-500">Login:</Text>
 			<TextInput
@@ -101,15 +106,26 @@ export default function Index() {
 				onChangeText={(text) => setLogin(text)}
 				value={login}
 			/>
-			{/* <Button
-				title="Ping Server"
-				onPress={pingServer}
+			<Text className="text-red-500">Password:</Text>
+			<TextInput
+				style={{
+					borderWidth: 1,
+					width: 200,
+					textAlign: "center",
+				}}
+				onChangeText={(text) => setPassword(text)}
+				value={password}
+				secureTextEntry={true}
+			/>
+			<Button
+				title="Login"
+				onPress={Login}
 			/>
 			<Button
 				title="SCAN NFC"
 				onPress={scanNfc}
 			/>
-			<Button
+			{/* <Button
 				title="WRITE NFC"
 				onPress={writeNfc}
 			/> */}

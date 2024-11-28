@@ -6,6 +6,7 @@ import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.service.UnitService;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_all_units.GetAllUnitsResponseModel;
+import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,16 @@ public class UnitController {
                             }
                     )
                     .toList();
+            return ResponseEntity.ok(units);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @GetMapping("/parentUnits/{id}")
+    public ResponseEntity<?> getParentUnits(@PathVariable Long id) {
+        try {
+            List<GetParentUnitsResponseUnit> units = unitService.getParentUnits(id);
             return ResponseEntity.ok(units);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");

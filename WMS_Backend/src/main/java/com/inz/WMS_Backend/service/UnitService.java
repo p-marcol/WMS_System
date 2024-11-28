@@ -9,16 +9,14 @@ import com.inz.WMS_Backend.repository.iPositionRepository;
 import com.inz.WMS_Backend.repository.iUnitRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
+import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -105,5 +103,17 @@ public class UnitService implements iUnitService {
     @Override
     public Set<Unit> getTopUnits() {
         return unitRepository.findByParentUnitIsNull();
+    }
+
+    @Override
+    public List<GetParentUnitsResponseUnit> getParentUnits(Long id) {
+        Unit unit = unitRepository.findById(id).orElseThrow();
+        List<GetParentUnitsResponseUnit> units = new ArrayList<>();
+        units.addFirst(new GetParentUnitsResponseUnit(unit.getId(), unit.getName()));
+        while (unit.getParentUnit() != null) {
+            unit = unit.getParentUnit();
+            units.addFirst(new GetParentUnitsResponseUnit(unit.getId(), unit.getName()));
+        }
+        return units;
     }
 }

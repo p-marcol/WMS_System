@@ -49,14 +49,6 @@ public class Unit {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "UNIT_MANAGER",
-            joinColumns = @JoinColumn(name = "unit_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> managers;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
             name = "UNIT_SCHEDULE",
             joinColumns = @JoinColumn(name = "unit_id"),
             inverseJoinColumns = @JoinColumn(name = "schedule_id")

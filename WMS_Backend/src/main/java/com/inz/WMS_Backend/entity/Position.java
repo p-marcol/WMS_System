@@ -4,6 +4,8 @@ import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,16 @@ public class Position {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "name_id", nullable = false)
     private PositionName positionName;
+
+    @Basic
+    @Column(name = "start_at", nullable = false)
+    private LocalDate startDate;
+
+    @Basic
+    @Column(name = "end_at")
+    private LocalDate endDate;
+
+    public boolean isManager() {
+        return positionName.getName().equals("MANAGER");
+    }
 }

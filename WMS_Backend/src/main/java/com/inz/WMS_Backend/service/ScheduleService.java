@@ -47,8 +47,49 @@ public class ScheduleService implements iScheduleService {
         return scheduleBlocksArray;
     }
 
+    private List<Schedule> getSchedulesInDateRange(List<Schedule> schedules, LocalDate startDate, LocalDate endDate, Boolean createPlaceholder) {
+        ListIterator<Schedule> iterator = schedules.listIterator();
+        List<Schedule> schedulesInRange = new ArrayList<>();
+        if (!schedules.isEmpty() && schedules.getFirst().getStartDate().isAfter(startDate)) {
+            if (createPlaceholder) {
+                schedulesInRange.add(Schedule.builder()
+                        .startDate(startDate)
+                        .endDate(schedules.getFirst().getStartDate())
+                        .scheduleBlocks(new HashSet<>())
+                        .build()
+                );
+            } else {
+                // start from the first schedule
+                Schedule schedule = iterator.next();
+                schedulesInRange.add(schedule);
+            }
+        } else {
+            while (iterator.hasNext()) {
+                Schedule schedule = iterator.next();
+                if ((schedule.getStartDate().isBefore(startDate) || schedule.getStartDate().isEqual(startDate)) && (schedule.getEndDate() == null || schedule.getEndDate().isAfter(startDate))) {
+                    schedule.setStartDate(startDate);
+                    schedulesInRange.add(schedule);
+                    break;
+                }
+            }
+        }
+        while (iterator.hasNext()) {
+            Schedule schedule = iterator.next();
+            if (schedule.getStartDate().isAfter(endDate)) {
+                break;
+            }
+            schedulesInRange.add(schedule);
+        }
+        schedules = schedulesInRange.stream().sorted(Comparator.comparing(Schedule::getStartDate)).toList();
+
+        if (!schedules.isEmpty()) {
+            schedules.getLast().setEndDate(endDate.plusDays(1)); // Przedział jest otwarty z prawej strony!
+        }
+        return schedules;
+    }
+
     @Override
-    public Calendar generateCalendarFromSchedules(List<Schedule> schedules) {
+    public Calendar generateCalendarFromSchedules(List<Schedule> schedules, Boolean fillGaps, Boolean isPrivate) {
         Calendar calendar = new Calendar();
         int id = 0;
         for (Schedule schedule : schedules) {
@@ -59,7 +100,8 @@ public class ScheduleService implements iScheduleService {
                 CalendarListItem calendarListItem = new CalendarListItem(
                         id++,
                         currentDate,
-                        new ArrayList<>()
+                        new ArrayList<>(),
+                        isPrivate
                 );
                 short currentDayOfWeek = (short) (currentDate.getDayOfWeek().getValue() % 7);
                 for (ScheduleBlock scheduleBlock : scheduleBlocksArray[currentDayOfWeek]) {
@@ -67,7 +109,9 @@ public class ScheduleService implements iScheduleService {
                     scheduleBlockListItem.setupFromScheduleBlock(scheduleBlock, currentDayOfWeek);
                     calendarListItem.addScheduleBlockListItem(scheduleBlockListItem);
                 }
-                calendar.add(calendarListItem);
+                if (fillGaps || !calendarListItem.getScheduleBlockListItems().isEmpty()) {
+                    calendar.add(calendarListItem);
+                }
                 currentDate = currentDate.plusDays(1);
             }
         }
@@ -83,28 +127,14 @@ public class ScheduleService implements iScheduleService {
     @Override
     public List<Schedule> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate) {
         List<Schedule> schedules = scheduleRepository.findAllByUnitId(unitId).stream().sorted(Comparator.comparing(Schedule::getStartDate)).toList();
-        ListIterator<Schedule> iterator = schedules.listIterator();
-        List<Schedule> schedulesInRange = new ArrayList<>();
-        while (iterator.hasNext()) {
-            Schedule schedule = iterator.next();
-            if ((schedule.getStartDate().isBefore(startDate) || schedule.getStartDate().isEqual(startDate)) && (schedule.getEndDate() == null || schedule.getEndDate().isAfter(startDate))) {
-                schedule.setStartDate(startDate);
-                schedulesInRange.add(schedule);
-                break;
-            }
-        }
-        while (iterator.hasNext()) {
-            Schedule schedule = iterator.next();
-            if (schedule.getStartDate().isAfter(endDate)) {
-                break;
-            }
-            schedulesInRange.add(schedule);
-        }
-        schedules = schedulesInRange.stream().sorted(Comparator.comparing(Schedule::getStartDate)).toList();
-        schedules.getLast().setEndDate(endDate.plusDays(1)); // Przedział jest otwarty z prawej strony!
-        return schedules;
+        return getSchedulesInDateRange(schedules, startDate, endDate, true);
     }
 
+    @Override
+    public List<Schedule> getAllUserSchedulesInDateRange(Long id, LocalDate startDate, LocalDate endDate) {
+        List<Schedule> schedules = scheduleRepository.findAllByUserId(id).stream().sorted(Comparator.comparing(Schedule::getStartDate)).toList();
+        return getSchedulesInDateRange(schedules, startDate, endDate, false);
+    }
 
     @Override
     public void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks) {

@@ -1,6 +1,8 @@
 package com.inz.WMS_Backend.service;
 
+import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.User;
+import com.inz.WMS_Backend.entity.classes.UnitWorkDates;
 import com.inz.WMS_Backend.entity.dictionaries.Authority;
 import com.inz.WMS_Backend.entity.enums.eAuthority;
 import com.inz.WMS_Backend.repository.iAuthorityRepository;
@@ -14,9 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -117,5 +118,26 @@ public class UserService implements iUserService {
     @Override
     public Collection<User> getUserByAuthorityName(String authorityName) {
         return userRepository.findAllByAuthority(authorityRepository.findByAuthority(authorityName));
+    }
+
+    @Override
+    public List<UnitWorkDates> getUserUnitsInDateRange(Long userId, LocalDate startDate, LocalDate endDate) {
+        User user = userRepository.findById(userId).orElseThrow();
+        List<UnitWorkDates> units = new ArrayList<>();
+        user.getPositions()
+                .stream().sorted(Comparator.comparing(Position::getStartDate))
+                .forEach(position -> {
+                    if (position.getStartDate().isBefore(endDate) && (position.getEndDate() == null || position.getEndDate().isAfter(startDate))) {
+                        units.add(UnitWorkDates.builder()
+                                .unitId(position.getUnit().getId())
+                                .startDate(position.getStartDate().isAfter(startDate) ? position.getStartDate() : startDate)
+                                .endDate(position.getEndDate() == null || position.getEndDate().isBefore(endDate) ? position.getEndDate() : endDate)
+                                .build());
+                    }
+                });
+        if (!units.isEmpty()) {
+            units.getLast().setEndDate(endDate);
+        }
+        return units;
     }
 }

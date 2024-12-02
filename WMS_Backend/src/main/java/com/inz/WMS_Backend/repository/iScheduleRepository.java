@@ -11,4 +11,6 @@ public interface iScheduleRepository extends JpaRepository<Schedule, Long> {
     Schedule findFirstByUnitIdOrderByStartDateDesc(Long unitId);
 
     Schedule findFirstByUserIdOrderByStartDateDesc(Long userId);
+
+    List<Schedule> findAllByUserId(Long id);
 }

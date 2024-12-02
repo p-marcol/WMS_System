@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
@@ -63,6 +64,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserPayoffData userPayoffData;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Position> positions;
+
 
     public String getAuthority() {
         return authority.getAuthority();

@@ -14,6 +14,7 @@ public class CalendarListItem {
     private long id;
     private LocalDate date;
     private List<ScheduleBlockListItem> scheduleBlockListItems;
+    private Boolean isPrivate;
 
     public void addScheduleBlockListItem(ScheduleBlockListItem scheduleBlockListItem) {
         this.scheduleBlockListItems.add(scheduleBlockListItem);

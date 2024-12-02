@@ -21,4 +21,5 @@ public class ScheduleBlockDTO {
     public LocalTime endHour;
     public Long unitId;
     public String unitName;
+    public boolean isPrivate;
 }

@@ -16,6 +16,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -34,32 +35,36 @@ public class UnitService implements iUnitService {
     @Override
     @Transactional(rollbackOn = SQLException.class)
     public void addUnit(AddUnitRequest request) {
-        Set<User> managers = new HashSet<>();
+        Set<Position> managers = new HashSet<>();
 
         request.managerIds.forEach(id -> {
             User user = userRepository.findById(id).orElseThrow();
-            managers.add(user);
+            managers.add(Position.builder()
+                    .user(user)
+                    .build());
         });
 
         Unit unit = Unit.builder()
                 .name(request.getName())
                 .parentUnit(unitRepository.findById(request.getParentUnitId()).orElse(null))
-                .managers(managers)
                 .description(request.getDescription())
-                .positions(new HashSet<>())
                 .build();
 
         unitRepository.save(unit);
 
         PositionName managerName = positionNameRepository.findByName("MANAGER");
 
-        unit.getManagers().forEach(manager -> {
-            Position position = Position.builder()
-                    .unit(unit)
-                    .user(manager)
-                    .positionName(managerName)
-                    .build();
-            positionRepository.save(position);
+        managers.forEach(manager -> {
+            // check if manager is already a manager in any unit
+            // if so, change the dates
+            Position existingManager = positionRepository.findByUserAndEndDateIsNull(manager.getUser());
+            if (existingManager != null) {
+                existingManager.setEndDate(LocalDate.now());
+                positionRepository.save(existingManager);
+            }
+            manager.setUnit(unit);
+            manager.setPositionName(managerName);
+            positionRepository.save(manager);
         });
     }
 

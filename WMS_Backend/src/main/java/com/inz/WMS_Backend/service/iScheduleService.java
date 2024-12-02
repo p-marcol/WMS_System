@@ -8,11 +8,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface iScheduleService {
+    Calendar generateCalendarFromSchedules(List<Schedule> schedules, Boolean fillGaps, Boolean isPrivate);
+
     List<Schedule> getAllUnitSchedules(Long unitId);
 
     List<Schedule> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate);
 
     void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks);
 
-    Calendar generateCalendarFromSchedules(List<Schedule> schedules);
+    List<Schedule> getAllUserSchedulesInDateRange(Long id, LocalDate startDate, LocalDate endDate);
 }

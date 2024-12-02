@@ -212,6 +212,7 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(MyInfoResponse.builder()
+                        .id(user.getId())
                         .username(user.getUsername())
                         .firstName(user.getFirstName())
                         .lastName(user.getLastName())

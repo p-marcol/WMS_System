@@ -1,7 +1,7 @@
 package com.inz.WMS_Backend.controller;
 
-import com.inz.WMS_Backend.entity.Schedule;
 import com.inz.WMS_Backend.entity.classes.Calendar;
+import com.inz.WMS_Backend.entity.classes.ScheduleWrapper;
 import com.inz.WMS_Backend.entity.classes.UnitWorkDates;
 import com.inz.WMS_Backend.service.ScheduleService;
 import com.inz.WMS_Backend.service.UserService;
@@ -64,7 +64,7 @@ public class ScheduleController {
     @GetMapping("/getUnit/{id}/{startDate}/{endDate}")
     public ResponseEntity<?> getUnitScheduleInDateRange(@PathVariable Long id, @PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
         try {
-            List<Schedule> schedules = scheduleService.getAllUnitSchedulesInDateRange(id, startDate, endDate);
+            List<ScheduleWrapper> schedules = scheduleService.getAllUnitSchedulesInDateRange(id, startDate, endDate);
             Calendar calendar = scheduleService.generateCalendarFromSchedules(schedules, true, false);
             GetCalendarViewResponse response = new GetCalendarViewResponse();
             response.setStartDate(calendar.getStartDate());
@@ -83,12 +83,12 @@ public class ScheduleController {
             List<UnitWorkDates> units = userService.getUserUnitsInDateRange(id, startDate, endDate);
             List<Calendar> unitCalendars = new ArrayList<>();
             units.forEach(unitWorkDates -> {
-                List<Schedule> schedules = scheduleService.getAllUnitSchedulesInDateRange(unitWorkDates.getUnitId(), unitWorkDates.getStartDate(), unitWorkDates.getEndDate());
+                List<ScheduleWrapper> schedules = scheduleService.getAllUnitSchedulesInDateRange(unitWorkDates.getUnitId(), unitWorkDates.getStartDate(), unitWorkDates.getEndDate());
                 Calendar unitCalendar = scheduleService.generateCalendarFromSchedules(schedules, false, false);
                 calendarView.override(unitCalendar);
             });
 
-            List<Schedule> userSchedules = scheduleService.getAllUserSchedulesInDateRange(id, startDate, endDate);
+            List<ScheduleWrapper> userSchedules = scheduleService.getAllUserSchedulesInDateRange(id, startDate, endDate);
             Calendar userCalendar = scheduleService.generateCalendarFromSchedules(userSchedules, true, true);
             calendarView.override(userCalendar);
             calendarView.fillGaps(startDate, endDate);
@@ -106,7 +106,7 @@ public class ScheduleController {
     @GetMapping("/all/unit/{id}")
     public ResponseEntity<?> getAllUnitSchedule(@PathVariable Long id) {
         try {
-            List<Schedule> schedules = scheduleService.getAllUnitSchedules(id);
+            List<ScheduleWrapper> schedules = scheduleService.getAllUnitSchedules(id);
             List<GetAllUnitSchedulesResponseListItem> response = schedules.stream()
                     .map(schedule -> GetAllUnitSchedulesResponseListItem.builder()
                             .id(schedule.getId())

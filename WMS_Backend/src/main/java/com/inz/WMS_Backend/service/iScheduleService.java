@@ -1,20 +1,20 @@
 package com.inz.WMS_Backend.service;
 
-import com.inz.WMS_Backend.entity.Schedule;
 import com.inz.WMS_Backend.entity.classes.Calendar;
+import com.inz.WMS_Backend.entity.classes.ScheduleWrapper;
 import com.inz.apimodels.schedule.ScheduleBlockDTO;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface iScheduleService {
-    Calendar generateCalendarFromSchedules(List<Schedule> schedules, Boolean fillGaps, Boolean isPrivate);
+    Calendar generateCalendarFromSchedules(List<ScheduleWrapper> schedules, Boolean fillGaps, Boolean isPrivate);
 
-    List<Schedule> getAllUnitSchedules(Long unitId);
+    List<ScheduleWrapper> getAllUnitSchedules(Long unitId);
 
-    List<Schedule> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate);
+    List<ScheduleWrapper> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate);
 
     void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks);
 
-    List<Schedule> getAllUserSchedulesInDateRange(Long id, LocalDate startDate, LocalDate endDate);
+    List<ScheduleWrapper> getAllUserSchedulesInDateRange(Long id, LocalDate startDate, LocalDate endDate);
 }

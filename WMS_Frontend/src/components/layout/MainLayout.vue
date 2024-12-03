@@ -1,6 +1,7 @@
 <script setup>
 import Sidebar from '@/components/layout/SideBar.vue'
 import TopBar from '@/components/layout/TopBar.vue'
+import { computed } from 'vue'
 </script>
 
 <template>
@@ -21,7 +22,12 @@ export default {
             user: null,
         }
     },
-    async beforeMount() {
+    provide() {
+        return {
+            user: computed(() => this.user),
+        }
+    },
+    async created() {
         await this.getUserData()
     },
     methods: {
@@ -31,10 +37,13 @@ export default {
                 .then((res) => {
                     if (res.data) {
                         this.user = {
-                            shortName: res.data.shortName,
+                            id: res.data.id,
                             username: res.data.username,
-                            role: res.data.authority,
+                            firstName: res.data.firstName,
+                            lastName: res.data.lastName,
+                            shortName: res.data.shortName,
                             email: res.data.email,
+                            role: res.data.authority,
                         }
                     }
                 })

@@ -66,5 +66,14 @@
         "fieldRequired": "This field is required",
         "invalidFormat": "Invalid format",
         "cantChangeHere": "You can't change this here"
+    },
+    "weekday": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
     }
 }

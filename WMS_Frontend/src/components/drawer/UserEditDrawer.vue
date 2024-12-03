@@ -100,14 +100,44 @@ export default {
             })
         },
         save() {
-            this.$toast.add({
-                severity: 'success',
-                summary: this.$t('form.saved'),
-                life: 3000,
-            })
+            if (!this.isDirty()) {
+                this.$toast.add({
+                    severity: 'info',
+                    summary: this.$t('form.noChanges'),
+                    life: 3000,
+                })
+                return
+            }
+            this.axios
+                .post('/user/upsertDetails', {
+                    userId: this.user.id,
+                    email: this.editUser.email,
+                    firstName: this.editUser.firstName,
+                    lastName: this.editUser.lastName,
+                    phoneNumber: this.editUser.phone,
+                    dateOfBirth: this.editUser.birthdate,
+                })
+                .then((res) => {
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: this.$t('form.saved'),
+                        life: 3000,
+                    })
+                    this.$emit('save')
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.warn(err)
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: this.$t('form.error'),
+                        detail: err.response.data,
+                        life: 3000,
+                    })
+                })
         },
         cancel() {
-            const dirty = this.isDirty
+            const dirty = this.isDirty()
             this.$toast.add({
                 severity: 'info',
                 summary: this.$t('form.canceled'),

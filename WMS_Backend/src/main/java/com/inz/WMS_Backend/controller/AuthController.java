@@ -203,11 +203,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        String firstName = user.getFirstName(); // nullable
-        String lastName = user.getLastName(); // nullable
-
-        String shortName = firstName != null || lastName != null ?
-                firstName + " " + lastName.charAt(0) + "." : user.getUsername();
+        String shortName = user.getShortName();
 
         return ResponseEntity
                 .status(HttpStatus.OK)

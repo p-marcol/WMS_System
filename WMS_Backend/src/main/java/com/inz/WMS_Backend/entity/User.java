@@ -88,4 +88,9 @@ public class User {
     public boolean isArchivable() {
         return !getAuthority().toUpperCase().equals(eAuthority.NEW_USER.name());
     }
+
+    public String getShortName() {
+        return firstName != null || lastName != null ?
+                firstName + " " + lastName.charAt(0) + "." : username;
+    }
 }

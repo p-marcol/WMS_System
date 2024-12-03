@@ -1,6 +1,8 @@
 package com.inz.WMS_Backend.controller;
 
 import com.inz.WMS_Backend.entity.Position;
+import com.inz.WMS_Backend.entity.Unit;
+import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.service.UnitService;
@@ -8,11 +10,14 @@ import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_all_units.GetAllUnitsResponseModel;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
+import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersListItem;
+import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -25,6 +30,45 @@ public class UnitController {
     private final UnitService unitService;
     private final iPositionNameRepository positionNameRepository;
 
+    @GetMapping("/my")
+    public ResponseEntity<?> getMyUnit() {
+        try {
+            Unit unit = unitService.getMyUnit();
+            return ResponseEntity.ok(unit);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @GetMapping("/my/workers")
+    public ResponseEntity<?> getMyUnitWorkers() {
+        try {
+            Unit unit = unitService.getMyUnit();
+            List<Position> workers = unitService.getUnitPositions(unit.getId());
+            List<GetUnitWorkersListItem> workersList = new ArrayList<>();
+            workers.forEach(position -> {
+                        User user = position.getUser();
+                        workersList.add(GetUnitWorkersListItem.builder()
+                                .userId(user.getId())
+                                .firstName(user.getFirstName())
+                                .lastName(user.getLastName())
+                                .shortName(user.getShortName())
+                                .position(position.getPositionName().getName())
+                                .build()
+                        );
+                    }
+            );
+            GetUnitWorkersResponse response = GetUnitWorkersResponse.builder()
+                    .unitId(unit.getId())
+                    .unitName(unit.getName())
+                    .workers(workersList)
+                    .build();
+            return ResponseEntity.ok(workersList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
     /**
      * @return list of all units with their worker and manager count
      */
@@ -32,7 +76,7 @@ public class UnitController {
     public ResponseEntity<?> getAllUnits() {
         try {
             List<GetAllUnitsResponseModel> units = unitService.getAllUnits().stream().map(unit -> {
-                        PositionName pManager = positionNameRepository.findByName("MANAGER");
+                                PositionName pManager = positionNameRepository.findByName("MANAGER");
                                 Set<Position> positions = unit.getPositions();
                                 long workerCount = positions.size();
                                 long managerCount = 0;
@@ -67,7 +111,7 @@ public class UnitController {
         }
     }
 
-    // units are top level when parent is null
+// units are top level when parent is null
 
     /**
      * @return list of top level units

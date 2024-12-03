@@ -1,6 +1,8 @@
 package com.inz.WMS_Backend.service;
 
+import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.Unit;
+import com.inz.WMS_Backend.entity.User;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 
@@ -25,4 +27,8 @@ public interface iUnitService {
     Set<Unit> getTopUnits();
 
     List<GetParentUnitsResponseUnit> getParentUnits(Long id);
+
+    Unit getMyUnit();
+
+    List<Position> getUnitPositions(Long id);
 }

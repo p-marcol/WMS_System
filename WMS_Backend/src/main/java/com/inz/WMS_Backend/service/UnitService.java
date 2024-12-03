@@ -8,6 +8,7 @@ import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.repository.iPositionRepository;
 import com.inz.WMS_Backend.repository.iUnitRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
+import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import jakarta.transaction.Transactional;
@@ -120,5 +121,22 @@ public class UnitService implements iUnitService {
             units.addFirst(new GetParentUnitsResponseUnit(unit.getId(), unit.getName()));
         }
         return units;
+    }
+
+    @Override
+    public Unit getMyUnit() {
+        try {
+            org.springframework.security.core.userdetails.User user = JwtTokenUtils.getUserFromContext();
+            User dbUser = userRepository.findByUsernameIgnoreCase(user.getUsername());
+            Position position = positionRepository.findByUserAndEndDateIsNull(dbUser);
+            return position.getUnit();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    @Override
+    public List<Position> getUnitPositions(Long id) {
+        return positionRepository.findByUnitId(id);
     }
 }

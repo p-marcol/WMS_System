@@ -34,8 +34,8 @@ public class ScheduleController {
             calendarListItem.getScheduleBlockListItems().forEach(scheduleBlockListItem -> {
                 responseListItems.add(GetCalendarViewResponseScheduleBlockListItem.builder()
                         .isMultiDay(scheduleBlockListItem.isMultiDay())
-                        .startHour(scheduleBlockListItem.getStartHour().toString())
-                        .endHour(scheduleBlockListItem.getEndHour().toString())
+                        .startHour(scheduleBlockListItem.getStartHour().toLocalTime().toString())
+                        .endHour(scheduleBlockListItem.getEndHour().toLocalTime().toString())
                         .unitName(scheduleBlockListItem.getUnit().getName())
                         .isPrivate(calendarListItem.getIsPrivate() ? true : null)
                         .build()

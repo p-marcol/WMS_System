@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

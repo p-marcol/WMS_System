@@ -3,26 +3,35 @@ import i18nMesssages from '@/assets/localization/i18nMain'
 </script>
 
 <template>
-    <div>
-        <h3>Locale change</h3>
-        <select v-model="$i18n.locale">
-            <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">
-                {{ lang }}
-            </option>
-        </select>
-    </div>
+    <select @change="updateLocale" v-model="$i18n.locale">
+        <option v-for="(locale, i) in locales" :key="`locale-${i}`" :value="locale">
+            {{ locale.toUpperCase() }}
+        </option>
+    </select>
 </template>
 
 <script>
 export default {
-    created() {
-        // console.log(i18nMesssages)
-        this.langs = Object.keys(i18nMesssages)
-    },
+    name: 'LocaleChanger',
     data() {
         return {
-            langs: [],
+            locales: [],
         }
+    },
+    created() {
+        this.locales = Object.keys(i18nMesssages)
+    },
+    mounted() {
+        if (sessionStorage.getItem('locale')) {
+            this.$i18n.locale = localStorage.getItem('locale')
+        } else {
+            localStorage.setItem('locale', this.$i18n.locale)
+        }
+    },
+    methods: {
+        updateLocale() {
+            localStorage.setItem('locale', this.$i18n.locale)
+        },
     },
 }
 </script>

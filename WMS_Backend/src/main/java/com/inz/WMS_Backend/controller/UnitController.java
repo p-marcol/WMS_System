@@ -12,6 +12,7 @@ import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
 import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersListItem;
 import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersResponse;
+import com.inz.apimodels.unit.my_unit.GetMyUnitInfoResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,11 @@ public class UnitController {
     public ResponseEntity<?> getMyUnit() {
         try {
             Unit unit = unitService.getMyUnit();
-            return ResponseEntity.ok(unit);
+            GetMyUnitInfoResponse response = GetMyUnitInfoResponse.builder()
+                    .unitId(unit.getId())
+                    .unitName(unit.getName())
+                    .build();
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");
         }

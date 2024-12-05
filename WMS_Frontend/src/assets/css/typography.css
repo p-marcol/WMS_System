@@ -125,6 +125,15 @@
     line-height: normal;
     letter-spacing: normal;
 }
+.Label-P1-Bold {
+    font-family: OpenSans-Bold;
+    font-size: 2rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
 .Input-text-P1 {
     font-family: OpenSans !important;
     font-size: 1.2rem !important;
@@ -156,6 +165,15 @@
     font-family: OpenSans;
     font-size: 1.25rem;
     font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+.Label-P3-SemiBold {
+    font-family: OpenSans-SemiBold;
+    font-size: 1.25rem;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;

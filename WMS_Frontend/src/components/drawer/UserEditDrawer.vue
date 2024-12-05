@@ -82,7 +82,7 @@ export default {
             .get('/authority/all')
             .then((res) => {
                 this.authorities = res.data
-                console.log(this.authorities)
+                // console.log(this.authorities)
             })
             .catch((err) => {
                 console.warn(err)

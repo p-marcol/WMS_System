@@ -16,7 +16,7 @@ import i18nMesssages from '@/assets/localization/i18nMain'
 <script>
 export default {
     created() {
-        console.log(i18nMesssages)
+        // console.log(i18nMesssages)
         this.langs = Object.keys(i18nMesssages)
     },
     data() {

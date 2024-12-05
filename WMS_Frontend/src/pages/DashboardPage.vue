@@ -1,17 +1,15 @@
 <script setup>
 import MainLayout from '@/components/layout/MainLayout.vue'
 import CardContainer from '@/components/CardContainer.vue'
-import LocaleChanger from '@/components/LocaleChanger.vue'
+// import LocaleChanger from '@/components/LocaleChanger.vue'
 import ScheduleCard from '@/components/cards/ScheduleCard.vue'
+import TeamCard from '@/components/cards/TeamCard.vue'
 </script>
 
 <template>
+    <!-- <LocaleChanger /> -->
     <MainLayout>
-        <CardContainer :title="$t('card.yourTeam')" id="yourTeam" :loading="false">
-            <p>Card content</p>
-            <button @click="show">Show Toast</button>
-            <LocaleChanger />
-        </CardContainer>
+        <TeamCard id="yourTeam" />
         <ScheduleCard id="schedule" />
         <CardContainer :title="$t('card.timesheet')" id="timesheet" :loading="true">
             <p>Card content</p>
@@ -26,16 +24,6 @@ export default {
         return {
             scheduleLoading: false,
         }
-    },
-    methods: {
-        show() {
-            this.$toast.add({
-                severity: 'success',
-                summary: 'Test Message',
-                detail: 'Message Content',
-                life: 3000,
-            })
-        },
     },
 }
 </script>

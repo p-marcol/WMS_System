@@ -1,10 +1,6 @@
-<script setup>
-import Select from 'primevue/select'
-</script>
-
 <template>
     <div id="top-bar">
-        <Select v-model="selectedOption" :options="options" :optionLabel="value" />
+        <p class="Topbar-info">{{ teamName }}</p>
         <p class="Topbar-user-P1">{{ this.userShortName }}</p>
     </div>
 </template>
@@ -17,6 +13,18 @@ export default {
             type: Object,
             required: true,
         },
+        team: {
+            type: String,
+            required: true,
+        },
+    },
+    computed: {
+        teamName() {
+            if (this.team === null) {
+                return ''
+            }
+            return this.team.unitName
+        },
     },
     watch: {
         user() {
@@ -25,12 +33,6 @@ export default {
     },
     data() {
         return {
-            options: [
-                { label: 'Option 1', value: 1 },
-                { label: 'Option 2', value: 2 },
-                { label: 'Option 3', value: 3 },
-            ],
-            selectedOption: null,
             userShortName: null,
         }
     },

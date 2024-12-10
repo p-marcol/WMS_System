@@ -7,7 +7,7 @@ import { computed } from 'vue'
 <template>
     <Sidebar :user="user" />
     <main>
-        <TopBar :user="user" />
+        <TopBar :user="user" :team="unit" />
         <div id="dashboard">
             <slot />
         </div>
@@ -20,6 +20,7 @@ export default {
     data() {
         return {
             user: null,
+            unit: null,
         }
     },
     provide() {
@@ -27,8 +28,9 @@ export default {
             user: computed(() => this.user),
         }
     },
-    async created() {
-        await this.getUserData()
+    async mounted() {
+        this.getUserData()
+        this.getMyUnit()
     },
     methods: {
         async getUserData() {
@@ -49,6 +51,17 @@ export default {
                 })
                 .catch(() => {
                     this.$router.push('/login')
+                })
+        },
+        async getMyUnit() {
+            await this.axios
+                .get('/unit/my')
+                .then((res) => {
+                    console.log(res.data)
+                    this.unit = res.data
+                })
+                .catch((err) => {
+                    console.error(err)
                 })
         },
     },

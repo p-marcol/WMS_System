@@ -18,10 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/unit")
@@ -152,7 +149,7 @@ public class UnitController {
                             .description(unit.getDescription())
                             .subunitCount((long) unit.getSubunits().size())
                             .build())
-                    .toList();
+                    .toList().stream().sorted(Comparator.comparing(u -> u.id)).toList();
             return ResponseEntity.ok(subunits);
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found");

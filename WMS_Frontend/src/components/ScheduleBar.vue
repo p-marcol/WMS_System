@@ -1,8 +1,5 @@
 <template>
-    <div class="bar" :style="style">
-        {{ roundDateTimeToQuarter(this.startHour).gridVal }} -
-        {{ roundDateTimeToQuarter(this.endHour).gridVal }}
-    </div>
+    <div class="bar" :style="style"></div>
 </template>
 
 <script>
@@ -21,7 +18,7 @@ export default {
                     borderRadius = '0 1rem 1rem 0'
                 }
             }
-            const gridArea = `${day} / ${start.gridVal + 1} / span 1 / ${end.gridVal}`
+            const gridArea = `${day} / ${start.gridVal + 1} / span 1 / ${end.gridVal + 1}`
             return {
                 gridArea: gridArea,
                 borderRadius: borderRadius,
@@ -44,6 +41,10 @@ export default {
         multiday: {
             type: Boolean,
             default: false,
+        },
+        scheduleItem: {
+            type: Object,
+            default: null,
         },
     },
     methods: {

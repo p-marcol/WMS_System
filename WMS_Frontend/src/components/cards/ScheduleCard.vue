@@ -49,6 +49,7 @@ import ScheduleBar from '../ScheduleBar.vue'
                     :startHour="scheduleItem.startHour"
                     :endHour="scheduleItem.endHour"
                     :multiday="scheduleItem.isMultiDay"
+                    :scheduleItem="scheduleItem"
                 />
             </div>
         </div>
@@ -152,15 +153,13 @@ export default {
 
 #weekdays {
     grid-template-columns: 1fr;
-    grid-area: 'weekdays';
 }
 
 #scheduleGrid {
     margin: 0 0.5rem 0 0.35rem;
-    grid-area: 'scheduleGrid';
     position: relative;
     flex-grow: 1;
-    grid-template-columns: auto repeat(96, 1fr);
+    grid-template-columns: repeat(96, 1fr);
     gap: 2px;
 }
 

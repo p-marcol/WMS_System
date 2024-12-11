@@ -52,7 +52,9 @@ export default {
 
 .card > #cardHeader {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
     align-items: center;
     justify-content: space-between;
 }

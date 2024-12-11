@@ -1,9 +1,9 @@
 <script setup>
 import MainLayout from '@/components/layout/MainLayout.vue'
-import CardContainer from '@/components/CardContainer.vue'
 // import LocaleChanger from '@/components/LocaleChanger.vue'
 import ScheduleCard from '@/components/cards/ScheduleCard.vue'
 import TeamCard from '@/components/cards/TeamCard.vue'
+import TimesheetCard from '@/components/cards/TimesheetCard.vue'
 </script>
 
 <template>
@@ -11,9 +11,7 @@ import TeamCard from '@/components/cards/TeamCard.vue'
     <MainLayout>
         <TeamCard id="yourTeam" />
         <ScheduleCard id="schedule" />
-        <CardContainer :title="$t('card.timesheet')" id="timesheet" :loading="true">
-            <p>Card content</p>
-        </CardContainer>
+        <TimesheetCard id="timesheet" />
     </MainLayout>
 </template>
 
@@ -21,9 +19,7 @@ import TeamCard from '@/components/cards/TeamCard.vue'
 export default {
     name: 'DashboardPage',
     data() {
-        return {
-            scheduleLoading: false,
-        }
+        return {}
     },
 }
 </script>

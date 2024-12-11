@@ -10,12 +10,6 @@ import ScheduleBar from '../ScheduleBar.vue'
             <span class="Text-P1-bold">{{ this.startDate }} - {{ this.endDate }} </span>
         </template>
         <div class="scheduleContainer">
-            <div id="hours">
-                <span class="Label-P3">0</span>
-                <span class="Label-P3">8</span>
-                <span class="Label-P3">16</span>
-                <span class="Label-P3">24</span>
-            </div>
             <div id="weekdays" class="weekgrid">
                 <span class="day Label-P1">
                     {{ $t('weekday.monday') }}
@@ -41,7 +35,12 @@ import ScheduleBar from '../ScheduleBar.vue'
             </div>
             <div id="scheduleGrid" class="weekgrid">
                 <div id="background">
-                    <div v-for="i in 24" :key="i" :style="{ gridColumn: i }" />
+                    <div v-for="i in 24" :key="i" :style="{ gridColumn: i }">
+                        <span class="hour Label-P3">{{ (i - 1) % 8 === 0 ? i - 1 : '' }}</span>
+                    </div>
+                    <div class="label24">
+                        <span class="Label-P3 hour">24</span>
+                    </div>
                 </div>
                 <ScheduleBar
                     v-for="scheduleItem in schedule"
@@ -130,19 +129,25 @@ export default {
 
 <style scoped>
 .scheduleContainer {
+    padding-top: 1.2rem;
     display: grid;
-    grid-template-rows: auto 1fr;
     grid-template-columns: auto 1fr;
     gap: 0.5rem;
     height: 100%;
     width: 100%;
 }
 
-#hours {
-    grid-column-start: 2;
-    display: grid;
-    grid-template-columns: repeat(4, auto);
-    justify-content: space-between;
+.hour {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    top: 0;
+}
+
+.label24 {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    border: none !important;
 }
 
 #weekdays {

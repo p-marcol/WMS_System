@@ -64,5 +64,11 @@ export default {
 .bar {
     background-color: var(--color-secondary);
     height: 50%;
+    z-index: 1;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.bar:hover {
+    box-shadow: 0 0 0.5rem 0 var(--color-dark);
 }
 </style>

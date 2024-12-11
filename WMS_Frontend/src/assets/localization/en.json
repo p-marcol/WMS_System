@@ -52,7 +52,13 @@
         }
     },
     "table": {
-        "actions": "Actions"
+        "actions": "Actions",
+        "date": "Date",
+        "description": "Description",
+        "duration": "Duration",
+        "durationHours": "Duration (hours)",
+        "unit": "Unit",
+        "approved": "Approved"
     },
     "filter": {
         "clear": "Clear filters",

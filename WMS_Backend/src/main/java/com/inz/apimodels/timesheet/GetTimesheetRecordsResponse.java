@@ -12,6 +12,8 @@ import lombok.Setter;
 public class GetTimesheetRecordsResponse {
     public Long id;
     public String name;
+    public String unit;
+    public String description;
     public String date;
     public Double hours;
     public Boolean approved;

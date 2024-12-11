@@ -29,6 +29,8 @@ public class TimesheetController {
                     GetTimesheetRecordsResponse.builder()
                             .id(record.getId())
                             .name(record.getUser().getUsername())
+                            .unit(record.getUnit().getName())
+                            .description(record.getDescription())
                             .date(record.getDate().toString())
                             .hours(record.getHours())
                             .approved(record.getApproved())

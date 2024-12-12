@@ -58,23 +58,4 @@ export default {
     align-items: center;
     justify-content: space-between;
 }
-
-* {
-    scrollbar-width: auto;
-    scrollbar-color: var(--color-secondary) rgba(0, 0, 0, 0);
-}
-
-*::-webkit-scrollbar {
-    width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0);
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: var(--color-secondary);
-    border-radius: 10px;
-    border: 4px solid rgba(0, 0, 0, 0);
-}
 </style>

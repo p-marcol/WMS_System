@@ -9,57 +9,63 @@ import Dropdown from 'primevue/dropdown'
 </script>
 
 <template>
-    <div class="wms-col-2">
-        <ItemLabel :label="$t('users.id')">
-            <div class="Header-P4" id="id">{{ user.id }}</div>
-        </ItemLabel>
-        <ItemLabel :label="$t('users.status')">
-            <div class="Header-P4" id="archived">
-                <div class="wms-row">
-                    <Checkbox
-                        v-model="editUser.isArchived"
-                        :true-value="false"
-                        :false-value="true"
-                        :binary="true"
-                        :readonly="true"
-                        @click="cantChangeHere"
-                    />
-                    {{ user.isArchived ? $t('users.archived') : $t('users.active') }}
+    <div class="wms-drawer-content">
+        <div class="wms-col-2">
+            <ItemLabel :label="$t('users.id')">
+                <div class="Header-P4" id="id">{{ user.id }}</div>
+            </ItemLabel>
+            <ItemLabel :label="$t('users.status')">
+                <div class="Header-P4" id="archived">
+                    <div class="wms-row">
+                        <Checkbox
+                            v-model="editUser.isArchived"
+                            :true-value="false"
+                            :false-value="true"
+                            :binary="true"
+                            :readonly="true"
+                            @click="cantChangeHere"
+                        />
+                        {{ user.isArchived ? $t('users.archived') : $t('users.active') }}
+                    </div>
                 </div>
-            </div>
-        </ItemLabel>
-    </div>
-    <div class="wms-col-2">
-        <ItemLabel :label="$t('users.username')">
-            <div class="Header-P4" id="username">{{ user.username }}</div>
-        </ItemLabel>
-    </div>
-    <div class="wms-col-2">
-        <InputContainer :label="$t('users.firstName')" label-for="firstName">
-            <InputText id="firstName" v-model="editUser.firstName" :readonly="user.isArchived" />
+            </ItemLabel>
+        </div>
+        <div class="wms-col-2">
+            <ItemLabel :label="$t('users.username')">
+                <div class="Header-P4" id="username">{{ user.username }}</div>
+            </ItemLabel>
+        </div>
+        <div class="wms-col-2">
+            <InputContainer :label="$t('users.firstName')" label-for="firstName">
+                <InputText
+                    id="firstName"
+                    v-model="editUser.firstName"
+                    :readonly="user.isArchived"
+                />
+            </InputContainer>
+            <InputContainer :label="$t('users.lastName')" label-for="lastName">
+                <InputText id="lastName" v-model="editUser.lastName" :readonly="user.isArchived" />
+            </InputContainer>
+        </div>
+        <InputContainer v-if="!user.isArchived" :label="$t('users.email')" required>
+            <InputText id="email" v-model="editUser.email" :readonly="user.isArchived" />
         </InputContainer>
-        <InputContainer :label="$t('users.lastName')" label-for="lastName">
-            <InputText id="lastName" v-model="editUser.lastName" :readonly="user.isArchived" />
+        <InputContainer :label="$t('users.birthdate')" :label-for="birthdate">
+            <DatePicker id="birthdate" v-model="editUser.birthdate" :readonly="user.isArchived" />
         </InputContainer>
+        <InputContainer :label="$t('users.phone')" :label-for="phone">
+            <InputText id="phone" v-model="editUser.phone" :readonly="user.isArchived" />
+        </InputContainer>
+        <InputContainer :label="$t('users.authority')" :label-for="authority">
+            <Dropdown
+                v-model="editUser.authorityId"
+                :options="authorities"
+                option-label="authority"
+                option-value="id"
+            />
+        </InputContainer>
+        <SaveCancelButtons @cancel="cancel" @save="save" />
     </div>
-    <InputContainer v-if="!user.isArchived" :label="$t('users.email')" required>
-        <InputText id="email" v-model="editUser.email" :readonly="user.isArchived" />
-    </InputContainer>
-    <InputContainer :label="$t('users.birthdate')" :label-for="birthdate">
-        <DatePicker id="birthdate" v-model="editUser.birthdate" :readonly="user.isArchived" />
-    </InputContainer>
-    <InputContainer :label="$t('users.phone')" :label-for="phone">
-        <InputText id="phone" v-model="editUser.phone" :readonly="user.isArchived" />
-    </InputContainer>
-    <InputContainer :label="$t('users.authority')" :label-for="authority">
-        <Dropdown
-            v-model="editUser.authorityId"
-            :options="authorities"
-            option-label="authority"
-            option-value="id"
-        />
-    </InputContainer>
-    <SaveCancelButtons @cancel="cancel" @save="save" />
 </template>
 
 <script>

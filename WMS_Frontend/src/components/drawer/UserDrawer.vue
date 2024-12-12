@@ -5,15 +5,15 @@ import UserDetailsDrawer from '@/components/drawer/UserDetailsDrawer.vue'
 </script>
 
 <template>
-    <div class="wms-drawer-content">
-        <template v-if="!loading">
-            <UserDetailsDrawer v-if="!edit" :user="user" />
-            <UserEditDrawer v-else :user="user" />
-        </template>
-        <template v-else>
+    <template v-if="!loading">
+        <UserDetailsDrawer v-if="!edit" :user="user" />
+        <UserEditDrawer v-else :user="user" />
+    </template>
+    <template v-else>
+        <div class="wms-drawer-content">
             <ProgressSpinner style="justify-self: center; align-self: center" stroke-width="5" />
-        </template>
-    </div>
+        </div>
+    </template>
 </template>
 
 <script>

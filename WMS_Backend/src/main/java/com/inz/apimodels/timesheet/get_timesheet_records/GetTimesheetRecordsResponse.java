@@ -1,4 +1,4 @@
-package com.inz.apimodels.timesheet;
+package com.inz.apimodels.timesheet.get_timesheet_records;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

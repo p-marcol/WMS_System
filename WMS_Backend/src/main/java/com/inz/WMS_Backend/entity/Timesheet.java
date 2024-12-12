@@ -7,7 +7,6 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -53,4 +52,9 @@ public class Timesheet {
     @ManyToOne
     @JoinColumn(name = "approved_by")
     private User approvedBy;
+
+    public Timesheet() {
+        this.approved = false;
+        this.rejected = false;
+    }
 }

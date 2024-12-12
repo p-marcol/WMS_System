@@ -1,11 +1,13 @@
 package com.inz.WMS_Backend.service;
 
 import com.inz.WMS_Backend.entity.Timesheet;
+import com.inz.WMS_Backend.entity.Unit;
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.repository.iTimesheetRepository;
+import com.inz.WMS_Backend.repository.iUnitRepository;
 import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.WMS_Backend.security.JwtTokenUtils;
-import jakarta.transaction.Transactional;
+import com.inz.apimodels.timesheet.add_new_record.AddNewRecordRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,20 @@ public class TimesheetService implements iTimesheetService {
 
     private final iTimesheetRepository timesheetRepository;
     private final iUserRepository userRepository;
+    private final iUnitRepository unitRepository;
+
+    @Override
+    public void addNewRecord(AddNewRecordRequest request) {
+        Timesheet timesheet = new Timesheet();
+        Unit unit = unitRepository.findById(request.getUnitId()).orElseThrow();
+        User user = userRepository.findByUsernameIgnoreCase(JwtTokenUtils.getUserFromContext().getUsername());
+        timesheet.setUnit(unit);
+        timesheet.setUser(user);
+        timesheet.setHours(request.getHours());
+        timesheet.setDate(request.getDate());
+        timesheet.setDescription(request.getDescription());
+        timesheetRepository.save(timesheet);
+    }
 
     @Override
     public List<Timesheet> getMyTimesheet(LocalDate date) {

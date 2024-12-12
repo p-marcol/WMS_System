@@ -1,5 +1,6 @@
 package com.inz.WMS_Backend.entity;
 
+import com.inz.WMS_Backend.entity.dictionaries.AccessCardType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,4 +24,11 @@ public class AccessCard {
     @Basic
     @Column(name = "card_uid", nullable = false, length = 64, unique = true)
     private String cardUid;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "card_type_id", nullable = false)
+    private AccessCardType type;
+
+    @Basic
+    private String description;
 }

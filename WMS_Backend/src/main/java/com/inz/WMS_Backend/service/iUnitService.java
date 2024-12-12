@@ -28,6 +28,8 @@ public interface iUnitService {
 
     List<GetParentUnitsResponseUnit> getParentUnits(Long id);
 
+    Unit getCurrentUnit(User user);
+
     Unit getMyUnit();
 
     List<Position> getUnitPositions(Long id);

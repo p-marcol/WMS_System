@@ -1,7 +1,9 @@
 package com.inz.WMS_Backend.controller;
 
+import com.inz.WMS_Backend.entity.Unit;
 import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.entity.enums.eAuthority;
+import com.inz.WMS_Backend.service.UnitService;
 import com.inz.WMS_Backend.service.UserService;
 import com.inz.apimodels.user.change_authority.ChangeAuthorityRequest;
 import com.inz.apimodels.user.get_all_users.GetAllUsersResponseModel;
@@ -22,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UnitService unitService;
 
     @PostMapping("/upsertDetails")
     public ResponseEntity<?> upsertDetails(@RequestBody @Valid UpsertDetailsRequest request) {
@@ -78,6 +81,7 @@ public class UserController {
     public ResponseEntity<?> getDetails(@PathVariable Long id) {
         try {
             User user = userService.findById(id);
+            Unit unit = unitService.getCurrentUnit(user);
             return ResponseEntity.status(HttpStatus.OK).body(
                     GetDetailsResponse.builder()
                             .id(user.getId())
@@ -90,6 +94,7 @@ public class UserController {
                             .isArchived(user.isArchived())
                             .authorityName(user.getAuthority())
                             .authorityId(user.getAuthorityId())
+                            .currentUnit(unit != null ? unit.getName() : null)
                             .build()
             );
         } catch (NullPointerException e) {

@@ -124,6 +124,15 @@ public class UnitService implements iUnitService {
     }
 
     @Override
+    public Unit getCurrentUnit(User user) {
+        Position position = positionRepository.findByUserAndEndDateIsNull(user);
+        if (position == null) {
+            return null;
+        }
+        return position.getUnit();
+    }
+
+    @Override
     public Unit getMyUnit() {
         try {
             org.springframework.security.core.userdetails.User user = JwtTokenUtils.getUserFromContext();

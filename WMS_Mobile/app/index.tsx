@@ -32,8 +32,6 @@ export default function Index() {
 				password: password,
 			})
 			.then((response) => {
-				alert(`Login successful`);
-
 				auth.setToken(response.data.token);
 				auth.setRefreshToken(response.data.refreshToken);
 

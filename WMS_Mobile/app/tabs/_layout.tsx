@@ -1,25 +1,21 @@
-import { useContext, useLayoutEffect } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { Tabs } from "expo-router";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
-import { serverContext, ServerContextType } from "@/providers/server";
+import { authContext, AuthContextType } from "@/providers/auth";
 
 export default function TabLayout() {
-	const { getPath } = useContext(serverContext)! as ServerContextType;
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
+	const { setUserInfo } = useContext(authContext)! as AuthContextType;
 
-	const whoami = async () => {
+	useLayoutEffect(() => {
 		axios
-			.get(`${getPath()}/auth/getMyInfo`)
+			.get(`/auth/getMyInfo`)
 			.then((response) => {
-				console.log(response.data);
+				setUserInfo(response.data);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
-	};
-
-	useLayoutEffect(() => {
-		whoami();
 	}, []);
 
 	return (

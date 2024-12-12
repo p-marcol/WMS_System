@@ -1,7 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { createContext, useContext, ReactNode } from "react";
 import { authContext, AuthContextType } from "./auth";
-import { serverContext, ServerContextType } from "./server";
 
 export type AxiosContextType = {
 	axios: AxiosInstance;
@@ -11,10 +10,9 @@ export const axiosContext = createContext<AxiosContextType | null>(null);
 
 export function AxiosProvider({ children }: { children: ReactNode }) {
 	const auth = useContext(authContext)! as AuthContextType;
-	const server = useContext(serverContext)! as ServerContextType;
 
 	const axiosInstance = axios.create({
-		baseURL: "",
+		baseURL: `http://${process.env.EXPO_PUBLIC_SERVER_ADDRESS}:${process.env.EXPO_PUBLIC_SERVER_PORT}`,
 	});
 
 	axiosInstance.interceptors.request.use(
@@ -45,7 +43,7 @@ export function AxiosProvider({ children }: { children: ReactNode }) {
 				originalRequest._retry = true;
 				await axios
 					.post(
-						`${server.getPath()}/auth/refresh`,
+						`http://${process.env.EXPO_PUBLIC_SERVER_ADDRESS}:${process.env.EXPO_PUBLIC_SERVER_PORT}/auth/refresh`,
 						{},
 						{
 							headers: {

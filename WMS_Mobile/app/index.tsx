@@ -2,13 +2,11 @@ import { useState, useContext } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import NfcManager, { NfcTech, Ndef } from "react-native-nfc-manager";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
-import { serverContext, ServerContextType } from "@/providers/server";
 import { authContext, AuthContextType } from "@/providers/auth";
 import { router } from "expo-router";
 
 export default function Index() {
-	const axios = useContext(axiosContext)!.axios;
-	const server = useContext(serverContext)! as ServerContextType;
+	const { axios } = useContext(axiosContext)! as AxiosContextType;
 	const auth = useContext(authContext)! as AuthContextType;
 
 	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
@@ -17,7 +15,7 @@ export default function Index() {
 
 	const pingServer = async () => {
 		axios
-			.get(`${server.getPath()}/connection/ping`)
+			.get(`/connection/ping`)
 			.then((response) => {
 				alert(`Server responded with: ${response.data}`);
 			})
@@ -29,13 +27,12 @@ export default function Index() {
 
 	const Login = async () => {
 		axios
-			.post(`${server.getPath()}/auth/login`, {
+			.post(`/auth/login`, {
 				username: login,
 				password: password,
 			})
 			.then((response) => {
 				alert(`Login successful`);
-				console.log(response.data);
 
 				auth.setToken(response.data.token);
 				auth.setRefreshToken(response.data.refreshToken);
@@ -65,54 +62,20 @@ export default function Index() {
 	};
 
 	return (
-		<View
-			style={{
-				flex: 1,
-				justifyContent: "center",
-				alignItems: "center",
-			}}
-		>
-			<Text>Server IP:</Text>
-			<TextInput
-				style={{
-					borderWidth: 1,
-					width: 200,
-					textAlign: "center",
-				}}
-				onChangeText={(text) => server.setServerIp(text)}
-				value={server.serverIp}
-			/>
-			<Text>Server Port:</Text>
-			<TextInput
-				style={{
-					borderWidth: 1,
-					width: 200,
-					textAlign: "center",
-				}}
-				onChangeText={(text) => server.setServerPort(text)}
-				value={server.serverPort}
-			/>
+		<View className="bg-gray-userAccent flex-1 justify-center items-center">
 			<Button
 				title="Ping Server"
 				onPress={pingServer}
 			/>
-			<Text className="text-red-500">Login:</Text>
+			<Text className="text-adminAccent">Login:</Text>
 			<TextInput
-				style={{
-					borderWidth: 1,
-					width: 200,
-					textAlign: "center",
-				}}
+				className="text-center border w-[60vw]"
 				onChangeText={(text) => setLogin(text)}
 				value={login}
 			/>
 			<Text className="text-red-500">Password:</Text>
 			<TextInput
-				style={{
-					borderWidth: 1,
-					width: 200,
-					textAlign: "center",
-				}}
+				className="text-center border w-[60vw]"
 				onChangeText={(text) => setPassword(text)}
 				value={password}
 				secureTextEntry={true}
@@ -125,10 +88,6 @@ export default function Index() {
 				title="SCAN NFC"
 				onPress={scanNfc}
 			/>
-			{/* <Button
-				title="WRITE NFC"
-				onPress={writeNfc}
-			/> */}
 		</View>
 	);
 }

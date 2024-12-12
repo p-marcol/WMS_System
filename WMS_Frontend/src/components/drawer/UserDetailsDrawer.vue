@@ -5,7 +5,7 @@ import Checkbox from 'primevue/checkbox'
 
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <div class="wms-col-2">
+    <div class="wms-col-3">
         <ItemLabel :label="$t('users.id')">
             <div class="Header-P4" id="id">{{ user.id }}</div>
         </ItemLabel>
@@ -23,6 +23,9 @@ import Checkbox from 'primevue/checkbox'
                     {{ user.isArchived ? $t('users.archived') : $t('users.active') }}
                 </div>
             </div>
+        </ItemLabel>
+        <ItemLabel :label="$t('users.unit')">
+            <div class="Header-P4" id="unit">{{ user.currentUnit }}</div>
         </ItemLabel>
     </div>
     <div class="wms-col-2">

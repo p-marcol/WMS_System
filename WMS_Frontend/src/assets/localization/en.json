@@ -27,6 +27,7 @@
         "timesheet": "Timesheet"
     },
     "users": {
+        "unit": "Unit",
         "users": "Users",
         "newUser": "New user",
         "editUser": "Edit user",

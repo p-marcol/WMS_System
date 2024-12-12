@@ -27,8 +27,8 @@ import * as v from 'valibot'
                     editable
                     required
                 />
-                <Message v-if="errors.unitInvalid" severity="error" text="Invalid unit">
-                    {{ errors.unitInvalid }}
+                <Message v-if="errors.unitIdInvalid" severity="error" text="Invalid unit">
+                    {{ errors.unitIdInvalid }}
                 </Message>
             </InputContainer>
             <InputContainer :label="$t('table.duration')" required>
@@ -118,15 +118,17 @@ export default {
             this.visible = false
         },
         async send() {
+            console.log(this.selectedUnit)
+
             const newRecordSchema = v.object({
-                unit: v.required(v.number()),
+                unitId: v.required(v.number()),
                 hours: v.required(v.pipe(v.number(), v.minValue(0.25), v.maxValue(24))),
                 date: v.required(v.date()),
                 description: v.required(v.pipe(v.string(), v.nonEmpty(), v.maxLength(255))),
             })
 
             const result = v.safeParse(newRecordSchema, {
-                unit: this.selectedUnit,
+                unitId: this.selectedUnit,
                 hours: this.hours,
                 date: this.date,
                 description: this.desc,
@@ -143,11 +145,31 @@ export default {
                 return
             }
 
-            // TODO: send data to the server
-
-            this.visible = false
-            this.resetForm()
-            this.$emit('refresh')
+            await this.axios
+                .post('/timesheet/add', {
+                    unitId: this.selectedUnit,
+                    hours: this.hours,
+                    date: this.date.toISOString().split('T')[0],
+                    description: this.desc,
+                })
+                .then(() => {
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: this.$t('timesheet.recordAdded'),
+                        life: 5000,
+                    })
+                    this.close()
+                    this.$emit('refresh')
+                })
+                .catch(() => {
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: this.$t('timesheet.recordNotAdded'),
+                        life: 5000,
+                    })
+                })
         },
     },
     expose: ['open'],

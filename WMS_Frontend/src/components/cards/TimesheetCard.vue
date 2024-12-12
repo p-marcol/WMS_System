@@ -3,6 +3,9 @@ import CardContainer from '@/components/CardContainer.vue'
 import { FaceFrownIcon } from '@heroicons/vue/24/outline'
 import { DateTime } from 'luxon'
 import Button from 'primevue/button'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import AddTimesheetRecordDialog from '../dialog/AddTimesheetRecordDialog.vue'
 </script>
 
 <template>
@@ -14,28 +17,45 @@ import Button from 'primevue/button'
                     <Button
                         type="button"
                         :label="$t('timesheet.addRecord')"
-                        @click="() => {}"
+                        @click="openDialog"
                         class="wms-small-button wms-small-button-primary Small-button-primary-P1"
                         unstyled
                     />
                     <Button
                         type="button"
                         :label="$t('timesheet.openTS')"
-                        @click="() => {}"
+                        @click="
+                            () => {
+                                this.$router.push('/timesheet')
+                            }
+                        "
                         class="wms-small-button wms-small-button-secondary Small-button-primary-P1"
                         unstyled
                     />
                 </div>
             </div>
         </template>
-        <div v-if="records.length === 0" id="nothing">
+        <div v-if="!records.length" id="nothing">
             <div>
                 <FaceFrownIcon class="faceIcon" />
                 <span class="Label-P3">{{ $t('timesheet.nothingHere') }}</span>
             </div>
         </div>
-        <p v-else>Card content</p>
+        <p v-else>
+            <DataTable :value="records" data-key="id">
+                <Column field="date" :header="$t('table.date')" :style="{ width: '8rem' }" />
+                <Column field="unit" :header="$t('table.unit')" :style="{ width: '8rem' }" />
+                <Column field="description" :header="$t('table.description')" />
+                <Column field="hours" :header="$t('table.duration')" :style="{ width: '4rem' }" />
+                <Column
+                    field="isApproved"
+                    :header="$t('table.approved')"
+                    :style="{ width: '4rem' }"
+                />
+            </DataTable>
+        </p>
     </CardContainer>
+    <AddTimesheetRecordDialog ref="addTimesheetRecordDialog" @refresh="refresh" />
 </template>
 
 <script>
@@ -46,6 +66,40 @@ export default {
             records: [],
             loading: false,
         }
+    },
+    computed: {
+        today() {
+            return DateTime.now().toFormat('yyyy-MM-dd')
+        },
+    },
+    mounted() {
+        this.fetchRecords()
+    },
+    methods: {
+        async fetchRecords() {
+            this.loading = true
+            await this.axios
+                .get(`/timesheet/my/${this.today}`)
+                .then((response) => {
+                    this.records = response.data.map(
+                        (record) =>
+                            record && { isApproved: record.isApproved ? 'Yes' : 'No', ...record }
+                    )
+                    console.log(response.data)
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+        },
+        openDialog() {
+            this.$refs.addTimesheetRecordDialog.open()
+        },
+        refresh() {
+            this.fetchRecords()
+        },
     },
 }
 </script>

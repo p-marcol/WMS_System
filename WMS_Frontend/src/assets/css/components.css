@@ -81,11 +81,16 @@
 }
 
 .wms-input-container input,
+.wms-input-container textarea,
 .wms-input-container .p-select {
     border: 2px solid var(--color-secondary);
     border-radius: 5px;
     font-family: OpenSans;
     font-size: 1rem;
+}
+
+.wms-input-container .p-select-label {
+    border: none;
 }
 
 .wms-input-container input {

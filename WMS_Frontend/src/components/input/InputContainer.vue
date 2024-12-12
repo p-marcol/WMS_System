@@ -1,6 +1,9 @@
 <template>
     <span class="wms-input-container" :class="required && 'wms-required'">
-        <label v-if="label" :for="labelFor" class="Label-P2">{{ label }}</label>
+        <div id="header" class="Label-P2">
+            <label v-if="label" :for="labelFor">{{ label }}</label>
+            <slot name="header" />
+        </div>
         <slot></slot>
     </span>
 </template>
@@ -26,3 +29,13 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+#header {
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    justify-content: space-between;
+}
+</style>

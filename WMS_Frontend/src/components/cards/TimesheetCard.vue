@@ -81,10 +81,18 @@ export default {
             await this.axios
                 .get(`/timesheet/my/${this.today}`)
                 .then((response) => {
-                    this.records = response.data.map(
-                        (record) =>
-                            record && { isApproved: record.isApproved ? 'Yes' : 'No', ...record }
-                    )
+                    console.log(response.data)
+                    this.records = response.data.map((record) => {
+                        let isApproved
+                        if (record.approved) {
+                            isApproved = 'Yes'
+                        } else if (!record.approved && !record.rejected) {
+                            isApproved = 'Pending'
+                        } else {
+                            isApproved = 'No'
+                        }
+                        return { ...record, isApproved: isApproved }
+                    })
                     console.log(response.data)
                 })
                 .catch((error) => {

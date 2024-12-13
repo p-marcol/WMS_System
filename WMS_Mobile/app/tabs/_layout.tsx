@@ -29,7 +29,7 @@ export default function TabLayout() {
 				name="index"
 				options={{
 					title: "Index",
-					// tabBarIcon: HomeIcon,
+					// tabBarIcon: () => <HomeIcon size={24} />,
 				}}
 			/>
 			<Tabs.Screen

@@ -2,6 +2,7 @@ import { useContext, useLayoutEffect, useState } from "react";
 import { Tabs } from "expo-router";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { authContext, AuthContextType } from "@/providers/auth";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabLayout() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
@@ -29,30 +30,82 @@ export default function TabLayout() {
 				name="index"
 				options={{
 					title: "Index",
-					// tabBarIcon: () => <HomeIcon size={24} />,
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="home-outline"
+							size={24}
+							color={color}
+						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name="timesheet"
+				options={{
+					title: "Timesheet",
+					href: isAdmin ? "/tabs/timesheet" : null,
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="document-text-outline"
+							size={24}
+							color={color}
+						/>
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="users"
 				options={{
 					title: "Users",
-					// icon: "person",
 					href: isAdmin || isManager ? "/tabs/users" : null,
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="person-outline"
+							size={24}
+							color={color}
+						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name="units"
+				options={{
+					title: "Units",
+					href: isAdmin ? "/tabs/units" : null,
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="cube-outline"
+							size={24}
+							color={color}
+						/>
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="cards"
 				options={{
 					title: "Cards",
-					// icon: "credit-card",
 					href: isAdmin ? "/tabs/cards" : null,
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="id-card-outline"
+							size={24}
+							color={color}
+						/>
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="settings"
 				options={{
 					title: "Settings",
-					// icon: "settings",
+					tabBarIcon: ({ color }) => (
+						<Ionicons
+							name="settings-outline"
+							size={24}
+							color={color}
+						/>
+					),
 				}}
 			/>
 		</Tabs>

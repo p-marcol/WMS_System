@@ -13,14 +13,18 @@
 			"backgroundColor": "#ffffff"
 		},
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": false,
+			"infoPlist": {
+				"NFCReaderUsageDescription": "This app requires access to NFC to read tags"
+			}
 		},
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"package": "com.wms.mobile"
+			"package": "com.wms.mobile",
+			"permissions": ["android.permission.NFC"]
 		},
 		"web": {
 			"bundler": "metro",

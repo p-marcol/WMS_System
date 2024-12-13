@@ -3,6 +3,7 @@ import { Tabs } from "expo-router";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { authContext, AuthContextType } from "@/providers/auth";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import * as colorConfig from "@/assets/styles/colors";
 
 export default function TabLayout() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
@@ -24,12 +25,27 @@ export default function TabLayout() {
 			});
 	}, []);
 
+	const userAccent = isAdmin
+		? colorConfig.adminAccent
+		: isManager
+		? colorConfig.managerAccent
+		: colorConfig.userAccent;
+
 	return (
-		<Tabs screenOptions={{ headerShown: false }}>
+		<Tabs
+			screenOptions={{
+				headerShown: false,
+				tabBarActiveTintColor: "white",
+				tabBarInactiveTintColor: "white",
+				tabBarStyle: {
+					backgroundColor: userAccent,
+				},
+			}}
+		>
 			<Tabs.Screen
 				name="index"
 				options={{
-					title: "Index",
+					title: "HOME",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="home-outline"
@@ -42,8 +58,8 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="timesheet"
 				options={{
-					title: "Timesheet",
-					href: isAdmin ? "/tabs/timesheet" : null,
+					title: "TIMESHEET",
+					href: "/tabs/timesheet",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="document-text-outline"
@@ -56,7 +72,7 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="users"
 				options={{
-					title: "Users",
+					title: "USERS",
 					href: isAdmin || isManager ? "/tabs/users" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
@@ -70,7 +86,7 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="units"
 				options={{
-					title: "Units",
+					title: "UNITS",
 					href: isAdmin ? "/tabs/units" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
@@ -84,7 +100,7 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="cards"
 				options={{
-					title: "Cards",
+					title: "CARDS",
 					href: isAdmin ? "/tabs/cards" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
@@ -98,7 +114,7 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name="settings"
 				options={{
-					title: "Settings",
+					title: "SETTINGS",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
 							name="settings-outline"

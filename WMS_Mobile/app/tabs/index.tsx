@@ -11,6 +11,7 @@ export default function Index() {
 		<View>
 			<Text>Tab Home</Text>
 			<Text>{JSON.stringify(userInfo)}</Text>
+			<Text>Hello, {userInfo?.shortName}</Text>
 		</View>
 	);
 }

@@ -1,3 +1,5 @@
+import * as colorsDefinition from "assets/styles/colors";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	presets: [require("nativewind/preset")],
@@ -8,28 +10,7 @@ module.exports = {
 	],
 	theme: {
 		extend: {
-			colors: {
-				bg: "#fffffa",
-				white: "#fff",
-				black: "#000",
-				secondary: "#3772ff",
-				primary: "#fcab10",
-				tetriary: "#ace849",
-				success: "#4bb543",
-				danger: "#dc3545",
-				warning: "#ffc107",
-				dark: "#2d3142",
-				linkActive: "#3772ff",
-				card: "#fff",
-				userAccent: "#fcab10",
-				managerAccent: "#ace849",
-				adminAccent: "#3772ff",
-				userLight: "#fcab10",
-				smallButtonPrimary: "#3772ff",
-				smallButtonSecondary: "#e6edff",
-				userAccentLight: "rgba(252, 171, 16, 0.3)",
-				inputPlaceholder: "rgba(55, 114, 255, 0.6)",
-			},
+			colors: colorsDefinition,
 		},
 	},
 	plugins: [],

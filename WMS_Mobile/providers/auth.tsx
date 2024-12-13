@@ -1,5 +1,6 @@
 import { createContext, ReactNode } from "react";
 import { useState } from "react";
+import type { UserInfoType } from "@/types/userInfo";
 
 export type AuthContextType = {
 	token: string;
@@ -8,7 +9,7 @@ export type AuthContextType = {
 	setRefreshToken: (refreshToken: string) => void;
 	authority: string | null;
 	setAuthority: (authority: string | null) => void;
-	userInfo: Object | null;
+	userInfo: UserInfoType | null;
 	setUserInfo: (userInfo: Object | null) => void;
 };
 
@@ -18,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const [token, setToken] = useState<string>("");
 	const [refreshToken, setRefreshToken] = useState<string>("");
 	const [authority, setAuthority] = useState<string | null>(null);
-	const [userInfo, setUserInfo] = useState<Object | null>(null);
+	const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
 	const value = {
 		token: token,

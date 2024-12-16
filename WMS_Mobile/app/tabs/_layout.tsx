@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, useState } from "react";
-import { Tabs } from "expo-router";
+import { router, Tabs, usePathname } from "expo-router";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { authContext, AuthContextType } from "@/providers/auth";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -11,6 +11,9 @@ export default function TabLayout() {
 
 	const [isAdmin, setIsAdmin] = useState<boolean>(false);
 	const [isManager, setIsManager] = useState<boolean>(false);
+
+	let currentPath = usePathname();
+	console.log(currentPath);
 
 	useLayoutEffect(() => {
 		axios
@@ -48,7 +51,11 @@ export default function TabLayout() {
 					title: "HOME",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="home-outline"
+							name={
+								currentPath === "/tabs"
+									? "home"
+									: "home-outline"
+							}
 							size={24}
 							color={color}
 						/>
@@ -62,7 +69,11 @@ export default function TabLayout() {
 					href: "/tabs/timesheet",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="document-text-outline"
+							name={
+								currentPath === "/tabs/timesheet"
+									? "document-text"
+									: "document-text-outline"
+							}
 							size={24}
 							color={color}
 						/>
@@ -76,7 +87,11 @@ export default function TabLayout() {
 					href: isAdmin || isManager ? "/tabs/users" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="person-outline"
+							name={
+								currentPath === "/tabs/users"
+									? "person"
+									: "person-outline"
+							}
 							size={24}
 							color={color}
 						/>
@@ -90,7 +105,11 @@ export default function TabLayout() {
 					href: isAdmin ? "/tabs/units" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="cube-outline"
+							name={
+								currentPath === "/tabs/units"
+									? "cube"
+									: "cube-outline"
+							}
 							size={24}
 							color={color}
 						/>
@@ -104,7 +123,11 @@ export default function TabLayout() {
 					href: isAdmin ? "/tabs/cards" : null,
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="id-card-outline"
+							name={
+								currentPath === "/tabs/cards"
+									? "id-card"
+									: "id-card-outline"
+							}
 							size={24}
 							color={color}
 						/>
@@ -117,7 +140,11 @@ export default function TabLayout() {
 					title: "SETTINGS",
 					tabBarIcon: ({ color }) => (
 						<Ionicons
-							name="settings-outline"
+							name={
+								currentPath === "/tabs/settings"
+									? "settings"
+									: "settings-outline"
+							}
 							size={24}
 							color={color}
 						/>

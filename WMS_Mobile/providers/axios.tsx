@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { createContext, useContext, ReactNode } from "react";
 import { authContext, AuthContextType } from "./auth";
+import { router } from "expo-router";
 
 export type AxiosContextType = {
 	axios: AxiosInstance;
@@ -29,8 +30,12 @@ export function AxiosProvider({ children }: { children: ReactNode }) {
 	);
 
 	axiosInstance.interceptors.response.use(
-		(response) => response,
+		(response) => {
+			console.log(response.status); //! delete on release
+			return response;
+		},
 		async (error: AxiosError) => {
+			console.log(error.status); //! delete on release
 			const originalRequest = error.config as AxiosRequestConfig & {
 				_retry?: boolean;
 			};
@@ -52,6 +57,7 @@ export function AxiosProvider({ children }: { children: ReactNode }) {
 						}
 					)
 					.then((response) => {
+						console.log(response.data);
 						auth.setToken(response.data.token);
 						auth.setRefreshToken(response.data.refreshToken);
 						return axiosInstance(originalRequest);
@@ -60,6 +66,7 @@ export function AxiosProvider({ children }: { children: ReactNode }) {
 						console.error(error);
 						auth.setToken("");
 						auth.setRefreshToken("");
+						router.replace("/");
 						return Promise.reject(error);
 					});
 			}

@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Modal, Text, View } from "react-native";
 import NfcManager, { NfcTech, Ndef } from "react-native-nfc-manager";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { UserInfoType } from "@/types/userInfo";
+import AssignToUserModal from "@/components/modals/assignToUser";
 
 export default function Users() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
+
+	const [assignModalVisible, setAssignModalVisible] =
+		useState<boolean>(false);
 
 	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
 	const [nfcUid, setNfcUid] = useState<string | null | undefined>(null);
@@ -19,6 +22,7 @@ export default function Users() {
 	}, [nfcUid]);
 
 	const scanNfc = async () => {
+		setNfcUid(null);
 		if (nfcSearching) return;
 		setNfcSearching(true);
 		try {
@@ -37,16 +41,16 @@ export default function Users() {
 	const getUserFromNfc = async () => {
 		if (!nfcUid) return;
 		// Fetch user from server
-		alert(`Fetching user with NFC UID: ${nfcUid}`);
+		// alert(`Fetching user with NFC UID: ${nfcUid}`);
 		axios
 			.get(`/card/user/uid/${nfcUid}`)
 			.then((response) => {
-				alert(`User found: ${response.data}`);
+				// alert(`User found: ${response.data}`);
 				setNfcUser(response.data);
 			})
 			.catch((error) => {
 				if (error.response?.status === 404) {
-					alert(`User not found`);
+					// alert(`User not found`);
 					setNfcUser(null);
 					return;
 				}
@@ -61,14 +65,18 @@ export default function Users() {
 				title={nfcUid === null ? "Scan Tag" : "Scan new Tag"}
 				onPress={scanNfc}
 			/>
-			<Text>{nfcSearching && "Scanning..."}</Text>
+			{nfcSearching && <Text>Scanning...</Text>}
 			<Text>{nfcUid}</Text>
 			{nfcUid && !nfcUser && (
 				<>
 					<Text>User not found</Text>
 					<Button
 						title="Assign tag to user"
-						onPress={() => alert("Assigning tag to user")}
+						onPress={() => setAssignModalVisible(true)}
+					/>
+					<AssignToUserModal
+						visible={assignModalVisible}
+						setVisible={setAssignModalVisible}
 					/>
 				</>
 			)}

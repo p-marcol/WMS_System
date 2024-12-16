@@ -5,6 +5,7 @@ import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.service.iAccessCardService;
 import com.inz.WMS_Backend.service.iUserService;
 import com.inz.apimodels.access_card.get_user_cards.GetUserAccessCardsResponse;
+import com.inz.apimodels.user.get_details.GetDetailsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,30 @@ public class CardController {
             List<GetUserAccessCardsResponse> response = accessCards.stream()
                     .map(ac -> new GetUserAccessCardsResponse(ac.getId(), ac.getCardUid(), ac.getType().getType(), ac.getDescription()))
                     .toList();
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/user/uid/{cardUid}")
+    public ResponseEntity<?> getUserByCardUid(@PathVariable String cardUid) {
+        String uid = cardUid.toUpperCase().replaceAll("[^0-9ABCDEF]", "");
+        try {
+            AccessCard ac = accessCardService.findByCardUid(uid).orElse(null);
+            if (ac == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
+            }
+            GetDetailsResponse response = GetDetailsResponse.builder()
+                    .id(ac.getUser().getId())
+                    .username(ac.getUser().getUsername())
+                    .email(ac.getUser().getEmail())
+                    .firstName(ac.getUser().getFirstName())
+                    .lastName(ac.getUser().getLastName())
+                    .phone(ac.getUser().getPhone())
+                    .authorityName(ac.getUser().getAuthority())
+                    .isArchived(ac.getUser().isArchived())
+                    .build();
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

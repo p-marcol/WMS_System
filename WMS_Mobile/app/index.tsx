@@ -35,8 +35,7 @@ export default function Index() {
 				auth.setToken(response.data.token);
 				auth.setRefreshToken(response.data.refreshToken);
 
-				//! Change to replace on release
-				router.push({ pathname: "/tabs" });
+				router.replace({ pathname: "/tabs" });
 			})
 			.catch((error) => {
 				alert(`Login failed: ${error}`);

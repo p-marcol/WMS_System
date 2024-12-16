@@ -11,6 +11,7 @@ export type AuthContextType = {
 	setAuthority: (authority: string | null) => void;
 	userInfo: UserInfoType | null;
 	setUserInfo: (userInfo: Object | null) => void;
+	logout: () => void;
 };
 
 export const authContext = createContext<AuthContextType | null>(null);
@@ -21,6 +22,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const [authority, setAuthority] = useState<string | null>(null);
 	const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
+	const logout = () => {
+		setToken("");
+		setRefreshToken("");
+		setAuthority(null);
+		setUserInfo(null);
+	};
+
 	const value = {
 		token: token,
 		refreshToken: refreshToken,
@@ -30,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 		setAuthority: setAuthority,
 		userInfo: userInfo,
 		setUserInfo: setUserInfo,
+		logout: logout,
 	} as AuthContextType;
 
 	return (

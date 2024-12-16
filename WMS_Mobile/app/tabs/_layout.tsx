@@ -13,7 +13,6 @@ export default function TabLayout() {
 	const [isManager, setIsManager] = useState<boolean>(false);
 
 	let currentPath = usePathname();
-	console.log(currentPath);
 
 	useLayoutEffect(() => {
 		axios

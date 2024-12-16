@@ -9,7 +9,7 @@ export default function Users() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
 
 	const [nfcSearching, setNfcSearching] = useState<boolean>(false);
-	const [nfcUid, setNfcUid] = useState<string | undefined>(undefined);
+	const [nfcUid, setNfcUid] = useState<string | null | undefined>(null);
 	const [nfcUser, setNfcUser] = useState<UserInfoType | null | undefined>(
 		undefined
 	);
@@ -58,11 +58,34 @@ export default function Users() {
 	return (
 		<View>
 			<Button
-				title="Scan Tag"
+				title={nfcUid === null ? "Scan Tag" : "Scan new Tag"}
 				onPress={scanNfc}
 			/>
+			<Text>{nfcSearching && "Scanning..."}</Text>
 			<Text>{nfcUid}</Text>
-			<Text>{JSON.stringify(nfcUser)}</Text>
+			{nfcUid && !nfcUser && (
+				<>
+					<Text>User not found</Text>
+					<Button
+						title="Assign tag to user"
+						onPress={() => alert("Assigning tag to user")}
+					/>
+				</>
+			)}
+			{nfcUid && nfcUser && (
+				<>
+					<Text>User found!</Text>
+					<Text>{JSON.stringify(nfcUser)}</Text>
+					<Button
+						title="Assign new tag"
+						onPress={() => setNfcUid(null)}
+					/>
+					<Button
+						title="Delete tag"
+						onPress={() => setNfcUid(null)}
+					/>
+				</>
+			)}
 		</View>
 	);
 }

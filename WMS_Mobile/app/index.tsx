@@ -43,21 +43,6 @@ export default function Index() {
 			});
 	};
 
-	const scanNfc = async () => {
-		if (nfcSearching) return;
-		setNfcSearching(true);
-		try {
-			await NfcManager.requestTechnology(NfcTech.Ndef);
-			const tag = await NfcManager.getTag();
-			console.log(tag?.id);
-		} catch (error) {
-			console.warn(error);
-		} finally {
-			NfcManager.cancelTechnologyRequest();
-			setNfcSearching(false);
-		}
-	};
-
 	return (
 		<View className="bg-gray-userAccent flex-1 justify-center items-center">
 			<Button
@@ -81,10 +66,7 @@ export default function Index() {
 				title="Login"
 				onPress={Login}
 			/>
-			<Button
-				title="SCAN NFC"
-				onPress={scanNfc}
-			/>
+			<Text>{process.env.EXPO_PUBLIC_SERVER_ADDRESS}</Text>
 		</View>
 	);
 }

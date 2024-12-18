@@ -1,12 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Modal, Text, View } from "react-native";
-import NfcManager, { NfcTech, Ndef } from "react-native-nfc-manager";
+import NfcManager, { NfcTech } from "react-native-nfc-manager";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { UserInfoType } from "@/types/userInfo";
 import AssignToUserModal from "@/components/modals/assignToUser";
 
 export default function Users() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
+
+	const [hasNfc, setHasNfc] = useState<boolean | null>(null);
+	const [nfcEnabled, setNfcEnabled] = useState<boolean | null>(null);
 
 	const [assignModalVisible, setAssignModalVisible] =
 		useState<boolean>(false);
@@ -17,12 +20,21 @@ export default function Users() {
 		undefined
 	);
 
+	(async function () {
+		setHasNfc(await NfcManager.isSupported());
+		setNfcEnabled(await NfcManager.isEnabled());
+	})();
+
 	useEffect(() => {
 		getUserFromNfc();
 	}, [nfcUid]);
 
 	const scanNfc = async () => {
 		setNfcUid(null);
+		if ((await NfcManager.isEnabled()) === false) {
+			alert("NFC is disabled");
+			return;
+		}
 		if (nfcSearching) return;
 		setNfcSearching(true);
 		try {
@@ -40,17 +52,13 @@ export default function Users() {
 
 	const getUserFromNfc = async () => {
 		if (!nfcUid) return;
-		// Fetch user from server
-		// alert(`Fetching user with NFC UID: ${nfcUid}`);
 		axios
 			.get(`/card/user/uid/${nfcUid}`)
 			.then((response) => {
-				// alert(`User found: ${response.data}`);
 				setNfcUser(response.data);
 			})
 			.catch((error) => {
 				if (error.response?.status === 404) {
-					// alert(`User not found`);
 					setNfcUser(null);
 					return;
 				}
@@ -58,6 +66,12 @@ export default function Users() {
 				console.error(error);
 			});
 	};
+
+	if (hasNfc === null) {
+		return null;
+	} else if (hasNfc === false) {
+		return <Text>This feature requires NFC</Text>;
+	}
 
 	return (
 		<View>

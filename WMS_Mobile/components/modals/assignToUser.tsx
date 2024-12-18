@@ -11,6 +11,7 @@ import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { UserInfoType } from "@/types/userInfo";
 import UserInfoContainer from "../userInfoContainer";
 import { SearchBar } from "@rneui/themed";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export default function AssignToUserModal({
 	visible,
@@ -24,23 +25,18 @@ export default function AssignToUserModal({
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
 
 	const [userList, setUserList] = useState<UserInfoType[]>([]);
-	const [filteredUserList, setFilteredUserList] =
-		useState<UserInfoType[]>(userList);
 	const [search, setSearch] = useState<string>("");
 
 	const updateSearch = (search: string) => {
 		setSearch(search);
-		setFilteredUserList(
-			userList.filter(
-				(user) =>
-					user.username
-						.toLowerCase()
-						.includes(search.toLowerCase()) ||
-					user.email.toLowerCase().includes(search.toLowerCase()) ||
-					user.authority.toLowerCase().includes(search.toLowerCase())
-			)
-		);
 	};
+
+	const filteredUserList = userList.filter(
+		(user) =>
+			user.username.toLowerCase().includes(search.toLowerCase()) ||
+			user.email.toLowerCase().includes(search.toLowerCase()) ||
+			user.authority.toLowerCase().includes(search.toLowerCase())
+	);
 
 	const handleAssign = (user: UserInfoType) => {
 		console.log(user.id);
@@ -57,6 +53,7 @@ export default function AssignToUserModal({
 							(a: UserInfoType, b: UserInfoType) => a.id - b.id
 						)
 					);
+					updateSearch("");
 				})
 				.catch((error) => {
 					console.error(error);
@@ -81,15 +78,24 @@ export default function AssignToUserModal({
 					title="Cancel"
 					onPress={() => setVisible(false)}
 				/>
-				{filteredUserList.map((user) => (
-					<View
-						onTouchStart={() => handleAssign(user)}
-						className="[&:not(:last-child)]:border-b p-2"
-						key={user.id}
-					>
-						<UserInfoContainer user={user} />
-					</View>
-				))}
+				{filteredUserList.map((user) => {
+					const tap = Gesture.Tap()
+						.maxDuration(250)
+						.runOnJS(true)
+						.onEnd(() => {
+							handleAssign(user);
+						});
+					return (
+						<GestureDetector
+							gesture={tap}
+							key={user.id}
+						>
+							<View className="[&:not(:last-child)]:border-b p-2">
+								<UserInfoContainer user={user} />
+							</View>
+						</GestureDetector>
+					);
+				})}
 			</ScrollView>
 		</Modal>
 	);

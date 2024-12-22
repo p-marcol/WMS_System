@@ -11,16 +11,20 @@ import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { UserInfoType } from "@/types/userInfo";
 import UserInfoContainer from "../userInfoContainer";
 import { SearchBar } from "@rneui/themed";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {
+	Gesture,
+	GestureDetector,
+	GestureHandlerRootView,
+} from "react-native-gesture-handler";
 
 export default function AssignToUserModal({
 	visible,
 	setVisible,
-	uid,
+	setSelectedUser,
 }: {
 	visible: boolean;
 	setVisible: (visible: boolean) => void;
-	uid?: string;
+	setSelectedUser: (user: UserInfoType) => void;
 }) {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
 
@@ -39,7 +43,8 @@ export default function AssignToUserModal({
 	);
 
 	const handleAssign = (user: UserInfoType) => {
-		console.log(user.id);
+		setSelectedUser(user);
+		setVisible(false);
 	};
 
 	useEffect(() => {
@@ -66,37 +71,39 @@ export default function AssignToUserModal({
 			visible={visible}
 			animationType="slide"
 		>
-			<ScrollView>
-				<Text className="font-bold text-3xl">Assign to User</Text>
-				<SearchBar
-					placeholder="Search for a user"
-					onChangeText={updateSearch}
-					value={search}
-					lightTheme
-				/>
-				<Button
-					title="Cancel"
-					onPress={() => setVisible(false)}
-				/>
-				{filteredUserList.map((user) => {
-					const tap = Gesture.Tap()
-						.maxDuration(250)
-						.runOnJS(true)
-						.onEnd(() => {
-							handleAssign(user);
-						});
-					return (
-						<GestureDetector
-							gesture={tap}
-							key={user.id}
-						>
-							<View className="[&:not(:last-child)]:border-b p-2">
-								<UserInfoContainer user={user} />
-							</View>
-						</GestureDetector>
-					);
-				})}
-			</ScrollView>
+			<GestureHandlerRootView>
+				<ScrollView>
+					<Text className="font-bold text-3xl">Assign to User</Text>
+					<SearchBar
+						placeholder="Search for a user"
+						onChangeText={updateSearch}
+						value={search}
+						lightTheme
+					/>
+					<Button
+						title="Cancel"
+						onPress={() => setVisible(false)}
+					/>
+					{filteredUserList.map((user) => {
+						const tap = Gesture.Tap()
+							.maxDuration(250)
+							.runOnJS(true)
+							.onEnd(() => {
+								handleAssign(user);
+							});
+						return (
+							<GestureDetector
+								gesture={tap}
+								key={user.id}
+							>
+								<View className="border p-2 bg-white m-4 rounded-lg">
+									<UserInfoContainer user={user} />
+								</View>
+							</GestureDetector>
+						);
+					})}
+				</ScrollView>
+			</GestureHandlerRootView>
 		</Modal>
 	);
 }

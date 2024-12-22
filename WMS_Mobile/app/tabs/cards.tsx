@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Modal, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import NfcManager, { NfcTech } from "react-native-nfc-manager";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { UserInfoType } from "@/types/userInfo";
@@ -19,6 +19,7 @@ export default function Users() {
 	const [nfcUser, setNfcUser] = useState<UserInfoType | null | undefined>(
 		undefined
 	);
+	const [selectedUser, setSelectedUser] = useState<UserInfoType | null>(null);
 
 	(async function () {
 		setHasNfc(await NfcManager.isSupported());
@@ -30,7 +31,7 @@ export default function Users() {
 	}, [nfcUid]);
 
 	const scanNfc = async () => {
-		setNfcUid(null);
+		resetState();
 		if ((await NfcManager.isEnabled()) === false) {
 			alert("NFC is disabled");
 			return;
@@ -43,7 +44,7 @@ export default function Users() {
 			console.log(tag?.id);
 			setNfcUid(tag?.id);
 		} catch (error) {
-			console.warn(error);
+			// console.warn(error);
 		} finally {
 			NfcManager.cancelTechnologyRequest();
 			setNfcSearching(false);
@@ -67,47 +68,132 @@ export default function Users() {
 			});
 	};
 
+	const assignNewTag = () => {};
+
+	const deleteTag = () => {
+		if (!nfcUid) return;
+		axios
+			.delete(`/card/delete/${nfcUid}`)
+			.then(() => {
+				alert("Tag deleted successfully");
+				resetState();
+			})
+			.catch((error) => {
+				alert(`Failed to delete tag: ${error}`);
+				console.error(error);
+			});
+	};
+
+	const resetState = () => {
+		setNfcUid(null);
+		setNfcUser(null);
+		setSelectedUser(null);
+	};
+
+	const assignCard = async () => {
+		if (!selectedUser || !nfcUid) return;
+		axios
+			.put(`/card/assign/${selectedUser.id}/${nfcUid}`)
+			.then(() => {
+				alert("Tag assigned successfully");
+				resetState();
+			})
+			.catch((error) => {
+				alert(`Failed to assign tag: ${error}`);
+				console.error(error);
+			});
+	};
+
 	if (hasNfc === null) {
 		return null;
 	} else if (hasNfc === false) {
 		return <Text>This feature requires NFC</Text>;
 	}
 
+	try {
+		NfcManager.cancelTechnologyRequest();
+	} catch (error) {
+		console.log(error);
+	}
+
 	return (
-		<View>
-			<Button
-				title={nfcUid === null ? "Scan Tag" : "Scan new Tag"}
+		<View className="flex justify-around items-center w-full h-full ">
+			<View
+				className={`${
+					!nfcUid && "hidden"
+				} flex flex-col items-center gap-2`}
+			>
+				{nfcUid && !nfcUser && (
+					<>
+						<Text className="text-4xl text-danger font-bold">
+							User not found!
+						</Text>
+						<Pressable
+							className="bg-secondary rounded-xl p-2"
+							onPress={() => setAssignModalVisible(true)}
+						>
+							<Text className="text-white font-bold text-lg">
+								Select user
+							</Text>
+						</Pressable>
+						<AssignToUserModal
+							visible={assignModalVisible}
+							setVisible={setAssignModalVisible}
+							setSelectedUser={setSelectedUser}
+						/>
+						{selectedUser && (
+							<>
+								<Text>
+									Selected user: {selectedUser.shortName}
+								</Text>
+								<Pressable
+									className="bg-secondary rounded-xl p-2"
+									onPress={assignCard}
+								>
+									<Text className="text-white font-bold text-lg">
+										Assign
+									</Text>
+								</Pressable>
+							</>
+						)}
+					</>
+				)}
+				{nfcUid && nfcUser && (
+					<>
+						<Text className="text-4xl text-success font-bold">
+							User found!
+						</Text>
+						<Text>This tag belongs to: #{nfcUser.id}</Text>
+						<Text>{nfcUser.shortName}</Text>
+						<Text>{nfcUser.email}</Text>
+						<Pressable
+							className="bg-danger rounded-xl p-2"
+							onPress={deleteTag}
+						>
+							<Text className="text-white font-bold text-lg">
+								Delete tag
+							</Text>
+						</Pressable>
+					</>
+				)}
+			</View>
+			<Pressable
+				className={`bg-secondary aspect-square ${
+					nfcUid ? "w-[40%]" : "w-[80%]"
+				} rounded-full flex justify-center items-center`}
 				onPress={scanNfc}
-			/>
-			{nfcSearching && <Text>Scanning...</Text>}
-			<Text>{nfcUid}</Text>
-			{nfcUid && !nfcUser && (
-				<>
-					<Text>User not found</Text>
-					<Button
-						title="Assign tag to user"
-						onPress={() => setAssignModalVisible(true)}
-					/>
-					<AssignToUserModal
-						visible={assignModalVisible}
-						setVisible={setAssignModalVisible}
-					/>
-				</>
-			)}
-			{nfcUid && nfcUser && (
-				<>
-					<Text>User found!</Text>
-					<Text>{JSON.stringify(nfcUser)}</Text>
-					<Button
-						title="Assign new tag"
-						onPress={() => setNfcUid(null)}
-					/>
-					<Button
-						title="Delete tag"
-						onPress={() => setNfcUid(null)}
-					/>
-				</>
-			)}
+			>
+				<Text
+					className={`color-white ${
+						nfcUid ? "text-2xl" : "text-4xl"
+					} font-bold`}
+				>
+					{nfcUid === null ? "Scan Tag" : "Scan new Tag"}
+				</Text>
+				{nfcSearching && (
+					<Text className={`color-white text-3xl`}>Scanning...</Text>
+				)}
+			</Pressable>
 		</View>
 	);
 }

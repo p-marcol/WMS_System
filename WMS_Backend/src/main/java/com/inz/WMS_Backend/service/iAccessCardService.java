@@ -15,7 +15,13 @@ public interface iAccessCardService {
 
     Optional<AccessCard> findByCardUid(String uid);
 
+    Optional<AccessCard> findByCardUidAndActive(String uid, Boolean active);
+
+    Optional<AccessCard> findByCardUidAndUserIdAndActive(String uid, User user, Boolean active);
+
     void assignCard(User user, String uid);
 
     void deleteCard(AccessCard ac);
+
+    void activateCard(AccessCard userCard);
 }

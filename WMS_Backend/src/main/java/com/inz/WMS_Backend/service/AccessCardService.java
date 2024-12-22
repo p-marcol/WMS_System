@@ -24,7 +24,7 @@ public class AccessCardService implements iAccessCardService {
 
     @Override
     public AccessCard getAccessCardByUid(String uid) {
-        return accessCardRepository.findByCardUid(uid).orElseThrow(() -> new RuntimeException("Card not found"));
+        return accessCardRepository.findByCardUidAndActive(uid, true).orElseThrow(() -> new RuntimeException("Card not found"));
     }
 
     @Override
@@ -40,6 +40,16 @@ public class AccessCardService implements iAccessCardService {
     }
 
     @Override
+    public Optional<AccessCard> findByCardUidAndActive(String uid, Boolean active) {
+        return accessCardRepository.findByCardUidAndActive(uid, active);
+    }
+
+    @Override
+    public Optional<AccessCard> findByCardUidAndUserIdAndActive(String uid, User user, Boolean active) {
+        return accessCardRepository.findByCardUidAndUserAndActive(uid, user, active);
+    }
+
+    @Override
     public void assignCard(User user, String uid) {
         AccessCard ac = new AccessCard();
         ac.setCardUid(uid);
@@ -49,7 +59,18 @@ public class AccessCardService implements iAccessCardService {
 
     @Override
     public void deleteCard(AccessCard ac) {
-        accessCardRepository.delete(ac);
+        accessCardRepository.findByCardUidAndActive(ac.getCardUid(), true).ifPresentOrElse(card -> {
+            card.setActive(false);
+            accessCardRepository.save(card);
+        }, () -> {
+            throw new RuntimeException("Card not found");
+        });
+    }
+
+    @Override
+    public void activateCard(AccessCard userCard) {
+        userCard.setActive(true);
+        accessCardRepository.save(userCard);
     }
 
 }

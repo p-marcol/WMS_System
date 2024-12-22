@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor @AllArgsConstructor
+@AllArgsConstructor
 @Getter @Setter
 @Table(name = "ACCESS_CARDS")
 public class AccessCard {
@@ -26,9 +26,17 @@ public class AccessCard {
     private String cardUid;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "card_type_id", nullable = false)
+    @JoinColumn(name = "card_type_id")
     private AccessCardType type;
 
     @Basic
     private String description;
+
+    @Basic
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private Boolean active;
+
+    public AccessCard() {
+        this.active = true;
+    }
 }

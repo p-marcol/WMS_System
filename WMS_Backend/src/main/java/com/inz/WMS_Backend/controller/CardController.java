@@ -26,11 +26,15 @@ public class CardController {
         String uid = cardUid.toUpperCase().replaceAll("[^0-9ABCDEF]", "");
         try {
             User user = userService.findById(userId);
-            AccessCard ac = accessCardService.findByCardUid(uid).orElse(null);
+            AccessCard ac = accessCardService.findByCardUidAndActive(uid, true).orElse(null);
             if (ac != null) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Card already assigned");
             }
-            accessCardService.assignCard(user, uid);
+            accessCardService.findByCardUidAndUserIdAndActive(uid, user, false)
+                    .ifPresentOrElse(
+                            accessCardService::activateCard,
+                            () -> accessCardService.assignCard(user, uid)
+                    );
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("User or card not found");
         }
@@ -41,7 +45,7 @@ public class CardController {
     public ResponseEntity<?> deleteCard(@PathVariable String cardUid) {
         String uid = cardUid.toUpperCase().replaceAll("[^0-9ABCDEF]", "");
         try {
-            AccessCard ac = accessCardService.findByCardUid(uid).orElse(null);
+            AccessCard ac = accessCardService.findByCardUidAndActive(uid, true).orElse(null);
             if (ac == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
             }
@@ -58,6 +62,7 @@ public class CardController {
         try {
             List<AccessCard> accessCards = accessCardService.getUserAccessCards(userId);
             List<GetUserAccessCardsResponse> response = accessCards.stream()
+                    .filter(AccessCard::getActive)
                     .map(ac -> new GetUserAccessCardsResponse(ac.getId(), ac.getCardUid(), ac.getType().getType(), ac.getDescription()))
                     .toList();
             return ResponseEntity.ok(response);
@@ -70,7 +75,7 @@ public class CardController {
     public ResponseEntity<?> getUserByCardUid(@PathVariable String cardUid) {
         String uid = cardUid.toUpperCase().replaceAll("[^0-9ABCDEF]", "");
         try {
-            AccessCard ac = accessCardService.findByCardUid(uid).orElse(null);
+            AccessCard ac = accessCardService.findByCardUidAndActive(uid, true).orElse(null);
             if (ac == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Card not found");
             }

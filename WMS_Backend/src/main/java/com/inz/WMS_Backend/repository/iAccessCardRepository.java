@@ -11,4 +11,8 @@ public interface iAccessCardRepository extends JpaRepository<AccessCard, Long> {
     Optional<AccessCard> findByCardUid(String uid);
 
     List<AccessCard> findAllByUser(User user);
+
+    Optional<AccessCard> findByCardUidAndActive(String uid, Boolean active);
+
+    Optional<AccessCard> findByCardUidAndUserAndActive(String uid, User user, Boolean active);
 }

@@ -9,7 +9,7 @@ export default function Users() {
 	const { axios } = useContext(axiosContext)! as AxiosContextType;
 
 	const [hasNfc, setHasNfc] = useState<boolean | null>(null);
-	const [nfcEnabled, setNfcEnabled] = useState<boolean | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const [assignModalVisible, setAssignModalVisible] =
 		useState<boolean>(false);
@@ -23,7 +23,6 @@ export default function Users() {
 
 	(async function () {
 		setHasNfc(await NfcManager.isSupported());
-		setNfcEnabled(await NfcManager.isEnabled());
 	})();
 
 	useEffect(() => {
@@ -53,6 +52,7 @@ export default function Users() {
 
 	const getUserFromNfc = async () => {
 		if (!nfcUid) return;
+		setLoading(true);
 		axios
 			.get(`/card/user/uid/${nfcUid}`)
 			.then((response) => {
@@ -65,6 +65,9 @@ export default function Users() {
 				}
 				alert(`Failed to fetch user: ${error}`);
 				console.error(error);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -72,6 +75,7 @@ export default function Users() {
 
 	const deleteTag = () => {
 		if (!nfcUid) return;
+		setLoading(true);
 		axios
 			.delete(`/card/delete/${nfcUid}`)
 			.then(() => {
@@ -81,6 +85,9 @@ export default function Users() {
 			.catch((error) => {
 				alert(`Failed to delete tag: ${error}`);
 				console.error(error);
+			})
+			.finally(() => {
+				setLoading(false);
 			});
 	};
 
@@ -123,7 +130,10 @@ export default function Users() {
 					!nfcUid && "hidden"
 				} flex flex-col items-center gap-2`}
 			>
-				{nfcUid && !nfcUser && (
+				{loading && (
+					<Text className="text-warning text-4xl">Loading...</Text>
+				)}
+				{!loading && nfcUid && !nfcUser && (
 					<>
 						<Text className="text-4xl text-danger font-bold">
 							User not found!
@@ -158,7 +168,7 @@ export default function Users() {
 						)}
 					</>
 				)}
-				{nfcUid && nfcUser && (
+				{!loading && nfcUid && nfcUser && (
 					<>
 						<Text className="text-4xl text-success font-bold">
 							User found!

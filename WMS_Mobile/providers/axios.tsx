@@ -31,11 +31,9 @@ export function AxiosProvider({ children }: { children: ReactNode }) {
 
 	axiosInstance.interceptors.response.use(
 		(response) => {
-			console.log(response.status); //! delete on release
 			return response;
 		},
 		async (error: AxiosError) => {
-			console.log(error.status); //! delete on release
 			const originalRequest = error.config as AxiosRequestConfig & {
 				_retry?: boolean;
 			};

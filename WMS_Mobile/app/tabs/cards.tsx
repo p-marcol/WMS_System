@@ -71,8 +71,6 @@ export default function Users() {
 			});
 	};
 
-	const assignNewTag = () => {};
-
 	const deleteTag = () => {
 		if (!nfcUid) return;
 		setLoading(true);

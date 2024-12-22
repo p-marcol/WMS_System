@@ -112,6 +112,7 @@ public class UserController {
                             .username(user.getUsername())
                             .firstName(user.getFirstName())
                             .lastName(user.getLastName())
+                            .shortName(user.getShortName())
                             .email(user.getEmail())
                             .authority(user.getAuthority())
                             .isArchived(user.isArchived())

@@ -15,6 +15,7 @@ public class GetDetailsResponse {
     public String email;
     public String firstName;
     public String lastName;
+    public String shortName;
     public Date birthdate;
     public String phone;
     public String authorityName;

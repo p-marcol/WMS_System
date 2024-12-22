@@ -10,6 +10,7 @@ public class GetAllUsersResponseModel {
     public String username;
     public String firstName;
     public String lastName;
+    public String shortName;
     public String email;
     public String authority;
     public boolean isArchived;

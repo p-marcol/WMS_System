@@ -85,6 +85,7 @@ public class CardController {
                     .email(ac.getUser().getEmail())
                     .firstName(ac.getUser().getFirstName())
                     .lastName(ac.getUser().getLastName())
+                    .shortName(ac.getUser().getShortName())
                     .phone(ac.getUser().getPhone())
                     .authorityName(ac.getUser().getAuthority())
                     .isArchived(ac.getUser().isArchived())

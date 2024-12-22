@@ -6,6 +6,8 @@ import {
 	StyleSheet,
 	Modal,
 	ScrollView,
+	Pressable,
+	FlatList,
 } from "react-native";
 import { axiosContext, AxiosContextType } from "@/providers/axios";
 import { UserInfoType } from "@/types/userInfo";
@@ -16,6 +18,7 @@ import {
 	GestureDetector,
 	GestureHandlerRootView,
 } from "react-native-gesture-handler";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function AssignToUserModal({
 	visible,
@@ -66,43 +69,47 @@ export default function AssignToUserModal({
 		}
 	}, [visible]);
 
+	const UserContainer = ({ item }: { item: UserInfoType }) => {
+		const tap = Gesture.Tap()
+			.maxDuration(250)
+			.runOnJS(true)
+			.onEnd(() => {
+				handleAssign(item);
+			});
+		return (
+			<GestureDetector
+				gesture={tap}
+				key={item.id}
+			>
+				<View className="border p-2 bg-white mx-2 my-1 rounded-lg">
+					<UserInfoContainer user={item} />
+				</View>
+			</GestureDetector>
+		);
+	};
+
 	return (
 		<Modal
 			visible={visible}
 			animationType="slide"
 		>
 			<GestureHandlerRootView>
-				<ScrollView>
-					<Text className="font-bold text-3xl">Assign to User</Text>
-					<SearchBar
-						placeholder="Search for a user"
-						onChangeText={updateSearch}
-						value={search}
-						lightTheme
-					/>
-					<Button
-						title="Cancel"
-						onPress={() => setVisible(false)}
-					/>
-					{filteredUserList.map((user) => {
-						const tap = Gesture.Tap()
-							.maxDuration(250)
-							.runOnJS(true)
-							.onEnd(() => {
-								handleAssign(user);
-							});
-						return (
-							<GestureDetector
-								gesture={tap}
-								key={user.id}
-							>
-								<View className="border p-2 bg-white m-4 rounded-lg">
-									<UserInfoContainer user={user} />
-								</View>
-							</GestureDetector>
-						);
-					})}
-				</ScrollView>
+				<View className="flex-row justify-between items-center py-2 px-4 border-b-2 border-black">
+					<Text className="font-bold text-4xl">Assign to User</Text>
+					<Pressable onPress={() => setVisible(false)}>
+						<Entypo
+							name="cross"
+							size={50}
+							color="black"
+						/>
+					</Pressable>
+				</View>
+				<FlatList
+					data={filteredUserList}
+					keyExtractor={(item) => item.id.toString()}
+					renderItem={({ item }) => <UserContainer item={item} />}
+					className="flex-1 bg-blue-500 pt-2"
+				/>
 			</GestureHandlerRootView>
 		</Modal>
 	);

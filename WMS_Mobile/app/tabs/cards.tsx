@@ -119,9 +119,7 @@ export default function Users() {
 
 	try {
 		NfcManager.cancelTechnologyRequest();
-	} catch (error) {
-		console.log(error);
-	}
+	} catch (error) {}
 
 	return (
 		<View className="flex justify-around items-center w-full h-full ">

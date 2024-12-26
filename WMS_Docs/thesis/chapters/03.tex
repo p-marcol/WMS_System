@@ -20,47 +20,118 @@
 
 \note{W tej części pracy należy opisać, jakie narzędzia i technologie zostały wykorzystane podczas tworzenia systemu. Należy zaznaczyć, dlaczego wybrano dane narzędzia, a nie inne.}
 
-\subsection{Narzędzia i Technologie}
+\subsection{Technologie}
 
-% ____             _                  _ 
-% |  _ \           | |                | |
-% | |_) | __ _  ___| | _____ _ __   __| |
-% |  _ < / _` |/ __| |/ / _ \ '_ \ / _` |
-% | |_) | (_| | (__|   <  __/ | | | (_| |
-% |____/ \__,_|\___|_|\_\___|_| |_|\__,_|
+Poniżej przedstawiono główne technologie wraz z uzasadnieniem ich wyboru oraz spis pozostałych technologii.
 
-\subsubsection{Backend}
+\subsubsection*{MySQL}
 
-\paragraph{Baza danych - MySQL}
+MySQL to relacyjna baza danych rozwijana aktualnie przez firmę Oracle.
+Jej najważniejszymi cechami są: popularność, szybkość, niezawodność oraz łatwość w obsłudze.
+Najnowsze wersje wspierają transakcje, widoki, procedury składowane i wiele innych funkcji, które zbliżają ją do baz danych typu Enterprise.
+Dodatkowo oferuje lepsze prędkości odczytu danych, niż konkurencyjne rozwiązania takie jak PostgreSQL. \cite{bib:mysql}
 
-\paragraph{Framework - Spring}
+Baza danych MySQL została wybrana ze względu na możliwości jakie oferuje, a także jej przejrzystość, co może ułatwić migrację na inne rozwiązanie w przyszłości.
 
-% ______               _                 _ 
-% |  ____|             | |               | |
-% | |__ _ __ ___  _ __ | |_ ___ _ __   __| |
-% |  __| '__/ _ \| '_ \| __/ _ \ '_ \ / _` |
-% | |  | | | (_) | | | | ||  __/ | | | (_| |
-% |_|  |_|  \___/|_| |_|\__\___|_| |_|\__,_|
+\subsubsection*{Spring Framework}
 
-\subsubsection{Frontend}
+Spring to platforma, która dostarcza rozwiązania do tworzenia aplikacji typu Enterprise w języku Java.
+Jego asynchroniczna, nieblokująca architektura umożliwia tworzenie rozwiązań, obsługujących duże ilości danych, przy jednoczesnym zachowaniu wysokiej wydajności.
+Składa się z wielu modułów obsługujących kluczowe aspekty działania systemu, takie jak: transakcje, bezpieczeństwo, obsługa danych, integracja z bazami danych, obsługa REST API, itp. \cite{bib:spring}
 
-\paragraph{Framework - Vue.js}
+Spring Framework został wybrany ze względu na swoją popularność, wsparcie społeczności oraz bogatą dokumentację, co ułatwiło pracę nad projektem.
+
+\subsubsection*{Vue.js}
+
+Vue.js jest progresywnym frameworkiem JavaScript przeznaczonym do budowania interfejsów użytkownika. Charakteryzuje się lekkością, prostotą oraz wydajnością. Jego architektura oparta na komponentach umożliwia tworzenie skomplikowanych interfejsów, które są łatwe w utrzymaniu i rozbudowie. Dodatkowo oferuje udostępnienie aplikacji w formie SPA (ang. \english{Single Page Application}), dzięki któremu użytkownik widzi ją jako pojedynczą stronę internetową. Reakcje na interakcje użytkownika są szybkie i płynne, co zwiększa komfort korzystania z aplikacji przypominając niejako aplikacje desktopowe. \cite{bib:vuejs}
+
+Vue.js został wybrany ze względu na chęć poznania tej technologii, względnie niski próg wejścia oraz dużą popularność wśród programistów i firm.
+
+\subsubsection*{Expo}
+
+Expo to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie {\bfseries React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Projekt umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS. \cite{bib:expo}
+
+Expo zostało wybrane ze względu na język programowania, który jest znany autorowi pracy, a także na możliwość szybkiego utworzenia i wdrożenia aplikacji na platformy mobilne.
+
+\subsubsection*{React Native}
+
+\subsubsection*{Raspberry Pi Pico W}
+
+\cite{bib:picoW}
+
+\subsubsection*{MicroPython}
+
+\cite{bib:microPython}
+
+\subsubsection*{Inne technologie}
+
+W projekcie wykorzystano również mniej znaczące technologie, które przedstawiono w tabelach \ref{tab:backend-tech}, \ref{tab:frontend-tech} oraz \ref{tab:embed-tech}.
+
+% spring boot, spring security, springdoc, mysql connector, lombok, jjwt, 
+
+\begin{tabularx}{\textwidth}{|p{4cm}|X|l|p{3cm}|}
+    \caption{Biblioteki i frameworki wykorzystane w części backend}\label{tab:backend-tech}                                                                         \\
+    \hline
+    \textbf{Technologia} & \textbf{Opis}                                                                              & \textbf{Autor} & \textbf{Licencja}          \\
+    \hline
+    Spring Boot          & Framework do tworzenia aplikacji w języku Java \cite{bib:springBoot}                       & Spring         & Apache License Version 2.0 \\
+    \hline
+    Spring Security      & Framework do zarządzania bezpieczeństwem aplikacji \cite{bib:springSecurity}               & Spring         & Apache License Version 2.0 \\
+    \hline
+    Springdoc OpenAPI    & Biblioteka do generowania dokumentacji API oraz dostępu do Swagger-ui \cite{bib:springdoc} & Springdoc      & Apache License Version 2.0 \\
+    \hline
+    MySQL Connector      & Sterownik do łączenia się z bazą danych MySQL \cite{bib:mysqlConnector}                    & Oracle         & GPL 2.0                    \\
+    \hline
+    Lombok               & Biblioteka do generowania kodu Java \cite{bib:lombok}                                      & Project Lombok & MIT                        \\
+    \hline
+    JJWT                 & Biblioteka do obsługi tokenów JWT \cite{bib:jjwt}                                          & jwtk           & Apache License Version 2.0 \\
+    \hline
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{|p{3cm}|X|l|l|}
+    \caption{Biblioteki i frameworki wykorzystane w części frontend oraz aplikacji mobilnej}\label{tab:frontend-tech}                                                                \\
+    \hline
+    \textbf{Technologia}          & \textbf{Opis}                                                                                             & \textbf{Autor}   & \textbf{Licencja} \\
+    \hline
+    Axios                         & Biblioteka do wykonywania zapytań HTTP \cite{bib:axios}                                                   & Axios            & MIT               \\
+    \hline
+    Heroicons                     & Zestaw ikon SVG \cite{bib:heroicons}                                                                      & Tailwind Labs    & MIT               \\
+    \hline
+    PrimeVue                      & Biblioteka komponentów do Vue.js \cite{bib:primevue}                                                      & PrimeTek         & MIT               \\
+    \hline
+    Luxon                         & Biblioteka do obsługi dat i czasu \cite{bib:luxon}                                                        & Moment.js        & MIT               \\
+    \hline
+    Valibot                       & Biblioteka do walidacji formularzy \cite{bib:valibot}                                                     & Fabian Hiller    & MIT               \\
+    \hline
+    Vue i18n                      & Biblioteka do obsługi wielojęzyczności \cite{bib:vuei18n}                                                 & Intlify          & MIT               \\
+    \hline
+    Vue Router                    & Biblioteka do zarządzania trasami w aplikacji Vue.js \cite{bib:vueRouter}                                 & Vue              & MIT               \\
+    \hline
+    TailwindCSS                   & Biblioteka do stylowania aplikacji internetowych \cite{bib:tailwindcss}                                   & Tailwind Labs    & MIT               \\
+    \hline
+    Nativewind                    & Biblioteka umożliwiająca używanie TailwindCSS w aplikacjach opartych o React Native \cite{bib:nativewind} & Nativewind       & MIT               \\
+    \hline
+    React Native  Gesture Handler & Biblioteka do obsługi gestów w aplikacjach opartych o React Native \cite{bib:reactNativeGestureHandler}   & Software Mansion & MIT               \\
+    \hline
+    react native nfc manager      & Biblioteka do obsługi NFC w aplikacjach opartych o React Native \cite{bib:reactNativeNfcManager}          & RevtelTech       & MIT               \\
+    \hline
+\end{tabularx}
+
+\begin{tabularx}{\textwidth}{|l|X|p{3cm}|p{3cm}|}
+    \caption{Biblioteki wykorzystane w programie układu mikroprocesorowego}\label{tab:embed-tech}                                                                        \\
+    \hline
+    \textbf{Technologia} & \textbf{Opis}                                                                       & \textbf{Autor}             & \textbf{Licencja}          \\
+    \hline
+    mfrc522              & Biblioteka do obsługi modułu RFID \cite{bib:mfrc522}                                & Daniel Perron              & MIT                        \\
+    \hline
+    picozero             & Biblioteka do obsługi modułów peryferyjnych z Raspberry Pi Pico \cite{bib:picozero} & Raspberry Pi Foundation    & MIT                        \\
+    \hline
+    Requests             & Biblioteka do wykonywania zapytań HTTP w Python \cite{bib:requests}                 & Python Software Foundation & Apache License Version 2.0 \\
+    \hline
+\end{tabularx}
 
 
-
-\subsubsection{Aplikacja mobilna}
-
-\paragraph{Framework - React Native}
-
-
-
-\subsubsection{System mikroprocesorowy}
-
-\paragraph{Platforma - Raspberry Pi Pico W}
-
-\paragraph{System operacyjny - MicroPython}
-
-
+\subsection{Narzędzia}
 
 \subsection{Metodyka pracy}
 

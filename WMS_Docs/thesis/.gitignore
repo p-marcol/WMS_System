@@ -1,5 +1,6 @@
 .code/**
 .zed/
+.vscode/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

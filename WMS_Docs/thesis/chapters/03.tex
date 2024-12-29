@@ -18,8 +18,6 @@
 
 \section{Projekt systemu}
 
-\note{W tej części pracy należy opisać, jakie narzędzia i technologie zostały wykorzystane podczas tworzenia systemu. Należy zaznaczyć, dlaczego wybrano dane narzędzia, a nie inne.}
-
 \subsection{Technologie}
 
 Poniżej przedstawiono główne technologie wraz z uzasadnieniem ich wyboru oraz spis pozostałych technologii.
@@ -57,17 +55,19 @@ Expo zostało wybrane ze względu na język programowania, który jest znany aut
 
 \subsubsection*{Raspberry Pi Pico W}
 
-\cite{bib:picoW}
+Raspberry Pi Pico W jest najmniejszym modułem z rodziny Raspberry Pi, który może łączyć się z siecią. Posiada wbudowany kontroler Raspberry RP4020 oparty na architekturze ARM, co czyni go idealnym wyborem do zastosowań IoT. Układ wyposażony jest w 264 KB pamięci RAM, 2 MB pamięci flash oraz 26 pinów GPIO, dzięki którym bez problemu można podłączyć do niego wiele różnych czujników i urządzeń. Pico W posiada wbudowany moduł Wi-Fi oraz Bluetooth, co pozwala na łatwe łączenie się z siecią oraz innymi urządzeniami.
+
+Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z siecią oraz duże możliwości rozbudowy. \cite{bib:picoW}
 
 \subsubsection*{MicroPython}
 
-\cite{bib:microPython}
+MicroPython jest implementacją języka Python przeznaczona dla mikrokontrolerów i systemów wbudowanych, zoptymalizowaną pod kątem niskiego zużycia zasobów - co czyni ją idealnym wyborem dla urządzeń o ograniczonej mocy obliczeniowej i pamięci. MicroPython oferuje większość funkcji standardowego Pythona, co pozwala na szybkie i efektywne tworzenie oprogramowania dla mikrokontrolerów. Dzięki temu istnieje możliwość korzystania z dobrze znanych narzędzi i bibliotek, co znacząco przyspiesza proces tworzenia i testowania programu. \cite{bib:micropython}
+
+MicroPython został wybrany ze względu na jego prostotę, elastyczność oraz możliwość szybkiego wdrożenia mikrokontrolera do systemu.
 
 \subsubsection*{Inne technologie}
 
 W projekcie wykorzystano również mniej znaczące technologie, które przedstawiono w tabelach \ref{tab:backend-tech}, \ref{tab:frontend-tech} oraz \ref{tab:embed-tech}.
-
-% spring boot, spring security, springdoc, mysql connector, lombok, jjwt, 
 
 \begin{tabularx}{\textwidth}{|p{4cm}|X|l|p{3cm}|}
     \caption{Biblioteki i frameworki wykorzystane w części backend}\label{tab:backend-tech}                                                                 \\
@@ -160,4 +160,3 @@ Podczas tworzenia systemu wykorzystano narzędzia, które przedstawiono w tabeli
 \section{Przypadki użycia}
 
 \note{W tej części pracy należy przedstawić diagramy UML przypadków użycia systemu oraz je opisać.}
-

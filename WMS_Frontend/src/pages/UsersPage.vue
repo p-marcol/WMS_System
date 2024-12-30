@@ -9,7 +9,7 @@ import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
 import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
-import UserDrawer from '@/components/drawer/UserDrawer.vue'
+import UserDrawer from '@/components/drawer/user/UserDrawer.vue'
 import {
     XMarkIcon,
     PencilSquareIcon,

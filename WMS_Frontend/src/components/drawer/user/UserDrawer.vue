@@ -1,7 +1,7 @@
 <script setup>
 import ProgressSpinner from 'primevue/progressspinner'
-import UserEditDrawer from '@/components/drawer/UserEditDrawer.vue'
-import UserDetailsDrawer from '@/components/drawer/UserDetailsDrawer.vue'
+import UserEditDrawer from '@/components/drawer/user/UserEditDrawer.vue'
+import UserDetailsDrawer from '@/components/drawer/user/UserDetailsDrawer.vue'
 </script>
 
 <template>

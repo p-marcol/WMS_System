@@ -30,7 +30,7 @@ import * as v from 'valibot'
         </Form>
 
         <template #footer>
-            <SaveCancelButtons @save="send" @cancel="close" />
+            <SaveCancelButtons @save="send" @cancel="close" saveButton cancelButton />
         </template>
     </Dialog>
 </template>

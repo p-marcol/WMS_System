@@ -4,26 +4,42 @@ import Button from 'primevue/button'
 
 <template>
     <div>
-        <Button
-            type="button"
-            @click="save"
-            :label="$t('form.save')"
-            class="wms-small-button wms-small-button-save Small-button-primary-P1"
-            unstyled
-        />
-        <Button
-            type="button"
-            @click="cancel"
-            :label="$t('form.cancel')"
-            class="wms-small-button wms-small-button-cancel Small-button-secondary-P1"
-            unstyled
-        />
+        <div>
+            <Button
+                type="button"
+                @click="save"
+                :label="$t('form.save')"
+                class="wms-small-button wms-small-button-save Small-button-primary-P1"
+                v-if="saveButton"
+                unstyled
+            />
+        </div>
+        <div>
+            <Button
+                type="button"
+                @click="cancel"
+                :label="$t('form.cancel')"
+                class="wms-small-button wms-small-button-cancel Small-button-secondary-P1"
+                v-if="cancelButton"
+                unstyled
+            />
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'SaveCancelButtons',
+    props: {
+        saveButton: {
+            type: Boolean,
+            default: false,
+        },
+        cancelButton: {
+            type: Boolean,
+            default: false,
+        },
+    },
     methods: {
         save() {
             this.$emit('save')

@@ -64,7 +64,7 @@ import Dropdown from 'primevue/dropdown'
                 option-value="id"
             />
         </InputContainer>
-        <SaveCancelButtons @cancel="cancel" @save="save" />
+        <SaveCancelButtons @cancel="cancel" @save="save" saveButton />
     </div>
 </template>
 

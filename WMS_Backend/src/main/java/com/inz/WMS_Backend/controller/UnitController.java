@@ -6,8 +6,11 @@ import com.inz.WMS_Backend.entity.User;
 import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.service.UnitService;
+import com.inz.WMS_Backend.utils.DateUtils;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_all_units.GetAllUnitsResponseModel;
+import com.inz.apimodels.unit.get_details.GetUnitDetailsResponse;
+import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponse;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
 import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
 import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersListItem;
@@ -66,6 +69,25 @@ public class UnitController {
                     .workers(workersList)
                     .build();
             return ResponseEntity.ok(workersList);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @GetMapping("/getDetails/{id}")
+    public ResponseEntity<?> getUnitDetails(@PathVariable Long id) {
+        try {
+            Unit unit = unitService.getUnit(id);
+            List<GetParentUnitsResponseUnit> parents = unitService.getParentUnits(id);
+            return ResponseEntity.ok(
+                    GetUnitDetailsResponse.builder()
+                            .id(unit.getId())
+                            .name(unit.getName())
+                            .description(unit.getDescription())
+                            .isWorking(unit.isWorking())
+                            .parentUnits(parents)
+                    .build()
+            );
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");
         }

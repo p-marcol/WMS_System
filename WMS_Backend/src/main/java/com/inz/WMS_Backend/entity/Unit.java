@@ -54,4 +54,8 @@ public class Unit {
             inverseJoinColumns = @JoinColumn(name = "schedule_id")
     )
     private Set<Schedule> schedules;
+
+    public Boolean isWorking() {
+        return !workEnded;
+    }
 }

@@ -1,16 +1,14 @@
 <script setup>
-import DatePicker from 'primevue/datepicker'
-import InputContainer from '../input/InputContainer.vue'
-import ItemLabel from '../ItemLabel.vue'
-import SaveCancelButtons from '../input/SaveCancelButtons.vue'
+import InputContainer from '@/components/input/InputContainer.vue'
+import ItemLabel from '@/components/ItemLabel.vue'
+import SaveCancelButtons from '@/components/input/SaveCancelButtons.vue'
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
-import Dropdown from 'primevue/dropdown'
 </script>
 
 <template>
     <div class="wms-drawer-content">
-        <div class="wms-col-2">
+        <!-- <div class="wms-col-2">
             <ItemLabel :label="$t('users.id')">
                 <div class="Header-P4" id="id">{{ user.id }}</div>
             </ItemLabel>
@@ -63,7 +61,7 @@ import Dropdown from 'primevue/dropdown'
                 option-label="authority"
                 option-value="id"
             />
-        </InputContainer>
+        </InputContainer> -->
         <SaveCancelButtons @cancel="cancel" @save="save" saveButton />
     </div>
 </template>
@@ -71,32 +69,20 @@ import Dropdown from 'primevue/dropdown'
 <script>
 export default {
     props: {
-        user: {
+        unit: {
             type: Object,
             required: true,
         },
     },
     data() {
         return {
-            editUser: Object,
-            userActive: false,
-            authorities: [],
+            editUnit: Object,
+            unitActive: false,
         }
-    },
-    beforeMount() {
-        this.axios
-            .get('/authority/all')
-            .then((res) => {
-                this.authorities = res.data
-                // console.log(this.authorities)
-            })
-            .catch((err) => {
-                console.warn(err)
-            })
     },
     methods: {
         isDirty() {
-            return JSON.stringify(this.user) !== JSON.stringify(this.editUser)
+            return JSON.stringify(this.unit) !== JSON.stringify(this.editUnit)
         },
         cantChangeHere() {
             this.$toast.add({
@@ -114,33 +100,33 @@ export default {
                 })
                 return
             }
-            this.axios
-                .post('/user/upsertDetails', {
-                    userId: this.user.id,
-                    email: this.editUser.email,
-                    firstName: this.editUser.firstName,
-                    lastName: this.editUser.lastName,
-                    phoneNumber: this.editUser.phone,
-                    dateOfBirth: this.editUser.birthdate,
-                })
-                .then((res) => {
-                    this.$toast.add({
-                        severity: 'success',
-                        summary: this.$t('form.saved'),
-                        life: 3000,
-                    })
-                    this.$emit('save')
-                    console.log(res)
-                })
-                .catch((err) => {
-                    console.warn(err)
-                    this.$toast.add({
-                        severity: 'error',
-                        summary: this.$t('form.error'),
-                        detail: err.response.data,
-                        life: 3000,
-                    })
-                })
+            // this.axios
+            //     .post('/user/upsertDetails', {
+            //         userId: this.user.id,
+            //         email: this.editUser.email,
+            //         firstName: this.editUser.firstName,
+            //         lastName: this.editUser.lastName,
+            //         phoneNumber: this.editUser.phone,
+            //         dateOfBirth: this.editUser.birthdate,
+            //     })
+            //     .then((res) => {
+            //         this.$toast.add({
+            //             severity: 'success',
+            //             summary: this.$t('form.saved'),
+            //             life: 3000,
+            //         })
+            //         this.$emit('save')
+            //         console.log(res)
+            //     })
+            //     .catch((err) => {
+            //         console.warn(err)
+            //         this.$toast.add({
+            //             severity: 'error',
+            //             summary: this.$t('form.error'),
+            //             detail: err.response.data,
+            //             life: 3000,
+            //         })
+            //     })
         },
         cancel() {
             const dirty = this.isDirty()

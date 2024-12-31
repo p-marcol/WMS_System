@@ -5,8 +5,11 @@ import Column from 'primevue/column'
 import CardContainer from '@/components/CardContainer.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import Breadcrumb from 'primevue/breadcrumb'
-import { HomeIcon } from '@heroicons/vue/24/outline'
+import UnitDrawer from '@/components/drawer/unit/UnitDrawer.vue'
+import Drawer from 'primevue/drawer'
 import {
+    HomeIcon,
+    XMarkIcon,
     PencilSquareIcon,
     MagnifyingGlassCircleIcon,
     TrashIcon,
@@ -57,11 +60,11 @@ import {
                         <div class="wms-action-column">
                             <MagnifyingGlassCircleIcon
                                 class="wms-table-icon wms-action-view"
-                                @click="() => {}"
+                                @click="openUnitDrawer(data.id, false)"
                             />
                             <PencilSquareIcon
                                 class="wms-table-icon wms-action-edit"
-                                @click="() => {}"
+                                @click="openUnitDrawer(data.id, true)"
                             />
                             <RectangleStackIcon
                                 v-if="data.subunitCount > 0"
@@ -75,6 +78,21 @@ import {
             </DataTable>
         </CardContainer>
     </MainLayout>
+    <Drawer v-model:visible="upsertUnitDrawerOpen" position="right">
+        <template #container="{ closeCallback }">
+            <div class="wms-drawer">
+                <div class="wms-drawer-header">
+                    <h3 class="Header-P3">
+                        {{ editUnit ? $t('units.editUnit') : $t('units.unitDetails') }}
+                    </h3>
+                    <XMarkIcon @click="closeCallback" />
+                </div>
+                <div class="wms-drawer-body">
+                    <UnitDrawer @close="closeCallback" :userId="selectedUnitId" :edit="editUnit" />
+                </div>
+            </div>
+        </template>
+    </Drawer>
 </template>
 
 <script>
@@ -90,8 +108,11 @@ export default {
         return {
             loading: true,
             currentUnitId: null,
+            selectedUnitId: null,
             breadcrumbs: [],
             subunits: null,
+            upsertUnitDrawerOpen: false,
+            editUnit: false,
         }
     },
     async mounted() {
@@ -124,6 +145,11 @@ export default {
             await this.getUnits()
             await this.getParentUnits()
             this.loading = false
+        },
+        openUnitDrawer(id, edit) {
+            this.editUnit = edit
+            this.selectedUnitId = id
+            this.upsertUnitDrawerOpen = true
         },
     },
 }

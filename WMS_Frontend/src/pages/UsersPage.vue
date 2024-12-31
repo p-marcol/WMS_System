@@ -1,6 +1,5 @@
 <script setup>
 import { FilterMatchMode } from '@primevue/core/api'
-import { FunnelIcon } from '@heroicons/vue/24/outline'
 import Button from 'primevue/button'
 import CardContainer from '@/components/CardContainer.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
@@ -11,6 +10,7 @@ import Tag from 'primevue/tag'
 import Drawer from 'primevue/drawer'
 import UserDrawer from '@/components/drawer/user/UserDrawer.vue'
 import {
+    FunnelIcon,
     XMarkIcon,
     PencilSquareIcon,
     MagnifyingGlassCircleIcon,

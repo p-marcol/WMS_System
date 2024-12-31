@@ -1,13 +1,12 @@
 <script setup>
-import ItemLabel from '../ItemLabel.vue'
+import ItemLabel from '@/components/ItemLabel.vue'
 import Checkbox from 'primevue/checkbox'
-import AccessCardAccordion from '../AccessCardAccordion.vue'
 </script>
 
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
     <div class="wms-drawer-content">
-        <div class="wms-col-3">
+        <!-- <div class="wms-col-3">
             <ItemLabel :label="$t('users.id')">
                 <div class="Header-P4" id="id">{{ user.id }}</div>
             </ItemLabel>
@@ -54,56 +53,23 @@ import AccessCardAccordion from '../AccessCardAccordion.vue'
         </ItemLabel>
         <ItemLabel :label="$t('users.authority')">
             <div class="Header-P4" id="authority">{{ user.authorityName }}</div>
-        </ItemLabel>
+        </ItemLabel> -->
     </div>
-    <hr />
-    <AccessCardAccordion :cards="cards" @refresh="fetchCards" />
 </template>
 
 <script>
 export default {
     data() {
-        return {
-            cards: [],
-        }
+        return {}
     },
     props: {
-        user: {
+        unit: {
             type: Object,
             required: true,
         },
     },
-    async mounted() {
-        await this.fetchUser()
-        await this.fetchCards()
-    },
-    methods: {
-        async fetchUser() {
-            await this.axios
-                .get(`card/user/${this.user.id}`)
-                .then((response) => {
-                    this.cards = response.data
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        },
-        async fetchCards() {
-            await this.axios
-                .get(`card/user/${this.user.id}`)
-                .then((response) => {
-                    this.cards = response.data
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
-        },
-    },
+    methods: {},
 }
 </script>
 
-<style scoped>
-.wms-drawer-content {
-    margin-bottom: 1rem;
-}
-</style>
+<style scoped></style>

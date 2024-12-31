@@ -1,59 +1,42 @@
 <script setup>
 import ItemLabel from '@/components/ItemLabel.vue'
 import Checkbox from 'primevue/checkbox'
+import Breadcrumb from 'primevue/breadcrumb'
 </script>
 
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
     <div class="wms-drawer-content">
-        <!-- <div class="wms-col-3">
-            <ItemLabel :label="$t('users.id')">
-                <div class="Header-P4" id="id">{{ user.id }}</div>
+        <div class="wms-col-2">
+            <ItemLabel :label="$t('units.id')">
+                <div class="Header-P4" id="id">{{ unit.id }}</div>
             </ItemLabel>
-            <ItemLabel :label="$t('users.status')">
+            <ItemLabel :label="$t('units.status')">
                 <div class="Header-P4" id="archived">
                     <div class="wms-row">
-                        <Checkbox
-                            v-model="user.isArchived"
-                            :true-value="false"
-                            :false-value="true"
-                            :binary="true"
-                            :readonly="true"
-                            @click="cantChangeHere"
-                        />
-                        {{ user.isArchived ? $t('users.archived') : $t('users.active') }}
+                        <Checkbox v-model="unit.isWorking" :binary="true" :readonly="true" />
+                        {{ unit.isWorking ? $t('units.working') : $t('units.notWorking') }}
                     </div>
                 </div>
             </ItemLabel>
-            <ItemLabel :label="$t('users.unit')">
-                <div class="Header-P4" id="unit">{{ user.currentUnit }}</div>
-            </ItemLabel>
         </div>
-        <div class="wms-col-2">
-            <ItemLabel :label="$t('users.username')">
-                <div class="Header-P4" id="username">{{ user.username }}</div>
-            </ItemLabel>
-            <ItemLabel v-if="!user.isArchived" :label="$t('users.email')">
-                <div class="Header-P4" id="email">{{ user.email }}</div>
-            </ItemLabel>
-        </div>
-        <div class="wms-col-2">
-            <ItemLabel :label="$t('users.firstName')">
-                <div class="Header-P4" id="firstName">{{ user.firstName }}</div>
-            </ItemLabel>
-            <ItemLabel :label="$t('users.lastName')">
-                <div class="Header-P4" id="lastName">{{ user.lastName }}</div>
-            </ItemLabel>
-        </div>
-        <ItemLabel :label="$t('users.birthdate')">
-            <div class="Header-P4" id="birthdate">{{ user.birthdate }}</div>
+        <ItemLabel :label="$t('units.name')">
+            <div class="Header-P4" id="name">{{ unit.name }}</div>
         </ItemLabel>
-        <ItemLabel :label="$t('users.phone')">
-            <div class="Header-P4" id="phone">{{ user.phone }}</div>
+        <ItemLabel :label="$t('units.hierarchy')" id="hierarchy">
+            <Breadcrumb
+                :home="{ icon: HomeIcon, label: $t('br.home'), id: null }"
+                :model="unit.breadcrumbs"
+                :pt="{ item: { class: 'Text-P1' } }"
+            >
+                <template #item="{ item }">
+                    <span class="">{{ item.label }}</span>
+                </template>
+            </Breadcrumb>
         </ItemLabel>
-        <ItemLabel :label="$t('users.authority')">
-            <div class="Header-P4" id="authority">{{ user.authorityName }}</div>
-        </ItemLabel> -->
+        <ItemLabel :label="$t('units.desc')">
+            <span class="Text-P1">{{ unit.description }}</span>
+        </ItemLabel>
     </div>
 </template>
 
@@ -68,8 +51,11 @@ export default {
             required: true,
         },
     },
-    methods: {},
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+#hierarchy {
+    overflow-y: auto;
+}
+</style>

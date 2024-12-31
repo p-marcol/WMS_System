@@ -6,63 +6,34 @@ import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 </script>
 
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
     <div class="wms-drawer-content">
-        <!-- <div class="wms-col-2">
-            <ItemLabel :label="$t('users.id')">
-                <div class="Header-P4" id="id">{{ user.id }}</div>
+        <div class="wms-col-2">
+            <ItemLabel :label="$t('units.id')">
+                <div class="Header-P4" id="id">{{ unit.id }}</div>
             </ItemLabel>
-            <ItemLabel :label="$t('users.status')">
+            <ItemLabel :label="$t('units.status')">
                 <div class="Header-P4" id="archived">
                     <div class="wms-row">
                         <Checkbox
-                            v-model="editUser.isArchived"
-                            :true-value="false"
-                            :false-value="true"
+                            v-model="unit.isWorking"
                             :binary="true"
                             :readonly="true"
                             @click="cantChangeHere"
                         />
-                        {{ user.isArchived ? $t('users.archived') : $t('users.active') }}
+                        {{ unit.isWorking ? $t('units.working') : $t('units.notWorking') }}
                     </div>
                 </div>
             </ItemLabel>
         </div>
-        <div class="wms-col-2">
-            <ItemLabel :label="$t('users.username')">
-                <div class="Header-P4" id="username">{{ user.username }}</div>
-            </ItemLabel>
-        </div>
-        <div class="wms-col-2">
-            <InputContainer :label="$t('users.firstName')" label-for="firstName">
-                <InputText
-                    id="firstName"
-                    v-model="editUser.firstName"
-                    :readonly="user.isArchived"
-                />
-            </InputContainer>
-            <InputContainer :label="$t('users.lastName')" label-for="lastName">
-                <InputText id="lastName" v-model="editUser.lastName" :readonly="user.isArchived" />
-            </InputContainer>
-        </div>
-        <InputContainer v-if="!user.isArchived" :label="$t('users.email')" required>
-            <InputText id="email" v-model="editUser.email" :readonly="user.isArchived" />
+        <InputContainer :label="$t('units.name')">
+            <InputText v-model="editUnit.name" :readonly="!unit.isWorking" />
         </InputContainer>
-        <InputContainer :label="$t('users.birthdate')" :label-for="birthdate">
-            <DatePicker id="birthdate" v-model="editUser.birthdate" :readonly="user.isArchived" />
+        <InputContainer :label="$t('units.desc')">
+            <InputText v-model="editUnit.description" :readonly="!unit.isWorking" />
         </InputContainer>
-        <InputContainer :label="$t('users.phone')" :label-for="phone">
-            <InputText id="phone" v-model="editUser.phone" :readonly="user.isArchived" />
-        </InputContainer>
-        <InputContainer :label="$t('users.authority')" :label-for="authority">
-            <Dropdown
-                v-model="editUser.authorityId"
-                :options="authorities"
-                option-label="authority"
-                option-value="id"
-            />
-        </InputContainer> -->
-        <SaveCancelButtons @cancel="cancel" @save="save" saveButton />
+        <SaveCancelButtons @save="save" saveButton />
     </div>
 </template>
 
@@ -81,9 +52,6 @@ export default {
         }
     },
     methods: {
-        isDirty() {
-            return JSON.stringify(this.unit) !== JSON.stringify(this.editUnit)
-        },
         cantChangeHere() {
             this.$toast.add({
                 severity: 'warn',
@@ -92,41 +60,29 @@ export default {
             })
         },
         save() {
-            if (!this.isDirty()) {
-                this.$toast.add({
-                    severity: 'info',
-                    summary: this.$t('form.noChanges'),
-                    life: 3000,
+            this.axios
+                .post('/unit/upsertDetails', {
+                    unitId: this.editUnit.id,
+                    name: this.editUnit.name,
+                    description: this.editUnit.description,
                 })
-                return
-            }
-            // this.axios
-            //     .post('/user/upsertDetails', {
-            //         userId: this.user.id,
-            //         email: this.editUser.email,
-            //         firstName: this.editUser.firstName,
-            //         lastName: this.editUser.lastName,
-            //         phoneNumber: this.editUser.phone,
-            //         dateOfBirth: this.editUser.birthdate,
-            //     })
-            //     .then((res) => {
-            //         this.$toast.add({
-            //             severity: 'success',
-            //             summary: this.$t('form.saved'),
-            //             life: 3000,
-            //         })
-            //         this.$emit('save')
-            //         console.log(res)
-            //     })
-            //     .catch((err) => {
-            //         console.warn(err)
-            //         this.$toast.add({
-            //             severity: 'error',
-            //             summary: this.$t('form.error'),
-            //             detail: err.response.data,
-            //             life: 3000,
-            //         })
-            //     })
+                .then((res) => {
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: this.$t('form.saved'),
+                        life: 3000,
+                    })
+                    this.$emit('save')
+                    console.log(res)
+                })
+                .catch((err) => {
+                    console.warn(err)
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: this.$t('form.error'),
+                        life: 3000,
+                    })
+                })
         },
         cancel() {
             const dirty = this.isDirty()
@@ -139,9 +95,10 @@ export default {
         },
     },
     watch: {
-        user: {
-            handler(newUser) {
-                this.editUser = newUser
+        unit: {
+            handler(newUnit) {
+                console.log(newUnit)
+                this.editUnit = newUnit
             },
             immediate: true,
         },

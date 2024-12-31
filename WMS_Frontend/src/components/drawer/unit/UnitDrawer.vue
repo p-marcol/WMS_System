@@ -31,10 +31,7 @@ export default {
     data() {
         return {
             unit: Object,
-            loading: {
-                type: Boolean,
-                default: true,
-            },
+            loading: true,
         }
     },
     watch: {
@@ -42,11 +39,17 @@ export default {
             async handler(newId) {
                 this.loading = true
                 if (newId) {
+                    console.log(newId)
                     await this.axios
                         .get(`/unit/getDetails/${newId}`)
                         .then((response) => {
-                            console.log(response.data)
-                            this.unit = response.data
+                            this.unit = {
+                                ...response.data,
+                                breadcrumbs: response.data.parentUnits.map((unit) => {
+                                    return { label: unit.name, id: unit.id }
+                                }),
+                            }
+                            // console.log(this.unit)
                         })
                         .catch((err) => {
                             console.warn(err)

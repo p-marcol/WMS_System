@@ -88,7 +88,7 @@ import {
                     <XMarkIcon @click="closeCallback" />
                 </div>
                 <div class="wms-drawer-body">
-                    <UnitDrawer @close="closeCallback" :userId="selectedUnitId" :edit="editUnit" />
+                    <UnitDrawer @close="closeCallback" :unitId="selectedUnitId" :edit="editUnit" />
                 </div>
             </div>
         </template>

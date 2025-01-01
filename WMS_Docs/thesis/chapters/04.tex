@@ -17,4 +17,23 @@
 
 \section{Dostępność}
 
-\note{Tutaj warto wspomnieć o możliwości zmiany języka przez i18n}
+\subsection{Dostępność cyfrowa}
+
+Aplikacja została zaprojektowana w taki sposób, aby możliwe było korzystanie z niej wyłącznie przy użyciu klawiatury. Użycie biblioteki komponentów \texttt{PrimeVue} pozwoliło na zapewnienie dostępności dla osób o ograniczonych możliwościach ruchowych. Komponenty umieszczone na stronie internetowej są zgodne z wytycznymi \texttt{WCAG 2.1}. \cite{bib:WCAG21}
+
+\subsection{Dostępność językowa}
+
+W celu zapewnienia dostępności systemu użytkownikom z różnych krajów i regionów, aplikacja dostarcza możliwość zmiany języka interfejsu użytkownika. W chwili obecnej dostępne są 2 języki: polski i angielski, jednakże dodanie kolejnego nie wymaga od programisty dużego nakładu pracy. Każdy z języków jest przechowywany w oddzielnym pliku \texttt{.json}, co pozwala na jego łatwą modyfikację lub dodanie nowego. Część pliku zawierającego tłumaczenia na język polski została przedstawiona na rysunku \ref{lst:pl}.
+
+\begin{figure}[H]
+    \begin{minted}[linenos,frame=lines]{json}
+"form": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "fieldRequired": "To pole jest wymagane",
+    "invalidFormat": "Nieprawidłowy format"
+},
+\end{minted}
+    \caption{Fragment pliku z tłumaczeniami na język polski}
+    \label{lst:pl}
+\end{figure}

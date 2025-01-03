@@ -59,7 +59,7 @@ Wszystkie jednostki organizacyjne są przechowywane w tabeli \texttt{UNITS} zawi
 \end{figure}
 
 \subsection{Tabele harmonogramów}
-
+\label{ss:harmonogramy}
 
 
 Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHEDULES} oraz pewna liczba rekordów w tabeli \texttt{SCHEDULE\_BLOCKS}. Pierwsza z nich zawiera informacje o dacie rozpoczęcia i zakończenia harmonogramu, jego utworzenia oraz odwołanie do jednostki organizacyjnej lub użytkownika, którego dotyczy. Tabela \texttt{SCHEDULE\_BLOCKS} odpowiada za przechowywanie pojedynczych bloków czasowych w harmonogramie opisując ich dzień i godzinę rozpoczęcia oraz zakończenia oraz jednostkę, której dotyczą. Tabele są powiazane relacją jeden do wielu - jeden harmonogram może zawierać wiele bloków czasowych. Przedstawienie tabel harmonogramów widoczne jest na rysunku \ref{fig:schedulesTable}.
@@ -170,7 +170,7 @@ Harmonogramowanie jest częścią systemu, która pochłania najwięcej zasobów
 
 \subsubsection{Zapis harmonogramu}
 
-Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Następnie tworzona jest struktura danych opisana w rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu.
+Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Następnie tworzona jest struktura danych odpowiadająca tabelom opisanym w rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu.
 
 \subsubsection{Odczyt harmonogramu}
 
@@ -192,6 +192,7 @@ Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostk
 % //www.plantuml.com/plantuml/png/dPJFQXin4CRlynH3xdw1749WxwKWJA6toMf8vDLAYrREOXy3fizG-XYv5T_YVQ-EDhXQkTWizMtdppU_-IJviOyKuhQr05H77x2oXbr4wd7TSm3e96rgqv44xohlOl3MShXB5LMPLVKBwwrbnU7Lr3oLA5NM9D5vVgq0KWnN3rZTuxVT-CkQ3Ox7qq6JCvoep2j5bc5GIPLqtEDN_sGuxD6QFfv-ueQrytta1hVZSHSRFpZJ40xOUH7PjRYd9d1l63N5h2YprmfNdvE_3-7Z_VJZ7qdGF6y0wts7sX8sD1urRywLZG6KtuIePeWl55hl_7EWTfThhx4bYRnn-QdKzAsk8SycVRmF5roQIvrCAfu_i-EmtSXAbfqceNQK-Ff8W-4RmelmXazzFyYwUSGjAcd-Ghep_Hx58yO1avbDRJZtqwL01P80k7a02-z7HbfeDfIB_A-r1Lx1iTJLKg6acZ-bQlLGuL-NSp_Ftb8EjgKid0yfh-TrvsKVFVwUif9EZphJvZpkSVBS01I71sIZ28gvXywCR_WqlfqE-dmdBWNFQG6ya7cKKFex-mC0
 
 \subsection{Przypisanie  karty dostępowej}
+\label{sec:addNfc}
 
 Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni menu wyboru użytkownika, do którego ma zostać przypisana. Po zatwierdzeniu wyboru, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika. Diagram sekwencji przypisania karty dostępowej został przedstawiony na rysunku \ref{fig:assignCard}.
 

@@ -9,7 +9,7 @@ Kompletny system składa się z czterech głównych komponentów, które komunik
 
 \subsection{Frontend}
 
-Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od roli użytkownika, pozwala na wykonanie innych czynności. Aplikacja została zaprojektowana w taki sposób, aby była przejrzysta i intuicyjna w obsłudze. Dzięki temu, użytkownik może szybko i sprawnie wykonywać swoje codzienne obowiązki. Odrębne od siebie panele zostały umieszczone w kartach pojawiających się na widoku, dzięki czemu użytkownik wie dokładnie w którym miejscu aplikacji się znajduje i jakie ma możliwości.
+Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od roli użytkownika, umożliwia wykonanie innych czynności. Aplikacja została zaprojektowana w taki sposób, aby była przejrzysta i intuicyjna w obsłudze. Dzięki temu, użytkownik może szybko i sprawnie wykonywać swoje codzienne obowiązki. Odrębne od siebie panele zostały umieszczone w kartach pojawiających się na widoku, dzięki czemu użytkownik wie dokładnie w którym miejscu aplikacji się znajduje i jakie ma możliwości. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP i odbierając odpowiedzi w formacie \texttt{JSON}.
 
 \subsection{Backend}
 
@@ -17,7 +17,7 @@ Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot
 
 \subsection{Aplikacja mobilna}
 
-Głównym zadaniem aplikacji mobilnej jest możliwość dodawania kart dostępowych dla poszczególnych użytkowników. Odbywa się to poprzez przyłożenie tagu NFC (ang. \english{Near Field Communication}) do telefonu z zainstalowaną aplikacją, a następnie przypisanie go do konkretnego użytkownika. Szczegółowy opis tego procesu został opisany w rozdziale \ref{sec:addNfc}.
+Aplikacja mobilna umożliwia użytkownikom przeglądanie swoich danych bez konieczności korzystania z przeglądarki internetowej. Jej głównym zadaniem jest jednak możliwość dodawania kart dostępowych dla poszczególnych użytkowników. Odbywa się to poprzez przyłożenie tagu NFC (ang. \english{Near Field Communication}) do telefonu z zainstalowaną aplikacją, a następnie przypisanie go do konkretnego użytkownika. Szczegółowy opis tego procesu został opisany w rozdziale \ref{sec:addNfc}.
 
 \subsection{Układ mikroprocesorowy}
 
@@ -104,21 +104,49 @@ Dane mogą dodawać jedynie administratorzy systemu.
 
 \section{Algorytmy}
 
-\subsection{Rejestracja}
+\subsection{Rejestracja i pierwsze logowanie użytkownika}
+
+Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, sprawdzi on czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły tego procesu zostały opisane w rozdziale \ref{ss:logowanie}
 
 \subsection{Logowanie}
+\label{ss:logowanie}
+
+Logowanie do systemu odbywa się poprzez przesłanie żądania HTTP z danymi logowania do serwera aplikacyjnego. Po jego otrzymaniu serwer zwraca się do bazy danych w celu znalezienia użytkownika o podanej nazwie. Jeżeli użytkownik nie istnieje, serwer zwraca kod błędu 401. W przeciwnym wypadku sprawdza, czy zahashowane hasło użytkownika jest zgodne z zapisanym w bazie. Jeżeli hasła się zgadzają, serwer generuje dwa tokeny JWT (ang. \english{JSON Web Token}) i zwraca je w odpowiedzi. Aplikacja kliencka zapisuje otrzymane tokeny w pamięci lokalnej przeglądarki i przechodzi do widoku panelu głównego. Diagram czynności logowania został przedstawiony na rysunku \ref{fig:login}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{graf/loginSequence.png}
+    \includegraphics[width=0.9\textwidth]{graf/loginSequence.png}
     \caption{Diagram czynności logowania}
     \label{fig:login}
 \end{figure}
 % //www.pantum.com/plantuml/png/VP8nRiCm34LtdKB8dWju288CdOgYIz2PigX6iIC5jbJN7WFq43rBEzRtAeceK6pKcJpyh__9Hs_R04s8frf06NmZz-Dt7ohVELj9QAMBuaowBUqPN90FZNS1dMR9u4JQGLabHQ7G4411YtArWm6a1jUNXnMBMWaXN9Jh3IN8GZxwLz-1iyW3s3S8oCa6rnl5ylZryw5PbdKoGZPIaK9EqegiBtqxn0gECkOTifcBeGwJ1JdMje4-HnfPSHANBdfIcxdhCUnv9t9aseqN6byG5uhdZMOFSpdEvtpoNN-xYL24n4oHH3fUPv6Oo0EqumK4StFnhYaZuUkwoAd5_i-4oJI5gF7cJJfEiLmnUysJQqMRi-tgy8j7Ig0A-Um3PJPweDmv80RAa9ZlftQOGZEZkM3mdvja-vwRXZvWxQuGbhPNwRuSDHin_w2t3moABLN5K_qB
 
+\subsection{Uwierzytelnianie użytkownika}
+
+Klient po zalogowaniu się do systemu otrzymuje od serwera dwa tokeny JWT, które są przechowywane w pamięci lokalnej przeglądarki. Aby mógł korzystać z zasobów serwera, musi dołączać pierwszy z nich - token dostępowy - do nagłówka każdego żądania HTTP pod kluczem \texttt{Authorization} poprzedzając go słowem \texttt{Bearer}. Przykładowy nagłówek został przedstawiony na rysunku. Token ten jest ważny przez określony czas, po którym traci ważność - serwer zwraca wtedy kod błędu 401. Jeżeli zaistnieje taka sytuacja, klient musi wysłać żądanie odświeżenia tokena do serwera, dołączając drugi token - odświeżający - który ma dłuższy czas przedawnienia. Serwer następnie sprawdza, czy token odświeżający jest poprawny i zwraca nowe tokeny. W przeciwnym wypadku klient musi ponownie zalogować się do systemu. Diagram sekwencji procesu uwierzytelniania użytkownika został przedstawiony na rysunku \ref{fig:authSequence}.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{graf/jwtSeq.png}
+    \caption{Diagram sekwencji procesu uwierzytelniania użytkownika}
+    \label{fig:authSequence}
+\end{figure}
+% //www.plantuml.com/plantuml/png/fPAnIiH048RxVOhX-a0KAudBaSB2naOG9CraPt8knjcmMGrdAVWKFeQTscdUopLHk1K5zQeKy__pV_zabtr07wukMzN5hpMsGmbmw9q45WBieU5aLAAv-9ZKh5J3cQuPzc5yUhqZ5CjGIM5roUZP0nh3VG_1HOz24-mr1dutOXlWREL8rlCGZavFL5oKwHWOrnrJvmRBD3v2qKGOCAvr_c2nyiooq4MjT_DSiL0qPNgobEDjH4ZbdcaIx-KxbNJ-XWa7iUupLH5lG7rNnj5u7pd6PnQBi-dbOTYiwBdnt9__q379JANRW2VDVtUiIiGDFDlNqxcJyl_-at-Z-1Agr9A5ulDx0m00
+
 \subsection{Harmonogramowanie}
 
-\subsection{Przypisanie nowej karty dostępowej}
+\subsection{Przypisanie  karty dostępowej}
+
+Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni menu wyboru użytkownika, do którego ma zostać przypisana. Po zatwierdzeniu wyboru, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika. Diagram sekwencji przypisania karty dostępowej został przedstawiony na rysunku \ref{fig:assignCard}.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{graf/cardSeq.png}
+    \caption{Diagram sekwencji odczytu i przypisania karty dostępowej}
+    \label{fig:assignCard}
+\end{figure}
+% //www.plantuml.com/plantuml/png/TP8nKiCm44LxdM8dVIv0aKaeQ2XIC0mDpThQ38jbIMFBU9oI8OV8v1ZfW2xnlTW8W-r0YgY8tlx_zylpCc0HgjmeJ8ChOA5pje0be5PURZXbZpR0PE4DPvW-uwFDNSB6uYHYte-uQqmpilfqbP1IgASpGU0AxZAqhaRB19dmpScFNp1Gb93VT9QGSEt7SQCZ9cUJFe4xyIbJFo32WavdyAsyrDxLJBfzXtKSobbf6j9H7RMm3qsx4pOOOBjoHIuBaJZKxIkskvJ5nbI3P5ev7-1MyYBuOjruBj6Y0kZtkY-hzgqN88FTVW3zKW9PFcv5Vc3LesHAwbnayGj6or0VziKQ39VXk8Mg_Mn2vchBsM5V2_bFXP5jpj5nZr5-t6BdiJaR_5jgV8DHhVJh6fjRiGb5V7NXTVzaD_t_7KrM3mbHJ8fuFSY0mmIeVn9q3GUK1FP2myD1xwERciif7_uN
 
 \section{Użyte biblioteki i frameworki}
 

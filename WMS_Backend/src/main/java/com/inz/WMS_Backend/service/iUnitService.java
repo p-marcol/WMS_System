@@ -4,7 +4,9 @@ import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.Unit;
 import com.inz.WMS_Backend.entity.User;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
+import com.inz.apimodels.unit.get_details.GetUnitDetailsResponse;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
+import com.inz.apimodels.unit.upsert_details.UpsertUnitDetailsRequest;
 
 import java.util.List;
 import java.util.Set;
@@ -13,6 +15,8 @@ public interface iUnitService {
     Unit getUnit(Long id);
 
     void addUnit(AddUnitRequest request);
+
+    List<Position> getUnitWorkers(Long id);
 
     void deleteUnit(Long id);
 
@@ -33,4 +37,6 @@ public interface iUnitService {
     Unit getMyUnit();
 
     List<Position> getUnitPositions(Long id);
+
+    void upsertUnitDetails(UpsertUnitDetailsRequest request);
 }

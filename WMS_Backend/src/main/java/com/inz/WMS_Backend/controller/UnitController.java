@@ -16,6 +16,7 @@ import com.inz.apimodels.unit.get_subunits.GetSubunitsResponse;
 import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersListItem;
 import com.inz.apimodels.unit.get_unit_workers.GetUnitWorkersResponse;
 import com.inz.apimodels.unit.my_unit.GetMyUnitInfoResponse;
+import com.inz.apimodels.unit.upsert_details.UpsertUnitDetailsRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,30 +46,33 @@ public class UnitController {
         }
     }
 
+    @PostMapping("/upsertDetails")
+    public ResponseEntity<?> upsertUnitDetails(@RequestBody UpsertUnitDetailsRequest request) {
+        try {
+            unitService.upsertUnitDetails(request);
+            return ResponseEntity.ok("Unit details updated");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
+    @GetMapping("/{id}/workers")
+    public ResponseEntity<?> getUnitWorkers(@PathVariable Long id) {
+        try {
+            Unit unit = unitService.getUnit(id);
+            GetUnitWorkersResponse response = prepareUnitWorkersResponse(unit);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("An error occurred");
+        }
+    }
+
     @GetMapping("/my/workers")
     public ResponseEntity<?> getMyUnitWorkers() {
         try {
             Unit unit = unitService.getMyUnit();
-            List<Position> workers = unitService.getUnitPositions(unit.getId());
-            List<GetUnitWorkersListItem> workersList = new ArrayList<>();
-            workers.forEach(position -> {
-                        User user = position.getUser();
-                        workersList.add(GetUnitWorkersListItem.builder()
-                                .userId(user.getId())
-                                .firstName(user.getFirstName())
-                                .lastName(user.getLastName())
-                                .shortName(user.getShortName())
-                                .position(position.getPositionName().getName())
-                                .build()
-                        );
-                    }
-            );
-            GetUnitWorkersResponse response = GetUnitWorkersResponse.builder()
-                    .unitId(unit.getId())
-                    .unitName(unit.getName())
-                    .workers(workersList)
-                    .build();
-            return ResponseEntity.ok(workersList);
+            GetUnitWorkersResponse response = prepareUnitWorkersResponse(unit);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");
         }
@@ -148,6 +152,7 @@ public class UnitController {
                             .id(unit.getId())
                             .name(unit.getName())
                             .description(unit.getDescription())
+                            .workerCount((long) unit.getPositions().size())
                             .subunitCount((long) unit.getSubunits().size())
                             .build())
                     .toList();
@@ -169,6 +174,7 @@ public class UnitController {
                             .id(unit.getId())
                             .name(unit.getName())
                             .description(unit.getDescription())
+                            .workerCount((long) unit.getPositions().size())
                             .subunitCount((long) unit.getSubunits().size())
                             .build())
                     .toList().stream().sorted(Comparator.comparing(u -> u.id)).toList();
@@ -220,5 +226,27 @@ public class UnitController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("An error occurred");
         }
+    }
+
+    private GetUnitWorkersResponse prepareUnitWorkersResponse(Unit unit) {
+        List<Position> workers = unitService.getUnitPositions(unit.getId());
+        List<GetUnitWorkersListItem> workersList = new ArrayList<>();
+        workers.forEach(position -> {
+                    User user = position.getUser();
+                    workersList.add(GetUnitWorkersListItem.builder()
+                            .userId(user.getId())
+                            .firstName(user.getFirstName())
+                            .lastName(user.getLastName())
+                            .shortName(user.getShortName())
+                            .position(position.getPositionName().getName())
+                            .build()
+                    );
+                }
+        );
+        return GetUnitWorkersResponse.builder()
+                .unitId(unit.getId())
+                .unitName(unit.getName())
+                .workers(workersList)
+                .build();
     }
 }

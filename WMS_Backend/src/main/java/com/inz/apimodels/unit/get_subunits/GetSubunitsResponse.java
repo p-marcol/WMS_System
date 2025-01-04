@@ -9,5 +9,6 @@ public class GetSubunitsResponse {
     public Long id;
     public String name;
     public String description;
+    public Long workerCount;
     public Long subunitCount;
 }

@@ -3,7 +3,6 @@ package com.inz.WMS_Backend.service;
 import com.inz.WMS_Backend.entity.Position;
 import com.inz.WMS_Backend.entity.Unit;
 import com.inz.WMS_Backend.entity.User;
-import com.inz.WMS_Backend.entity.dictionaries.PositionName;
 import com.inz.WMS_Backend.repository.iPositionNameRepository;
 import com.inz.WMS_Backend.repository.iPositionRepository;
 import com.inz.WMS_Backend.repository.iUnitRepository;
@@ -11,13 +10,11 @@ import com.inz.WMS_Backend.repository.iUserRepository;
 import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.apimodels.unit.add_unit.AddUnitRequest;
 import com.inz.apimodels.unit.get_parent_units.GetParentUnitsResponseUnit;
-import jakarta.transaction.Transactional;
+import com.inz.apimodels.unit.upsert_details.UpsertUnitDetailsRequest;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -34,39 +31,26 @@ public class UnitService implements iUnitService {
     }
 
     @Override
-    @Transactional(rollbackOn = SQLException.class)
     public void addUnit(AddUnitRequest request) {
-        Set<Position> managers = new HashSet<>();
 
-        request.managerIds.forEach(id -> {
-            User user = userRepository.findById(id).orElseThrow();
-            managers.add(Position.builder()
-                    .user(user)
-                    .build());
-        });
+        Long parentUnitId = request.getParentUnitId();
+        Unit parentUnit = null;
+        if (parentUnitId != null) {
+            parentUnit = unitRepository.findById(parentUnitId).orElseThrow();
+        }
 
         Unit unit = Unit.builder()
                 .name(request.getName())
-                .parentUnit(unitRepository.findById(request.getParentUnitId()).orElse(null))
+                .parentUnit(parentUnit)
                 .description(request.getDescription())
                 .build();
 
         unitRepository.save(unit);
+    }
 
-        PositionName managerName = positionNameRepository.findByName("MANAGER");
-
-        managers.forEach(manager -> {
-            // check if manager is already a manager in any unit
-            // if so, change the dates
-            Position existingManager = positionRepository.findByUserAndEndDateIsNull(manager.getUser());
-            if (existingManager != null) {
-                existingManager.setEndDate(LocalDate.now());
-                positionRepository.save(existingManager);
-            }
-            manager.setUnit(unit);
-            manager.setPositionName(managerName);
-            positionRepository.save(manager);
-        });
+    @Override
+    public List<Position> getUnitWorkers(Long id) {
+        return positionRepository.findByUnitId(id);
     }
 
     @Override
@@ -147,5 +131,16 @@ public class UnitService implements iUnitService {
     @Override
     public List<Position> getUnitPositions(Long id) {
         return positionRepository.findByUnitId(id);
+    }
+
+    @Override
+    public void upsertUnitDetails(UpsertUnitDetailsRequest request) {
+        unitRepository.findById(request.getId()).ifPresentOrElse(unit -> {
+            unit.setName(request.getName());
+            unit.setDescription(request.getDescription());
+            unitRepository.save(unit);
+        }, () -> {
+            throw new IllegalArgumentException("Unit not found");
+        });
     }
 }

@@ -132,13 +132,13 @@ public class UserController {
         try {
             List<GetUserShortResponse> managers = userService.getUserByAuthorityName(eAuthority.MANAGER.name()).stream().map(manager -> GetUserShortResponse.builder()
                             .id(manager.getId())
-                            .name(manager.getFirstName() + " " + manager.getLastName())
+                            .name(manager.getShortName())
                             .userType('M')
                             .build())
                     .toList();
             List<GetUserShortResponse> admins = userService.getUserByAuthorityName(eAuthority.ADMIN.name()).stream().map(admin -> GetUserShortResponse.builder()
                             .id(admin.getId())
-                            .name(admin.getFirstName() + " " + admin.getLastName())
+                            .name(admin.getShortName())
                             .userType('A')
                             .build())
                     .toList();

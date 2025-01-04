@@ -34,7 +34,7 @@ import Breadcrumb from 'primevue/breadcrumb'
                 </template>
             </Breadcrumb>
         </ItemLabel>
-        <ItemLabel :label="$t('units.desc')">
+        <ItemLabel :label="$t('units.description')">
             <span class="Text-P1">{{ unit.description }}</span>
         </ItemLabel>
     </div>

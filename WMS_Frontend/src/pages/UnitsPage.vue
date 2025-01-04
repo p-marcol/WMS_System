@@ -4,6 +4,8 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import CardContainer from '@/components/CardContainer.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
+import AddNewUnitDialog from '@/components/dialog/AddNewUnitDialog.vue'
+import ShowUnitUsersDialog from '@/components/dialog/ShowUnitUsersDialog.vue'
 import Breadcrumb from 'primevue/breadcrumb'
 import UnitDrawer from '@/components/drawer/unit/UnitDrawer.vue'
 import Drawer from 'primevue/drawer'
@@ -12,7 +14,7 @@ import {
     XMarkIcon,
     PencilSquareIcon,
     MagnifyingGlassCircleIcon,
-    TrashIcon,
+    UsersIcon,
     RectangleStackIcon,
 } from '@heroicons/vue/24/outline'
 </script>
@@ -34,7 +36,7 @@ import {
                 <Button
                     type="button"
                     :label="$t('units.newUnit')"
-                    @click="console.log('New Unit')"
+                    @click="openAddNewUnitDialog"
                     class="wms-small-button wms-small-button-primary Small-button-primary-P1"
                     unstyled
                 />
@@ -50,6 +52,11 @@ import {
                 <Column field="id" header="ID" style="width: 5rem" />
                 <Column field="name" :header="$t('units.name')" style="width: 10rem" />
                 <Column field="description" :header="$t('units.description')" />
+                <Column
+                    field="workerCount"
+                    :header="$t('units.workersCount')"
+                    style="width: 5rem"
+                />
                 <Column
                     field="subunitCount"
                     :header="$t('units.subunitCount')"
@@ -71,7 +78,10 @@ import {
                                 class="wms-table-icon wms-action-archive"
                                 @click="changeCurrentUnitId(data.id)"
                             />
-                            <TrashIcon class="wms-table-icon wms-action-delete" @click="() => {}" />
+                            <UsersIcon
+                                class="wms-table-icon wms-action-delete"
+                                @click="openShowUnitUsersDialog(data.id)"
+                            />
                         </div>
                     </template>
                 </Column>
@@ -88,11 +98,18 @@ import {
                     <XMarkIcon @click="closeCallback" />
                 </div>
                 <div class="wms-drawer-body">
-                    <UnitDrawer @close="closeCallback" :unitId="selectedUnitId" :edit="editUnit" />
+                    <UnitDrawer
+                        @close="closeCallback"
+                        :unitId="selectedUnitId"
+                        :edit="editUnit"
+                        @reload="fetchData"
+                    />
                 </div>
             </div>
         </template>
     </Drawer>
+    <AddNewUnitDialog ref="addNewUnitDialogRef" @reload="fetchData" />
+    <ShowUnitUsersDialog ref="showUnitUsersDialogRef" @reload="fetchData" />
 </template>
 
 <script>
@@ -113,14 +130,19 @@ export default {
             subunits: null,
             upsertUnitDrawerOpen: false,
             editUnit: false,
+            unitUsersDialogOpen: false,
         }
     },
     async mounted() {
-        await this.getUnits()
-        this.getParentUnits()
-        this.loading = false
+        await this.fetchData()
     },
     methods: {
+        async fetchData() {
+            this.loading = true
+            await this.getUnits()
+            this.getParentUnits()
+            this.loading = false
+        },
         async getParentUnits() {
             if (!this.currentUnitId) {
                 this.breadcrumbs = []
@@ -150,6 +172,12 @@ export default {
             this.editUnit = edit
             this.selectedUnitId = id
             this.upsertUnitDrawerOpen = true
+        },
+        openAddNewUnitDialog() {
+            this.$refs.addNewUnitDialogRef.open()
+        },
+        openShowUnitUsersDialog(id) {
+            this.$refs.showUnitUsersDialogRef.open(id)
         },
     },
 }

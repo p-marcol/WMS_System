@@ -30,7 +30,7 @@ import Checkbox from 'primevue/checkbox'
         <InputContainer :label="$t('units.name')">
             <InputText v-model="editUnit.name" :readonly="!unit.isWorking" />
         </InputContainer>
-        <InputContainer :label="$t('units.desc')">
+        <InputContainer :label="$t('units.description')">
             <InputText v-model="editUnit.description" :readonly="!unit.isWorking" />
         </InputContainer>
         <SaveCancelButtons @save="save" saveButton />
@@ -62,7 +62,7 @@ export default {
         save() {
             this.axios
                 .post('/unit/upsertDetails', {
-                    unitId: this.editUnit.id,
+                    id: this.editUnit.id,
                     name: this.editUnit.name,
                     description: this.editUnit.description,
                 })

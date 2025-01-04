@@ -28,8 +28,7 @@ export default {
             await this.axios
                 .get('/unit/my/workers')
                 .then((res) => {
-                    this.team = res.data.sort((a) => (a.position === 'MANAGER' ? -1 : 1))
-                    console.log(res.data)
+                    this.team = res.data.workers.sort((a) => (a.position === 'MANAGER' ? -1 : 1))
                 })
                 .catch((err) => {
                     console.error(err)

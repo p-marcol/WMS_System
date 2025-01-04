@@ -103,7 +103,8 @@
 
 .wms-input-container input,
 .wms-input-container textarea,
-.wms-input-container .p-select {
+.wms-input-container .p-select,
+.wms-input-container .p-multiselect {
     border: 2px solid var(--color-secondary);
     border-radius: 5px;
     font-family: OpenSans;

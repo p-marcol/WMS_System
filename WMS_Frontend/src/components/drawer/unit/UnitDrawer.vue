@@ -7,7 +7,7 @@ import UnitDetailsDrawer from '@/components/drawer/unit/UnitDetailsDrawer.vue'
 <template>
     <template v-if="!loading">
         <UnitDetailsDrawer v-if="!edit" :unit="unit" />
-        <UnitEditDrawer v-else :unit="unit" />
+        <UnitEditDrawer v-else :unit="unit" @save="this.$emit('reload')" />
     </template>
     <template v-else>
         <div class="wms-drawer-content">

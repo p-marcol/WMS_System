@@ -214,3 +214,33 @@ Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Na
     \caption{Widok strony konfiguracyjnej czytnika}
     \label{fig:readerConfig}
 \end{figure}
+
+\section{Połączenie modułów czytnika kart}
+
+Czytnik kart składa się z dwóch modułów oraz kilku elementów pasywnych. Pierwszy z modułów to mikrokontroler \texttt{Raspberry Pi Pico W} odpowiedzialny za przetwarzanie danych i komunikację z serwerem aplikacyjnym. Drugi moduł - oznaczony symbolem \texttt{RFID-RC522} - odpowiada za odczytanie tagów NFC i przekazanie ich do mikrokontrolera. Oba układy są połączone ze sobą za pomocą interfejsu SPI (ang. \english{Serial Peripheral Interface}). Schemat połączeń czytnika kart został przedstawiony na rysunku \ref{fig:readerConnection}.
+
+Do elementów pasywnych układu należą:
+\begin{itemize}
+    \item Rezystory ograniczające prąd,
+    \item Dioda LED RGB ze wspólną katodą, sygnalizująca stan czytnika.
+\end{itemize}
+
+Zgodnie z opisem diody do każdej anody diody podłączony jest rezystor ograniczający prąd. Zgodnie z zaleceniami producenta wartości te powinny wynosić:
+\begin{equation}
+    \begin{cases}
+        R_R=100\Omega \\
+        R_G=82\Omega  \\
+        R_B=47\Omega
+    \end{cases}
+\end{equation}
+z dokładnością do $5\%$. Niemożność uzyskania rezystora dla kanału zielonego spowodowała, że połączono równolegle dostępne rezystory o wartościach $100\Omega$, $1,2k\Omega$ i $1,2k\Omega$. Dzięki temu uzyskano rezystancję równą:
+\begin{equation}
+    R_G = \frac{1}{\frac{1}{100}+\frac{1}{1200}+\frac{1}{1200}} \approx 85,71\Omega
+\end{equation}
+która odbiega od wartości zalecanej o mniej niż $5\%$.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{graf/nfcReader.pdf}
+    \caption{Schemat połączeń czytnika kart NFC}
+    \label{fig:readerConnection}
+\end{figure}

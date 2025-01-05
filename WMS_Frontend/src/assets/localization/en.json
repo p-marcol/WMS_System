@@ -30,6 +30,10 @@
         "schedule": "Schedule",
         "timesheet": "Timesheet"
     },
+    "schedule": {
+        "showTeam": "Show team's",
+        "showUsers": "Show users'"
+    },
     "users": {
         "unit": "Unit",
         "users": "Users",
@@ -87,7 +91,16 @@
         "thursday": "Thursday",
         "friday": "Friday",
         "saturday": "Saturday",
-        "sunday": "Sunday"
+        "sunday": "Sunday",
+        "short": {
+            "monday": "Mon",
+            "tuesday": "Tue",
+            "wednesday": "Wed",
+            "thursday": "Thu",
+            "friday": "Fri",
+            "saturday": "Sat",
+            "sunday": "Sun"
+        }
     },
     "timesheet": {
         "nothingHere": "Nothing here so far...",

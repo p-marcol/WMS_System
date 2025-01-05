@@ -10,7 +10,9 @@ import com.inz.WMS_Backend.security.JwtTokenUtils;
 import com.inz.apimodels.timesheet.add_new_record.AddNewRecordRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -40,5 +42,54 @@ public class TimesheetService implements iTimesheetService {
         String username = JwtTokenUtils.getUserFromContext().getUsername();
         User user = userRepository.findByUsernameIgnoreCase(username);
         return timesheetRepository.findByUserAndDate(user, date);
+    }
+
+    @Override
+    public List<Timesheet> getMyTimesheet(LocalDate startDate, LocalDate endDate) {
+        String username = JwtTokenUtils.getUserFromContext().getUsername();
+        User user = userRepository.findByUsernameIgnoreCase(username);
+        return timesheetRepository.findByUserAndDateBetween(user, startDate, endDate);
+    }
+
+    @Override
+    public List<Timesheet> getPendingTimesheet() {
+        return timesheetRepository.findByApprovedDateIsNull();
+    }
+
+    @Override
+    public void approveTimesheet(Long id) {
+        timesheetRepository.findById(id).ifPresentOrElse(timesheet -> {
+            timesheet.setApproved(true);
+            timesheet.setApprovedDate(LocalDate.now());
+            timesheet.setApprovedBy(userRepository.findByUsernameIgnoreCase(JwtTokenUtils.getUserFromContext().getUsername()));
+            timesheetRepository.save(timesheet);
+        }, () -> {
+            throw new RuntimeException("Timesheet not found");
+        });
+    }
+
+    @Override
+    public void rejectTimesheet(Long id) {
+        timesheetRepository.findById(id).ifPresentOrElse(timesheet -> {
+            timesheet.setRejected(true);
+            timesheet.setApprovedDate(LocalDate.now());
+            timesheet.setApprovedBy(userRepository.findByUsernameIgnoreCase(JwtTokenUtils.getUserFromContext().getUsername()));
+            timesheetRepository.save(timesheet);
+        }, () -> {
+            throw new RuntimeException("Timesheet not found");
+        });
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void approveAllTimesheet() {
+        User approver = userRepository.findByUsernameIgnoreCase(JwtTokenUtils.getUserFromContext().getUsername());
+        LocalDate now = LocalDate.now();
+        timesheetRepository.findByApprovedDateIsNull().forEach(timesheet -> {
+            timesheet.setApproved(true);
+            timesheet.setApprovedDate(now);
+            timesheet.setApprovedBy(approver);
+            timesheetRepository.save(timesheet);
+        });
     }
 }

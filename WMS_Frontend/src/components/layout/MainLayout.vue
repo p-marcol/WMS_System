@@ -48,6 +48,7 @@ export default {
                             role: res.data.authority,
                         }
                     }
+                    this.$emit('userFetched')
                 })
                 .catch(() => {
                     this.$router.push('/login')
@@ -65,6 +66,8 @@ export default {
                 })
         },
     },
+    emits: ['userFetched'],
+    expose: ['user'],
 }
 </script>
 

@@ -21,7 +21,7 @@ import {
 
 <template>
     <MainLayout>
-        <CardContainer id="card" title="Units">
+        <CardContainer id="card" :title="$t('title.units')">
             <template #header>
                 <Breadcrumb
                     :home="{ icon: HomeIcon, label: $t('br.home'), id: null }"

@@ -1,4 +1,8 @@
 {
+    "title": {
+        "timesheet": "Timesheet",
+        "units": "Units"
+    },
     "sidebar": {
         "home": "Home",
         "schedule": "Schedule",
@@ -60,7 +64,8 @@
         "duration": "Duration",
         "durationHours": "Duration (hours)",
         "unit": "Unit",
-        "approved": "Approved"
+        "approved": "Approved",
+        "rejected": "Rejected"
     },
     "filter": {
         "clear": "Clear filters",
@@ -87,7 +92,11 @@
     "timesheet": {
         "nothingHere": "Nothing here so far...",
         "openTS": "Open TS",
-        "addRecord": "Add record"
+        "addRecord": "Add record",
+        "changeDateRange": "Change date range",
+        "showPending": "Show pending",
+        "approveAll": "Approve all",
+        "showMy": "Show my"
     },
     "units": {
         "newUnit": "New unit",

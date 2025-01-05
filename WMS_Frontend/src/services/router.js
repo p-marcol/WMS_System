@@ -8,6 +8,8 @@ const routes = [
     { path: '/dashboard', component: pages.dashboardPage },
     { path: '/users', component: pages.usersPage },
     { path: '/units', component: pages.unitsPage },
+    { path: '/timesheet', component: pages.timesheetPage },
+    { path: '/schedule', component: pages.schedulePage },
     { path: '/:pathMatch(.*)*', component: pages.notFound },
 ]
 

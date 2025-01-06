@@ -3,7 +3,7 @@
 
 \section{Architektura systemu}
 
-\note{W tej części pracy należy opisać, jakie komponenty składają się na system. Należy zaznaczyć, jakie są relacje między nimi. Można również opisać, jakie wzorce projektowe zostały zastosowane. Głównie chodzi o to, aby czytelnik mógł zrozumieć, jak działa system.}
+% \note{W tej części pracy należy opisać, jakie komponenty składają się na system. Należy zaznaczyć, jakie są relacje między nimi. Można również opisać, jakie wzorce projektowe zostały zastosowane. Głównie chodzi o to, aby czytelnik mógł zrozumieć, jak działa system.}
 
 Kompletny system składa się z czterech głównych komponentów, które komunikują się ze sobą w celu zapewnienia pełnej funkcjonalności. Poniżej zostały przedstawione opisy każdego z nich.
 
@@ -99,13 +99,13 @@ Dane mogą dodawać jedynie administratorzy systemu.
 
 \section{Modele i struktury danych}
 
-\note{W tej części pracy należy opisać, jakie modele danych zostały zastosowane w systemie. Należy zaznaczyć, jakie są relacje między nimi.}
+% \note{W tej części pracy należy opisać, jakie modele danych zostały zastosowane w systemie. Należy zaznaczyć, jakie są relacje między nimi.}
 
 Dzięki użyciu w projekcie JPA (ang. \english{Java Persistence API}) oraz Hibernate, struktury danych w systemie odpowiadają strukturom tabel w bazie danych - każda z tabel bazy danych jest mapowana na odpowiadającą jej klasę w systemie. Oprócz tego zostały zaimplementowane klasy pomocnicze oraz klasy DTO (ang. \english{Data Transfer Object}),
 
 \subsection{Klasy encji}
 
-Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, do której jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli oznaczane jest odpowiednią adnotacją. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W klasach znajdują się również publiczne metody, dzięki którym możliwe było uproszczenie logiki biznesowej. Przykładowa klasa encji została przedstawiona na listingu \ref{lst:entityClass}.
+Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, do której jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli oznaczane jest odpowiednią adnotacją. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W klasach znajdują się również publiczne metody, dzięki którym możliwe było uproszczenie logiki biznesowej.
 
 \subsection{Klasy pomocnicze}
 

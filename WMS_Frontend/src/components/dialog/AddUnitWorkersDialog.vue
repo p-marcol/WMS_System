@@ -14,7 +14,7 @@ import AutoComplete from 'primevue/autocomplete'
 <template>
     <Dialog v-model:visible="visible" modal :draggable="false">
         <template #header>
-            <h3 class="Header-P3">{{ $t('units.addNewUnit') }}</h3>
+            <h3 class="Header-P3">{{ $t('units.addWorkers') }}</h3>
         </template>
         <Stepper value="1">
             <StepList>
@@ -36,7 +36,7 @@ import AutoComplete from 'primevue/autocomplete'
                     >
                         <Column field="shortName" :header="$t('users.shortName')"></Column>
                         <Column field="position" :header="$t('users.currentPosition')"></Column>
-                        <Column field="unit" :header="$t('units.unitName')"></Column>
+                        <Column field="unit" :header="$t('units.name')"></Column>
                     </DataTable>
                     <div class="footer">
                         <Button

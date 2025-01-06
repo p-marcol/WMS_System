@@ -122,6 +122,7 @@
         "showMy": "Show my"
     },
     "units": {
+        "id": "Unit ID",
         "newUnit": "New unit",
         "name": "Name",
         "unitDetails": "Unit details",

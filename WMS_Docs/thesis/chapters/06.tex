@@ -9,7 +9,7 @@ Walidacja danych przesyłanych pomiędzy serwerem, a klientem jest jednym z kluc
 
 Walidacja po stronie klienta jest realizowana przy pomocy biblioteki \texttt{Valibot}. Opiera się ona na tworzeniu obiektów walidujących, którymi sprawdzany jest formularz przed jego wysłaniem. Tworzenie obiektów jest bardzo proste i intuicyjne - polega na tworzeniu potoków, które zawierają kolejne funkcje walidujące. Przykład walidacji został przedstawiony na listingu \ref{lst:valibot}.
 
-\begin{listing}
+\begin{listing}[H]
     \begin{minted}[linenos, breaklines]{js}
 const newRecordSchema = v.object({
     unitId: v.required(v.number()),
@@ -28,7 +28,7 @@ const result = v.safeParse(newRecordSchema, requestBody);
 
 Do walidacji danych wykorzystano rozwiązanie udostępniane przez \texttt{Spring Framework}. Opiera się ono na zbiorze adnotacji walidujących, które można umieszczać nad polami klas. Można wykorzystać gotowe adnotacje, lub wykorzystać wyrażenia regularne. Przykład walidacji danych został przedstawiony na listingu \ref{lst:validation}.
 
-\begin{listing}
+\begin{listing}[H]
     \begin{minted}[linenos, breaklines]{java}
 @DateTimeFormat(pattern = "yyyy-MM-dd")
 private LocalDate dateOfBirth;
@@ -39,4 +39,4 @@ private LocalDate dateOfBirth;
 
 \section{Testy}
 
-System został przetestowany na kilku poziomach, aby upewnić się, że działa on poprawnie. Podczas prac zrezygnowano z testów jednostkowych, ponieważ ich wyniki nie byłyby miarodajne. Możliwe byłoby przetestowanie jedynie warstwy serwisowej, a nie warstwy prezentacji. W związku z tym zdecydowano się na przeprowadzenie jednie testów akceptacyjnych w symulowanym środowisku produkcyjnym. Dzięki nim stwierdzono, że aplikacja działa poprawnie i spełnia założenia.
+System został przetestowany aby upewnić się, że działa on poprawnie. Podczas prac zrezygnowano z testów jednostkowych, ponieważ ich wyniki nie byłyby miarodajne. Możliwe byłoby przetestowanie jedynie warstwy serwisowej która nie realizuje pełnej logiki biznesowej - część z niej jest realizowana poprzez repozytoria, które nie są testowane. W związku z tym zdecydowano się na przeprowadzenie jednie testów akceptacyjnych w symulowanym środowisku produkcyjnym. Dzięki nim stwierdzono, że aplikacja działa poprawnie i spełnia założenia.

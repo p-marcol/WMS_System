@@ -1,6 +1,42 @@
 \chapter{Weryfikacja i walidacja}
 \label{ch:06}
 
+\section{Walidacja danych}
+
+Walidacja danych przesyłanych pomiędzy serwerem, a klientem jest jednym z kluczowych elementów w procesie tworzenia aplikacji internetowych. Jej brak może doprowadzić do poważnych problemów związanych z bezpieczeństwem aplikacji. Szczególnie ważne jest to w przypadku aplikacji, które wymagają od użytkownika podania pewnych danych.
+
+\subsection{Walidacja po stronie klienta}
+
+Walidacja po stronie klienta jest realizowana przy pomocy biblioteki \texttt{Valibot}. Opiera się ona na tworzeniu obiektów walidujących, którymi sprawdzany jest formularz przed jego wysłaniem. Tworzenie obiektów jest bardzo proste i intuicyjne - polega na tworzeniu potoków, które zawierają kolejne funkcje walidujące. Przykład walidacji został przedstawiony na listingu \ref{lst:valibot}.
+
+\begin{listing}
+    \begin{minted}[linenos, breaklines]{js}
+const newRecordSchema = v.object({
+    unitId: v.required(v.number()),
+    hours: v.required(v.pipe(v.number(), v.minValue(0.25), v.maxValue(24))),
+    date: v.required(v.date()),
+    description: v.required(v.pipe(v.string(), v.nonEmpty(), v.maxLength(255))),
+})
+
+const result = v.safeParse(newRecordSchema, requestBody);
+    \end{minted}
+    \caption{Przykład walidacji formularza przy pomocy biblioteki Valibot}
+    \label{lst:valibot}
+\end{listing}
+
+\subsection{Walidacja po stronie serwera}
+
+Do walidacji danych wykorzystano rozwiązanie udostępniane przez \texttt{Spring Framework}. Opiera się ono na zbiorze adnotacji walidujących, które można umieszczać nad polami klas. Można wykorzystać gotowe adnotacje, lub wykorzystać wyrażenia regularne. Przykład walidacji danych został przedstawiony na listingu \ref{lst:validation}.
+
+\begin{listing}
+    \begin{minted}[linenos, breaklines]{java}
+@DateTimeFormat(pattern = "yyyy-MM-dd")
+private LocalDate dateOfBirth;
+\end{minted}
+    \caption{Przykład walidacji danych przy pomocy adnotacji w Spring Framework}
+    \label{lst:validation}
+\end{listing}
+
 \section{Testy}
 
-\section{Walidacja danych}
+System został przetestowany na kilku poziomach, aby upewnić się, że działa on poprawnie. Podczas prac zrezygnowano z testów jednostkowych, ponieważ ich wyniki nie byłyby miarodajne. Możliwe byłoby przetestowanie jedynie warstwy serwisowej, a nie warstwy prezentacji. W związku z tym zdecydowano się na przeprowadzenie jednie testów akceptacyjnych w symulowanym środowisku produkcyjnym. Dzięki nim stwierdzono, że aplikacja działa poprawnie i spełnia założenia.

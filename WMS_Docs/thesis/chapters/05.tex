@@ -208,13 +208,6 @@ Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej.
 
 Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu, czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
 
-\begin{figure}[H]
-    \centering
-    \frame{\includegraphics[width=0.7\textwidth]{graf/readerSetup.jpg}}
-    \caption{Widok strony konfiguracyjnej czytnika}
-    \label{fig:readerConfig}
-\end{figure}
-
 \section{Połączenie modułów czytnika kart}
 
 Czytnik kart składa się z dwóch modułów oraz kilku elementów pasywnych. Pierwszy z modułów to mikrokontroler \texttt{Raspberry Pi Pico W} odpowiedzialny za przetwarzanie danych i komunikację z serwerem aplikacyjnym. Drugi moduł - oznaczony symbolem \texttt{RFID-RC522} - odpowiada za odczytanie tagów NFC i przekazanie ich do mikrokontrolera. Oba układy są połączone ze sobą za pomocą interfejsu SPI (ang. \english{Serial Peripheral Interface}). Schemat połączeń czytnika kart został przedstawiony na rysunku \ref{fig:readerConnection}.

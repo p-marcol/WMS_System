@@ -12,6 +12,7 @@ public class UpsertDetailsRequest {
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private Long authorityId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 }

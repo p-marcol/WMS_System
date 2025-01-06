@@ -11,6 +11,5 @@ import java.util.List;
 public interface iPositionRepository extends JpaRepository<Position, Long> {
 
     Position findByUserAndEndDateIsNull(User user);
-
     List<Position> findByUnitId(Long id);
 }

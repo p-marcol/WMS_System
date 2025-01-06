@@ -1,10 +1,14 @@
 package com.inz.WMS_Backend.entity.dictionaries;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "DICT_POSITION_NAMES")
 public class PositionName {
     @Id
@@ -15,4 +19,8 @@ public class PositionName {
     @Basic
     @Column(name = "name", nullable = false, length = 64)
     private String name;
+
+    public PositionName(String name) {
+        this.name = name;
+    }
 }

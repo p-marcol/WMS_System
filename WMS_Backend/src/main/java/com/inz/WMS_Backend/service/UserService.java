@@ -67,11 +67,13 @@ public class UserService implements iUserService {
     @Override
     public void setUserDetails(UpsertDetailsRequest request) {
         User user = userRepository.findById(request.getUserId()).orElseThrow();
-        user.setEmail(Optional.ofNullable(request.getEmail()).orElse(user.getEmail()));
-        user.setFirstName(Optional.ofNullable(request.getFirstName()).orElse(user.getFirstName()));
-        user.setLastName(Optional.ofNullable(request.getLastName()).orElse(user.getLastName()));
-        user.setPhone(Optional.ofNullable(request.getPhoneNumber()).orElse(user.getPhone()));
-        user.setBirthdate(DateUtils.asSqlDate(Optional.ofNullable(request.getDateOfBirth()).orElse(user.getBirthdate().toLocalDate())));
+        Authority authority = authorityRepository.findById(request.getAuthorityId()).orElseThrow();
+        user.setEmail(request.getEmail());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setPhone(request.getPhoneNumber());
+        user.setBirthdate(DateUtils.asSqlDate(request.getDateOfBirth()));
+        user.setAuthority(authority);
         userRepository.save(user);
     }
 

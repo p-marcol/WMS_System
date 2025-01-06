@@ -152,7 +152,7 @@ public class UnitController {
                             .id(unit.getId())
                             .name(unit.getName())
                             .description(unit.getDescription())
-                            .workerCount((long) unit.getPositions().size())
+                            .workerCount((long) unit.getPositions().stream().filter(position -> position.getEndDate() == null).toList().size())
                             .subunitCount((long) unit.getSubunits().size())
                             .build())
                     .toList();
@@ -174,7 +174,7 @@ public class UnitController {
                             .id(unit.getId())
                             .name(unit.getName())
                             .description(unit.getDescription())
-                            .workerCount((long) unit.getPositions().size())
+                            .workerCount((long) unit.getPositions().stream().filter(position -> position.getEndDate() == null).toList().size())
                             .subunitCount((long) unit.getSubunits().size())
                             .build())
                     .toList().stream().sorted(Comparator.comparing(u -> u.id)).toList();
@@ -229,7 +229,7 @@ public class UnitController {
     }
 
     private GetUnitWorkersResponse prepareUnitWorkersResponse(Unit unit) {
-        List<Position> workers = unitService.getUnitPositions(unit.getId());
+        List<Position> workers = unitService.getUnitPositions(unit.getId()).stream().filter(position -> position.getEndDate() == null).toList();
         List<GetUnitWorkersListItem> workersList = new ArrayList<>();
         workers.forEach(position -> {
                     User user = position.getUser();

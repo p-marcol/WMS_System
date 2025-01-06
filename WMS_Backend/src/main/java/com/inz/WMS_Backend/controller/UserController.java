@@ -115,6 +115,8 @@ public class UserController {
                             .shortName(user.getShortName())
                             .email(user.getEmail())
                             .authority(user.getAuthority())
+                            .unit(user.getPositions().stream().filter(position -> position.getEndDate() == null).findFirst().map(position -> position.getUnit().getName()).orElse(null))
+                            .position(user.getPositions().stream().filter(position -> position.getEndDate() == null).findFirst().map(position -> position.getPositionName().getName()).orElse(null))
                             .isArchived(user.isArchived())
                             .isArchivable(user.isArchivable())
                             .isEditable(user.isEditable())

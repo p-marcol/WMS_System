@@ -7,7 +7,7 @@ import UserDetailsDrawer from '@/components/drawer/user/UserDetailsDrawer.vue'
 <template>
     <template v-if="!loading">
         <UserDetailsDrawer v-if="!edit" :user="user" />
-        <UserEditDrawer v-else :user="user" />
+        <UserEditDrawer v-else :user="user" @refresh="refresh" />
     </template>
     <template v-else>
         <div class="wms-drawer-content">
@@ -37,6 +37,11 @@ export default {
             },
         }
     },
+    methods: {
+        refresh() {
+            this.$emit('refresh')
+        },
+    },
     watch: {
         userId: {
             async handler(newId) {
@@ -60,5 +65,6 @@ export default {
             immediate: true,
         },
     },
+    emits: ['refresh'],
 }
 </script>

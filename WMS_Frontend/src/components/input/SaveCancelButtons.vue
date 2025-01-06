@@ -4,26 +4,22 @@ import Button from 'primevue/button'
 
 <template>
     <div>
-        <div>
-            <Button
-                type="button"
-                @click="save"
-                :label="$t('form.save')"
-                class="wms-small-button wms-small-button-save Small-button-primary-P1"
-                v-if="saveButton"
-                unstyled
-            />
-        </div>
-        <div>
-            <Button
-                type="button"
-                @click="cancel"
-                :label="$t('form.cancel')"
-                class="wms-small-button wms-small-button-cancel Small-button-secondary-P1"
-                v-if="cancelButton"
-                unstyled
-            />
-        </div>
+        <Button
+            type="button"
+            @click="save"
+            :label="$t('form.save')"
+            class="wms-small-button wms-small-button-save Small-button-primary-P1"
+            v-if="saveButton"
+            unstyled
+        />
+        <Button
+            type="button"
+            @click="cancel"
+            :label="$t('form.cancel')"
+            class="wms-small-button wms-small-button-cancel Small-button-secondary-P1"
+            v-if="cancelButton"
+            unstyled
+        />
     </div>
 </template>
 
@@ -55,7 +51,14 @@ export default {
 <style scoped>
 div {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
     gap: 0.5rem;
+}
+
+div > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

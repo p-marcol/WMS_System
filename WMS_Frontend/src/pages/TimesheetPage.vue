@@ -12,7 +12,7 @@ import { XMarkIcon, CheckIcon } from '@heroicons/vue/24/outline'
 
 <template>
     <MainLayout ref="mainLayoutRef" @user-fetched="updateView">
-        <CardContainer id="card" :title="pendingMode ? $t('title.pending') : $t('title.timesheet')">
+        <CardContainer id="card" :title="pendingMode ? $t('card.pending') : $t('title.timesheet')">
             <template #header>
                 <div id="header">
                     <div v-if="!pendingMode">
@@ -66,7 +66,7 @@ import { XMarkIcon, CheckIcon } from '@heroicons/vue/24/outline'
                 <Column
                     v-if="pendingMode"
                     field="userShortName"
-                    :header="$t('table.user')"
+                    :header="$t('users.shortName')"
                     style="width: 8rem"
                 />
                 <Column field="unit" :header="$t('table.unit')" style="width: 6rem" />

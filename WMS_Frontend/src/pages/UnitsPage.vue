@@ -5,7 +5,7 @@ import Column from 'primevue/column'
 import CardContainer from '@/components/CardContainer.vue'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import AddNewUnitDialog from '@/components/dialog/AddNewUnitDialog.vue'
-import ShowUnitUsersDialog from '@/components/dialog/ShowUnitUsersDialog.vue'
+import ShowUnitUsersDrawer from '@/components/drawer/unit/ShowUnitUsersDrawer.vue'
 import Breadcrumb from 'primevue/breadcrumb'
 import UnitDrawer from '@/components/drawer/unit/UnitDrawer.vue'
 import Drawer from 'primevue/drawer'
@@ -109,7 +109,7 @@ import {
         </template>
     </Drawer>
     <AddNewUnitDialog ref="addNewUnitDialogRef" @reload="fetchData" />
-    <ShowUnitUsersDialog ref="showUnitUsersDialogRef" @reload="fetchData" />
+    <ShowUnitUsersDrawer ref="showUnitUsersDialogRef" @reload="fetchData" />
 </template>
 
 <script>

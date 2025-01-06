@@ -64,7 +64,7 @@ import Dropdown from 'primevue/dropdown'
                 option-value="id"
             />
         </InputContainer>
-        <SaveCancelButtons @cancel="cancel" @save="save" saveButton />
+        <SaveCancelButtons @save="save" saveButton />
     </div>
 </template>
 
@@ -88,16 +88,12 @@ export default {
             .get('/authority/all')
             .then((res) => {
                 this.authorities = res.data
-                // console.log(this.authorities)
             })
             .catch((err) => {
                 console.warn(err)
             })
     },
     methods: {
-        isDirty() {
-            return JSON.stringify(this.user) !== JSON.stringify(this.editUser)
-        },
         cantChangeHere() {
             this.$toast.add({
                 severity: 'warn',
@@ -106,14 +102,6 @@ export default {
             })
         },
         save() {
-            if (!this.isDirty()) {
-                this.$toast.add({
-                    severity: 'info',
-                    summary: this.$t('form.noChanges'),
-                    life: 3000,
-                })
-                return
-            }
             this.axios
                 .post('/user/upsertDetails', {
                     userId: this.user.id,
@@ -122,34 +110,23 @@ export default {
                     lastName: this.editUser.lastName,
                     phoneNumber: this.editUser.phone,
                     dateOfBirth: this.editUser.birthdate,
+                    authorityId: this.editUser.authorityId,
                 })
-                .then((res) => {
+                .then(() => {
                     this.$toast.add({
                         severity: 'success',
                         summary: this.$t('form.saved'),
                         life: 3000,
                     })
-                    this.$emit('save')
-                    console.log(res)
+                    this.$emit('refresh')
                 })
-                .catch((err) => {
-                    console.warn(err)
+                .catch(() => {
                     this.$toast.add({
                         severity: 'error',
                         summary: this.$t('form.error'),
-                        detail: err.response.data,
                         life: 3000,
                     })
                 })
-        },
-        cancel() {
-            const dirty = this.isDirty()
-            this.$toast.add({
-                severity: 'info',
-                summary: this.$t('form.canceled'),
-                detail: dirty ? 'Changes not saved' : '',
-                life: 3000,
-            })
         },
     },
     watch: {
@@ -160,6 +137,7 @@ export default {
             immediate: true,
         },
     },
+    emits: ['refresh'],
 }
 </script>
 

@@ -128,7 +128,17 @@ import ConfirmDialog from 'primevue/confirmdialog'
                     <XMarkIcon @click="closeCallback" />
                 </div>
                 <div class="wms-drawer-body">
-                    <UserDrawer @close="closeCallback" :userId="currentUserId" :edit="editUser" />
+                    <UserDrawer
+                        @close="closeCallback"
+                        @refresh="
+                            () => {
+                                closeCallback()
+                                fetchUsers()
+                            }
+                        "
+                        :userId="currentUserId"
+                        :edit="editUser"
+                    />
                 </div>
             </div>
         </template>

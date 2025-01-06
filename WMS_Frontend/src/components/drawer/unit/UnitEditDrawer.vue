@@ -75,8 +75,7 @@ export default {
                     this.$emit('save')
                     console.log(res)
                 })
-                .catch((err) => {
-                    console.warn(err)
+                .catch(() => {
                     this.$toast.add({
                         severity: 'error',
                         summary: this.$t('form.error'),

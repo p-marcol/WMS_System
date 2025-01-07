@@ -52,32 +52,27 @@ Poniżej przedstawiono główne technologie wraz z uzasadnieniem ich wyboru oraz
 
 \subsubsection*{MySQL}
 
-MySQL to relacyjna baza danych rozwijana aktualnie przez firmę Oracle.
-Jej najważniejszymi cechami są: popularność, szybkość, niezawodność oraz łatwość w obsłudze.
-Najnowsze wersje wspierają transakcje, widoki, procedury składowane i wiele innych funkcji, które zbliżają ją do baz danych typu Enterprise.
-Dodatkowo oferuje lepsze prędkości odczytu danych, niż konkurencyjne rozwiązania takie jak PostgreSQL. \cite{bib:mysql}
+MySQL to relacyjna baza danych rozwijana aktualnie przez firmę Oracle. Jej najważniejszymi cechami są: popularność, szybkość, niezawodność oraz łatwość obsługi. Najnowsze wersje wspierają transakcje, widoki, procedury składowane i wiele innych funkcji, które zbliżają ją do baz danych typu Enterprise. Dodatkowo oferuje lepsze prędkości odczytu danych, niż konkurencyjne rozwiązania takie jak PostgreSQL. \cite{bib:mysql}
 
 Baza danych MySQL została wybrana ze względu na możliwości jakie oferuje, a także jej przejrzystość, co może ułatwić migrację na inne rozwiązanie w przyszłości.
 
 \subsubsection*{Spring Framework}
 
-Spring to platforma, która dostarcza rozwiązania do tworzenia aplikacji typu Enterprise w języku Java.
-Jego asynchroniczna, nieblokująca architektura umożliwia tworzenie rozwiązań, obsługujących duże ilości danych, przy jednoczesnym zachowaniu wysokiej wydajności.
-Składa się z wielu modułów obsługujących kluczowe aspekty działania systemu, takie jak: transakcje, bezpieczeństwo, obsługa danych, integracja z bazami danych, obsługa REST API, itp. \cite{bib:spring}
+Spring to platforma, która dostarcza rozwiązania do tworzenia aplikacji typu Enterprise w języku Java. Jego asynchroniczna, nieblokująca architektura umożliwia tworzenie rozwiązań obsługujących duże ilości danych, przy jednoczesnym zachowaniu wysokiej wydajności. Składa się z wielu modułów obsługujących kluczowe aspekty działania systemu, takich jak: transakcje, bezpieczeństwo, obsługa danych, integracja z bazami danych, obsługa REST API, itp. \cite{bib:spring}
 
 Spring Framework został wybrany ze względu na swoją popularność, wsparcie społeczności oraz bogatą dokumentację, co ułatwiło pracę nad projektem.
 
 \subsubsection*{Vue.js}
 
-Vue.js jest progresywnym frameworkiem JavaScript przeznaczonym do budowania interfejsów użytkownika. Charakteryzuje się lekkością, prostotą oraz wydajnością. Jego architektura oparta na komponentach umożliwia tworzenie skomplikowanych interfejsów, które są łatwe w utrzymaniu i rozbudowie. Dodatkowo oferuje udostępnienie aplikacji w formie SPA (ang. \english{Single Page Application}), dzięki któremu użytkownik widzi ją jako pojedynczą stronę internetową. Reakcje na interakcje użytkownika są szybkie i płynne, co zwiększa komfort korzystania z aplikacji przypominając niejako aplikacje desktopowe. \cite{bib:vuejs}
+Vue.js jest progresywnym frameworkiem JavaScript przeznaczonym do budowania interfejsów użytkownika. Charakteryzuje się lekkością, prostotą oraz wydajnością. Jego architektura oparta na komponentach umożliwia tworzenie skomplikowanych interfejsów, które są łatwe w utrzymaniu i rozbudowie. Dodatkowo oferuje udostępnienie aplikacji w formie SPA (ang. \english{Single Page Application}), dzięki czemu użytkownik widzi ją jako pojedynczą stronę internetową. Reakcje na interakcje użytkownika są szybkie i płynne, co zwiększa komfort korzystania, przypominając niejako aplikacje desktopowe. \cite{bib:vuejs}
 
 Vue.js został wybrany ze względu na chęć poznania tej technologii, względnie niski próg wejścia oraz dużą popularność wśród programistów i firm.
 
 \subsubsection*{Expo}
 
-Expo to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie {\bfseries React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając EAS (ang. \english{Expo Application Service}). \cite{bib:expo}
+Expo to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie \texttt{React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając EAS (ang. \english{Expo Application Service}). \cite{bib:expo}
 
-Expo zostało wybrane ze względu na język programowania, który jest znany autorowi pracy, a także na możliwość szybkiego utworzenia i wdrożenia aplikacji na platformy mobilne.
+Expo zostało wybrane ze względu na wcześniejsze doświadczenie autora pracy z tą technologią, wieloplatformowość oraz możliwość szybkiego utworzenia i wdrożenia aplikacji na platformy mobilne.
 
 \subsubsection*{Raspberry Pi Pico W}
 
@@ -87,9 +82,9 @@ Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z s
 
 \subsubsection*{MicroPython}
 
-MicroPython jest implementacją języka Python przeznaczona dla mikrokontrolerów i systemów wbudowanych, zoptymalizowaną pod kątem niskiego zużycia zasobów - co czyni ją idealnym wyborem dla urządzeń o ograniczonej mocy obliczeniowej i pamięci. MicroPython oferuje większość funkcji standardowego Pythona, co pozwala na szybkie i efektywne tworzenie oprogramowania dla mikrokontrolerów. Dzięki temu istnieje możliwość korzystania z dobrze znanych narzędzi i bibliotek, co znacząco przyspiesza proces tworzenia i testowania programu. \cite{bib:micropython}
+MicroPython jest implementacją języka Python przeznaczoną dla mikrokontrolerów i systemów wbudowanych. Jest zoptymalizowany pod kątem niskiego zużycia zasobów - co czyni go idealnym wyborem dla urządzeń o ograniczonej mocy obliczeniowej i pamięci. MicroPython oferuje większość funkcji standardowego Pythona, umożliwiając szybkie i efektywne tworzenie oprogramowania dla mikrokontrolerów. Dzięki temu można korzystać z dobrze znanych narzędzi i bibliotek znacząco przyspieszając proces tworzenia programu i jego testowania. \cite{bib:micropython}
 
-MicroPython został wybrany ze względu na jego prostotę, elastyczność oraz możliwość szybkiego wdrożenia mikrokontrolera do systemu.
+MicroPython został wybrany ze względu na jego prostotę, elastyczność oraz możliwość szybkiego wdrożenia mikrokontrolera.
 
 \subsubsection*{Inne technologie}
 

@@ -11,37 +11,36 @@ W systemie zostały zdefiniowane 3 role użytkowników:
     \item Administrator.
 \end{itemize}
 
-Każda rola posiada inne uprawnienia i możliwości w systemie. Każda rola posiada przypisany do siebie kolor, który
-umożliwia łatwe rozróżnienie użytkowników w systemie. Widoczny jest on na pasku nawigacyjnym aplikacji mobilnej i na stronie internetowej, a także w tabelach użytkowników.
+Każda rola posiada inne uprawnienia i możliwości. Do każdej z nich został przypisany kolor, który umożliwia ich łatwe rozróżnienie. Widoczny jest on na pasku nawigacyjnym aplikacji mobilnej i webowej, a także w tabeli użytkowników.
 
-Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, co oznacza, że użytkownik nie ma dostępu do systemu. Wiąże się to również z usunięciem danych, które są uregulowane przez RODO. Poniżej zostały przedstawione informacje na temat każdej z ról.
+Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dostęp użytkownika do systemu. Wiąże się to również z usunięciem danych określonych przez ustawę RODO. Poniżej zostały przedstawione informacje na temat każdej z ról.
 
 
 \subsection{Użytkownik}
 
-\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami, które posiada w firmie. Może przeglądać swoje dane, harmonogram pracy, oraz dodawać wpisy do timesheetu.
+\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami. Może przeglądać swoje dane, harmonogram pracy, oraz dodawać wpisy do timesheetu.
 
 Kolorem przypisanym do użytkownika jest kolor pomarańczowy.
 
 \subsection{Manager}
 
-\textbf{Manager} posiada większe uprawnienia niż użytkownik. Oprócz możliwości przeglądania swoich danych, harmonogramu pracy, oraz dodawania wpisów do timesheetu, manager może również zarządzać przypisanym do siebie zespołem, harmonogramem pracy zespołu oraz przeglądać i akceptować timesheety swoich pracowników. Manager nie ma możliwości zarządzania innymi managerami, administratorami oraz strukturą organizacyjną firmy.
+\textbf{Manager} posiada większe uprawnienia niż użytkownik. Oprócz możliwości przeglądania swoich danych, harmonogramu pracy, oraz dodawania wpisów do timesheetu, manager może również zarządzać harmonogramem pracy zespołu oraz przeglądać i akceptować timesheety pracowników. Manager nie ma możliwości zarządzania innymi managerami, administratorami oraz strukturą organizacyjną firmy.
 
 Kolorem przypisanym do managera jest zielony.
 
 \subsection{Administrator}
 
-\textbf{Administrator} jest użytkownikiem o największych uprawnieniach w systemie. Rozszerza możliwości managera o możliwość zarządzania poszczególnymi użytkownikami i ich rolami, strukturą organizacyjną firmy - dodawanie, edycję i usuwanie działów oraz stanowisk - oraz konfigurację systemu. Administrator ma dostęp do wszystkich danych w systemie.
+\textbf{Administrator} jest użytkownikiem o największych uprawnieniach w systemie. Rozszerza możliwości managera o możliwość zarządzania poszczególnymi użytkownikami i ich rolami, strukturą organizacyjną firmy - dodawanie, edycja i usuwanie działów oraz stanowisk - oraz konfigurację systemu. Administrator ma dostęp do wszystkich danych i może nimi dowolnie zarządzać.
 
 Kolorem przypisanym do administratora jest niebieski.
 
 \section{Wygląd interfejsu użytkownika}
 
-Interfejs użytkownika został zaprojektowany w sposób przejrzysty i intuicyjny. Przy etapie projektowania kierowano się tym, aby użytkownik mógł szybko i sprawnie dowiedzieć się tego, co go interesuje. Zadbano, aby interfejs nie był zbyt przeładowany informacjami, a jednocześnie nie brakowało w nim żadnych ważnych elementów. Pierwszym widokiem jaki widzi użytkownik po zalogowaniu się do systemu jest panel główny.
+Interfejs użytkownika został zaprojektowany w sposób przejrzysty i intuicyjny. Przy wykonaniu projektu kierowano się tym, aby użytkownik mógł szybko i sprawnie dowiedzieć się tego, co go interesuje. Zadbano, aby interfejs nie był zbyt przeładowany informacjami, a jednocześnie nie brakowało w nim żadnych ważnych elementów. Pierwszym widokiem jaki użytkownik widzi po zalogowaniu jest panel główny.
 
 \subsection{Kolorystyka}
 
-Przy projektowaniu interfejsu użytkownika zdecydowano się na użycie ciepłych kolorów, które są przyjemne dla oka i nie męczą wzroku. Wśród nich wybrano trzy, które reprezentują poszczególne role w systemie oraz dodają charakteru interfejsowi. Użyto również kilku odcieni do oznaczania  elementów informacyjnych. Kolorami używanymi w systemie są:
+Przy projektowaniu interfejsu użytkownika zdecydowano się na użycie ciepłych kolorów, które są przyjemne dla oka i nie męczą wzroku. Wśród nich wybrano trzy, które reprezentują poszczególne role w systemie oraz dodają charakteru interfejsowi. Użyto również kilku odcieni do oznaczania elementów informacyjnych. Kolorami używanymi w systemie są:
 \begin{itemize}
     \item \texttt{\#FCAB10} - pomarańczowy, kolor użytkownika,
     \item \texttt{\#ACE849} - zielony, kolor managera,
@@ -75,7 +74,7 @@ Komponenty są umieszczane na obszarze głównym z wykorzystaniem siatki CSS Gri
 
 \subsection{Strona logowania}
 
-Logowanie do systemu odbywa się poprzez bardzo prosty formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawia się dodatkowe pole na ponowne wpisanie hasła, które - jeżeli jest zgodne z wcześniej wpisanym - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
+Logowanie do systemu odbywa się poprzez bardzo prosty formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawia się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a te - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
 Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \begin{figure}[H]
@@ -87,7 +86,7 @@ Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \subsection{Panel główny}
 
-Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do timesheetu. W zależności od roli użytkownika, poszczególne karty panelu mogą różnić się nagłówkami lub treścią. Przykładowy panel dla roli użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
+Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do timesheetu. Przykładowy panel użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
 
 \begin{figure}[H]
     \centering
@@ -98,9 +97,7 @@ Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Prz
 
 \subsection{Widok użytkowników}
 
-Po przejściu do widoku użytkowników, administratorowi wyświetlana jest lista wszystkich kont zarejestrowanych w systemie. Istnieje możliwość filtrowania wyników wpisując dane użytkownika w pole wyszukiwania. W tabeli znajdują się skrócone informacje o użytkowniku, przedostatnia kolumna przedstawia aktualną rolę użytkownika, a ostatnia kolumna umożliwia wykonywanie akcji otwarcia szczegółów, edycji, archiwizacji oraz usunięcia konta. Widoczność poszczególnych akcji zależy od statusu danego konta i jest ustalana przez serwer. Widok użytkowników został przedstawiony na rysunku \ref{fig:usersView}. Kliknięcie w ikony akcji otwiera odpowiednie okna dialogowe, szuflady lub wykonuje ją bezpośrednio. Akcje krytyczne z punktu widzenia bezpieczeństwa, takie jak usunięcie konta, wymagają potwierdzenia w osobnym oknie dialogowym.
-
-Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe pola są oznaczone gwiazdką, a przesłanie formularza z niepoprawnymi danymi skutkuje wyświetleniem komunikatu o błędzie. W przypadku poprawnego przesłania formularza, użytkownik zostaje poinformowany o sukcesie operacji, okno dialogowe zamyka się, a tabela użytkowników jest odświeżana.
+Po przejściu do widoku użytkowników, administratorowi wyświetlana jest lista wszystkich kont zarejestrowanych w systemie. Istnieje możliwość filtrowania wyników wpisując dane użytkownika w pole wyszukiwania. W tabeli znajdują się skrócone informacje o użytkowniku, przedostatnia kolumna przedstawia aktualną rolę użytkownika, a ostatnia kolumna umożliwia wykonywanie akcji otwarcia szczegółów, edycji, archiwizacji oraz usunięcia konta. Widoczność poszczególnych akcji zależy od statusu danego konta i jest ustalana przez serwer. Widok użytkowników został przedstawiony na rysunku \ref{fig:usersView}. Kliknięcie w ikony akcji otwiera odpowiednie okno dialogowe, szufladę lub wykonuje ją bezpośrednio. Akcje krytyczne z punktu widzenia bezpieczeństwa, wymagają potwierdzenia w osobnym oknie dialogowym.
 
 \begin{figure}[H]
     \centering
@@ -108,6 +105,8 @@ Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe
     \caption{Widok użytkowników}
     \label{fig:usersView}
 \end{figure}
+
+Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe pola są oznaczone gwiazdką, a przesłanie formularza z niepoprawnymi danymi skutkuje wyświetleniem komunikatu o błędzie. W przypadku poprawnego przesłania formularza, użytkownik zostaje poinformowany o sukcesie operacji, okno dialogowe zamyka się, a tabela użytkowników jest odświeżana.
 
 \begin{figure}[H]
     \centering
@@ -138,12 +137,12 @@ Widok timesheetu rozszerza funkcjonalności karty z panelu głównego. Oprócz m
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{graf/front/timesheetAddRecord.png}
+    \includegraphics[width=0.5\textwidth]{graf/front/timesheetAddRecord.png}
     \caption{Okno dialogowe dodawania wpisu do timesheetu}
     \label{fig:timesheetDialog}
 \end{figure}
 
-Administratorzy i managerowie mają możliwość przejścia do widoku timesheetów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli timesheetów pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
+Administratorzy i managerowie mają możliwość przejścia do widoku wpisów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli timesheetów pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
 
 \begin{figure}[H]
     \centering
@@ -155,7 +154,7 @@ Administratorzy i managerowie mają możliwość przejścia do widoku timesheet�
 
 \subsection{Widok jednostek organizacyjnych}
 
-Widok został skonstruowany w taki sposób, aby nie ukazywać wszystkich informacji na raz. Hierarchiczna struktura jednostek organizacyjnych pozwala na wyświetlenie jedynie tych, które są bezpośrednio zależne od wybranej jednostki. Jednostki, które wyświetlają się zaraz po przejściu do widoku, nie posiadają żadnych jednostek nadrzędnych. Przejście do podjednostek odbywa się poprzez kliknięcie w odpowiednią ikonę w kolumnie akcji. Przejście do wyższego poziomu jest możliwe klikając nazwę jednostki w nagłówku karty. Widok jednostek organizacyjnych przedstawiono na rysunku \ref{fig:unitsView}.
+Widok został skonstruowany w taki sposób, aby nie ukazywać wszystkich informacji na raz. Hierarchiczna struktura jednostek organizacyjnych skutkuje wyświetleniem jedynie tych, które są bezpośrednio zależne od wybranej jednostki. Te, które wyświetlają się zaraz po przejściu do widoku nie posiadają żadnych jednostek nadrzędnych. Przejście do podjednostek odbywa się poprzez kliknięcie w odpowiednią ikonę w kolumnie akcji. Przejście do wyższego poziomu jest możliwe klikając nazwę jednostki w nagłówku karty. Widok jednostek organizacyjnych przedstawiono na rysunku \ref{fig:unitsView}.
 
 \begin{figure}[H]
     \centering
@@ -164,7 +163,7 @@ Widok został skonstruowany w taki sposób, aby nie ukazywać wszystkich informa
     \label{fig:unitsView}
 \end{figure}
 
-Kolumna akcji może zawierać maksymalnie cztery ikony: otwarcie szczegółów, edycję, przejście do podjednostek oraz otwarcie widoku pracowników. Ostatnia z akcji umożliwia przeglądanie użytkowników pracujących w danej jednostce wraz z ich rolami. W przypadku braku pracowników, tabela jest pusta. Kliknięcie przycisku w górnej części szuflady otwiera okno dialogowe, w którym możliwe jest dodanie nowych użytkowników do jednostki. Po wybraniu użytkowników aplikacja prosi o nadanie ról, a następnie dodaje ich do jednostki. Po zakończeniu operacji okno dialogowe zamyka się, a tabela jest odświeżana. Otwierane okna są ukazane na rysunku \ref{fig:unitDialogs}.
+Kolumna akcji może zawierać maksymalnie cztery ikony: otwarcie szczegółów, edycję, przejście do podjednostek oraz otwarcie widoku pracowników. Ostatnia z akcji umożliwia przeglądanie użytkowników pracujących w danej jednostce wraz z ich rolami. W przypadku braku pracowników, tabela jest pusta. Kliknięcie przycisku w górnej części szuflady otwiera okno dialogowe, w którym możliwe jest dodanie nowych użytkowników do jednostki. Po wybraniu użytkowników aplikacja prosi o nadanie ról, a następnie dodaje ich do jednostki. Po zakończeniu operacji okno dialogowe zamyka się, a tabela jest odświeżana. Otwierane okna są ukazane na rysunku \ref{fig:unitDialogs2}.
 
 \begin{figure}[H]
     \centering
@@ -200,20 +199,21 @@ Kolumna akcji może zawierać maksymalnie cztery ikony: otwarcie szczegółów, 
         \caption{Ustawienie ról}
     \end{subfigure}
     \caption{Okna dialogowe dodawania użytkowników do jednostki organizacyjnej}
+    \label{fig:unitDialogs2}
 \end{figure}
 
 \subsection{Widok harmonogramu}
 
-Widok harmonogramu jest rozszerzoną wersją karty z panelu głównego. Użytkownik może przeglądać harmonogram swój oraz swojego zespołu. Wyświetlany jest w formie siatki, na której umieszczane są bloki reprezentujące poszczególne zadania. Są one przypisane do konkretnych dni i godzin, co umożliwia łatwe ich odczytanie. Dodatkowo, każdy z nich posiada informacje o godzinach rozpoczęcia i zakończenia pracy oraz nazwę zespołu. Widok harmonogramu użytkownika został przedstawiony na rysunku \ref{fig:scheduleView}.
+Widok harmonogramu jest rozszerzoną wersją karty z panelu głównego. Użytkownik może przeglądać harmonogram swój oraz swojego zespołu. Wyświetlany jest w formie siatki, na której umieszczane są bloki reprezentujące poszczególne zadania. Są one przypisane do konkretnych dni i godzin, co umożliwia ich łatwe odczytanie. Dodatkowo, każdy z nich posiada informacje o godzinach rozpoczęcia i zakończenia pracy oraz nazwę zespołu. Widok harmonogramu użytkownika został przedstawiony na rysunku \ref{fig:scheduleView}.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, frame]{graf/front/schedule.png}
     \caption{Widok harmonogramu}
     \label{fig:scheduleView}
 \end{figure}
 
-Administratorzy oraz managerowie mają możliwość podglądu harmonogramu użytkowników należących do ich zespołu. Odbywa się to poprzez wybór odpowiedniego użytkownika z dodatkowej karty wyświetlanej po prawej stronie widoku. Ikony kół zębatych umożliwiają edycję harmonogramu. Widok harmonogramu dla managera został przedstawiony na rysunku \ref{fig:scheduleManagerView}.
+Administratorzy oraz managerowie mają możliwość podglądu harmonogramu użytkowników należących do ich zespołu. Odbywa się to poprzez wybór odpowiedniego użytkownika z dodatkowej karty wyświetlanej po prawej stronie widoku. Ikony kół zębatych umożliwiają edycję harmonogramu. Widok harmonogramu użytkownika przed administratora został przedstawiony na rysunku \ref{fig:scheduleManagerView}.
 
 \begin{figure}[H]
     \centering
@@ -224,7 +224,7 @@ Administratorzy oraz managerowie mają możliwość podglądu harmonogramu użyt
 
 \subsection{Widok dodawania karty}
 
-Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji mobilnej. Po przejściu do odpowiedniej zakładki użytkownik musi zeskanować kartę, a następnie aplikacja wysyła do serwera zapytanie jej dotyczące. Widok jest różny w zależności od tego, czy karta jest już przypisana do użytkownika, czy nie. Jeżeli w urządzeniu jest wyłączona funkcja NFC, aplikacja wyświetla komunikat o konieczności jej włączenia ukazany na rysunku \ref{fig:cardNFC}. Widoki zostały przedstawione na rysunku \ref{fig:cardView}.
+Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji mobilnej. Po przejściu do odpowiedniej zakładki użytkownik musi zeskanować kartę, a następnie aplikacja wysyła do serwera zapytanie na jej temat. Widok jest różny w zależności od tego, czy karta jest już przypisana do użytkownika, czy nie. Jeżeli w urządzeniu jest wyłączona funkcja NFC, aplikacja wyświetla komunikat o konieczności jej włączenia ukazany na rysunku \ref{fig:cardNFC}. Widoki zostały przedstawione na rysunku \ref{fig:cardView}.
 
 \begin{figure}[H]
     \centering
@@ -247,7 +247,7 @@ Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji
     \label{fig:cardView}
 \end{figure}
 
-Następnie - w zależności od wyniku zapytania - możliwe jest usunięcie karty z systemu lub przypisanie jej do użytkownika. W przypadku przypisania, administrator musi wybrać użytkownika z rozwijanej listy. Po zatwierdzeniu operacji, karta zostaje przypisana do użytkownika, a administrator otrzymuje informację zwrotną o powodzeniu operacji. Widoki przypisania karty zostały przedstawione na rysunkach \ref{fig:cardDialogs}, a komunikat o powodzeniu operacji na rysunku \ref{fig:cardSuccess}.
+Następnie - w zależności od wyniku zapytania - możliwe jest usunięcie karty z systemu lub przypisanie jej do użytkownika. W przypadku przypisania, administrator musi wybrać użytkownika z rozwijanej listy. Po zatwierdzeniu operacji, karta zostaje przypisana, a administrator otrzymuje informację zwrotną o powodzeniu operacji. Widoki przypisania karty zostały przedstawione na rysunkach \ref{fig:cardDialogs}, a komunikat o powodzeniu operacji na rysunku \ref{fig:cardSuccess}.
 
 \begin{figure}
     \centering
@@ -307,7 +307,7 @@ Podczas normalnego trybu pracy, czytnik oczekuje na zbliżenie karty. Po jej odc
 
 \subsection{Dostępność cyfrowa}
 
-Aplikacja została zaprojektowana w taki sposób, aby możliwe było korzystanie z niej wyłącznie przy użyciu klawiatury. Użycie biblioteki komponentów \texttt{PrimeVue} pozwoliło na zapewnienie dostępności dla osób o ograniczonych możliwościach ruchowych. Komponenty umieszczone na stronie internetowej są zgodne z wytycznymi \texttt{WCAG 2.1}. \cite{bib:WCAG21}
+Aplikacja została zaprojektowana w taki sposób, aby możliwe było korzystanie z niej przy użyciu klawiatury. Użycie biblioteki komponentów \texttt{PrimeVue} pozwoliło na zapewnienie dostępności dla osób o ograniczeniach. Komponenty umieszczone na stronie internetowej są zgodne z wytycznymi \texttt{WCAG 2.1}. \cite{bib:WCAG21}
 
 \subsection{Dostępność językowa}
 

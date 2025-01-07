@@ -9,11 +9,11 @@ Kompletny system składa się z czterech głównych komponentów, które komunik
 
 \subsection{Aplikacja webowa}
 
-Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od roli użytkownika, umożliwia wykonanie innych czynności. Aplikacja została zaprojektowana w taki sposób, aby była przejrzysta i intuicyjna w obsłudze. Dzięki temu, użytkownik może szybko i sprawnie wykonywać swoje codzienne obowiązki. Odrębne od siebie panele zostały umieszczone w kartach pojawiających się na widoku, dzięki czemu użytkownik wie dokładnie w którym miejscu aplikacji się znajduje i jakie ma możliwości. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP i odbierając odpowiedzi w formacie \texttt{JSON}.
+Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od jego roli, umożliwia wykonanie innych czynności. Aplikacja została zaprojektowana w taki sposób, aby była przejrzysta i intuicyjna w obsłudze. Dzięki temu, użytkownik może szybko i sprawnie wykonywać swoje codzienne obowiązki. Odrębne od siebie panele zostały umieszczone w kartach pojawiających się na widoku, dzięki czemu użytkownik wie dokładnie w którym miejscu aplikacji się znajduje i jakie ma możliwości. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP i odbierając odpowiedzi w formacie \texttt{JSON}.
 
 \subsection{Serwer}
 
-Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot} korzystając z architektury Model-Controller-Service. Zapewnia on komunikację między bazą danych, a pozostałymi komponentami systemu. Jest odpowiedzialny za przetwarzanie żądań klienckich oraz zwracanie odpowiedzi w formacie \texttt{JSON}. Serwer aplikacyjny jest również odpowiedzialny za autoryzację i autentykację użytkowników oraz zarządzanie sesjami. Użytkownicy nie mają bezpośredniego dostępu do serwera.
+Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot} korzystając z architektury Model-Controller-Service. Zapewnia on komunikację między bazą danych, a pozostałymi komponentami systemu. Jest odpowiedzialny za przetwarzanie żądań klienckich oraz zwracanie odpowiedzi w formacie \texttt{JSON}. Serwer aplikacyjny odpowiada również za autoryzację i autentykację użytkowników oraz zarządzanie sesjami. Użytkownicy nie mają bezpośredniego dostępu do serwera.
 
 \subsection{Aplikacja mobilna}
 
@@ -21,7 +21,7 @@ Aplikacja mobilna umożliwia użytkownikom przeglądanie swoich danych bez konie
 
 \subsection{Układ mikroprocesorowy}
 
-Układ mikroprocesorowy jest odpowiedzialny za odczytywanie tagów NFC oraz przesyłanie informacji do serwera aplikacyjnego. Następnie serwer zwraca informację o przyznaniu dostępu do systemu. Układ mikroprocesorowy jest zasilany z wbudowanego portu Micro USB, co umożliwia bardzo proste podłączenie go do źródła zasilania. Dokumentacja techniczna mikrokontrolera \cite{bib:picoWdatasheet} precyzuje również podłączenie innego źródła zasilania bez użycia wbudowanego portu.
+Układ mikroprocesorowy jest odpowiedzialny za odczytywanie tagów NFC oraz przesyłanie informacji do serwera aplikacyjnego. Następnie serwer zwraca informację o przyznaniu dostępu. Układ mikroprocesorowy jest zasilany poprzez wbudowany w płytkę port Micro USB, dzięki czemu podłączenie go do zasilania jest bardzo proste. Dokumentacja techniczna mikrokontrolera \cite{bib:picoWdatasheet} precyzuje również podłączenie innego źródła zasilania bez użycia portu.
 
 \section{Struktura bazy danych}
 
@@ -36,7 +36,7 @@ Baza danych obsługująca system składa się z kilkunastu tabel, które przecho
 
 \subsection{Tabele użytkowników}
 
-Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło; oraz informacja o użytkowniku, który  utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie - w relacji wiele do jednego. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
+Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło; oraz informacja o użytkowniku, który utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
 
 \begin{figure}[H]
     \centering
@@ -46,8 +46,6 @@ Główną tabelą przechowującą informacje o użytkownikach jest tabela \textt
 \end{figure}
 
 \subsection{Tabele jednostek organizacyjnych}
-
-
 
 Wszystkie jednostki organizacyjne są przechowywane w tabeli \texttt{UNITS} zawierającej dane o nazwie jednostki, jej opisie, jednostce nadrzędnej oraz dacie utworzenia. Pole \texttt{work\_ended} określa, czy jednostka jest aktywna. Użytkownicy są przypisani do jednostki organizacyjnej poprzez tabelę \texttt{positions} będącą tabelą łącznikową między tabelami \texttt{USERS} i \texttt{UNITS}. Znajdują się w niej dane o dacie rozpoczęcia pracy na danym stanowisku oraz dacie zakończenia pracy, a także odwołanie do tabeli słownikowej, zawierającej nazwy stanowisk. Tabela \texttt{POSITIONS} jest szczególnie ważna przy odczytywaniu harmonogramów pracy. Schemat tabel jednostek organizacyjnych został przedstawiony na rysunku \ref{fig:organizationalUnitsTable}.
 
@@ -62,7 +60,7 @@ Wszystkie jednostki organizacyjne są przechowywane w tabeli \texttt{UNITS} zawi
 \label{ss:harmonogramy}
 
 
-Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHEDULES} oraz pewna liczba rekordów w tabeli \texttt{SCHEDULE\_BLOCKS}. Pierwsza z nich zawiera informacje o dacie rozpoczęcia i zakończenia harmonogramu, jego utworzenia oraz odwołanie do jednostki organizacyjnej lub użytkownika, którego dotyczy. Tabela \texttt{SCHEDULE\_BLOCKS} odpowiada za przechowywanie pojedynczych bloków czasowych w harmonogramie opisując ich dzień i godzinę rozpoczęcia oraz zakończenia oraz jednostkę, której dotyczą. Tabele są powiazane relacją jeden do wielu - jeden harmonogram może zawierać wiele bloków czasowych. Przedstawienie tabel harmonogramów widoczne jest na rysunku \ref{fig:schedulesTable}.
+Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHEDULES} oraz pewna liczba rekordów w tabeli \texttt{SCHEDULE\_BLOCKS}. Pierwsza z nich zawiera informacje o dacie rozpoczęcia i zakończenia harmonogramu, jego utworzenia oraz odwołanie do jednostki organizacyjnej lub użytkownika, którego dotyczy. Tabela \texttt{SCHEDULE\_BLOCKS} odpowiada za przechowywanie pojedynczych bloków czasowych w harmonogramie opisując jednostkę, której dotyczą, a także ich dzień i godzinę rozpoczęcia oraz zakończenia. Blok nie musi odpowiadać jednostce organizacyjnej, do której przypisany jest cały harmonogram. Tabele są powiazane relacją jeden do wielu - jeden harmonogram może zawierać wiele bloków czasowych. Przedstawienie tabel harmonogramów widoczne jest na rysunku \ref{fig:schedulesTable}.
 
 \begin{figure}[H]
     \centering
@@ -73,7 +71,7 @@ Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHED
 
 \subsection{Tabele kart dostępowych}
 
-Karty dostępowe użytkowników są przechowywane w tabeli \texttt{ACCESS\_CARDS} zawierającej informacje o numerze seryjnym, jej właścicielu opisie, typie karty oraz statusie. Dzięki ostatniej z właściwości możliwe jest przypisanie dwóm użytkownikom jednej karty w różnych okresach czasu. Każda autoryzacja użytkownika jest zapisywana w tabeli \texttt{USER\_ACCESS} wpisując do niej datę i godzinę, id użytkownika, id czytnika, id karty dostępowej oraz status autoryzacji. Umożliwia to późniejsze analizowanie historii autoryzacji. Wizualizacja tabel kart dostępowych znajduje się na rysunku \ref{fig:accessCardsTable}.
+Karty dostępowe użytkowników są przechowywane w tabeli \texttt{ACCESS\_CARDS} zawierającej informacje o numerze seryjnym, jej właścicielu, opisie, typie karty oraz statusie. Dzięki ostatniej z właściwości możliwe jest przypisanie dwóm użytkownikom jednej karty w różnych okresach czasu. Każda autoryzacja użytkownika jest zapisywana w tabeli \texttt{USER\_ACCESS} wpisując do niej datę i godzinę, id użytkownika, id czytnika, id karty dostępowej oraz status autoryzacji. Umożliwia to późniejsze analizowanie historii dostępu. Wizualizacja tabel kart dostępowych znajduje się na rysunku \ref{fig:accessCardsTable}.
 
 \begin{figure}[H]
     \centering
@@ -105,7 +103,7 @@ Dzięki użyciu w projekcie JPA (ang. \english{Java Persistence API}) oraz Hiber
 
 \subsection{Klasy encji}
 
-Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, do której jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli oznaczane jest odpowiednią adnotacją. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W klasach znajdują się również publiczne metody, dzięki którym możliwe było uproszczenie logiki biznesowej.
+Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, z którą jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli jest odpowiednio oznaczone. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W klasach znajdują się również proste, publiczne metody przetwarzające dane, dzięki którym możliwe było uproszczenie logiki biznesowej.
 
 \subsection{Klasy pomocnicze}
 
@@ -137,7 +135,7 @@ Pakiet apimodels zawiera subpakiety odpowiadające kontrolerom, które wymagają
 
 \subsection{Rejestracja i pierwsze logowanie użytkownika}
 
-Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, sprawdzi on czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły tego procesu zostały opisane w rozdziale \ref{ss:logowanie}
+Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, zostanie sprawdzone czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły tego procesu zostały opisane w rozdziale \ref{ss:logowanie}
 
 \subsection{Logowanie}
 \label{ss:logowanie}
@@ -154,7 +152,7 @@ Logowanie do systemu odbywa się poprzez przesłanie żądania HTTP z danymi log
 
 \subsection{Uwierzytelnianie użytkownika}
 
-Klient po zalogowaniu się do systemu otrzymuje od serwera dwa tokeny JWT, które są przechowywane w pamięci lokalnej przeglądarki. Aby mógł korzystać z zasobów serwera, musi dołączać pierwszy z nich - token dostępowy - do nagłówka każdego żądania HTTP pod kluczem \texttt{Authorization} poprzedzając go słowem \texttt{Bearer}. Przykładowy nagłówek został przedstawiony na rysunku. Token ten jest ważny przez określony czas, po którym traci ważność - serwer zwraca wtedy kod błędu 401. Jeżeli zaistnieje taka sytuacja, klient musi wysłać żądanie odświeżenia tokena do serwera, dołączając drugi token - odświeżający - który ma dłuższy czas przedawnienia. Serwer następnie sprawdza, czy token odświeżający jest poprawny i zwraca nowe tokeny. W przeciwnym wypadku klient musi ponownie zalogować się do systemu. Diagram sekwencji procesu uwierzytelniania użytkownika został przedstawiony na rysunku \ref{fig:authSequence}.
+Klient po zalogowaniu się do systemu otrzymuje od serwera dwa tokeny JWT, które są przechowywane w pamięci lokalnej przeglądarki. Aby mógł korzystać z zasobów serwera, musi dołączać pierwszy z nich - token dostępowy - do nagłówka każdego żądania HTTP pod kluczem \texttt{Authorization} poprzedzając go słowem \texttt{Bearer}. Token ten jest ważny przez określony czas, po którym traci ważność - serwer symbolizuje to kodem błędu 401. Jeżeli zaistnieje taka sytuacja, klient musi wysłać żądanie odświeżenia tokena do serwera dołączając drugi token - odświeżający - który ma dłuższy czas przedawnienia. Serwer następnie sprawdza, czy token odświeżający jest poprawny i zwraca nowe tokeny. W przeciwnym wypadku klient musi ponownie zalogować się do systemu. Diagram sekwencji procesu uwierzytelniania użytkownika został przedstawiony na rysunku \ref{fig:authSequence}.
 
 \begin{figure} [H]
     \centering
@@ -194,7 +192,7 @@ Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostk
 \subsection{Przypisanie  karty dostępowej}
 \label{sec:addNfc}
 
-Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni menu wyboru użytkownika, do którego ma zostać przypisana. Po zatwierdzeniu wyboru, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika. Diagram sekwencji przypisania karty dostępowej został przedstawiony na rysunku \ref{fig:assignCard}.
+Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni listę rozwijaną z jego wyborem. Po zatwierdzeniu, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika i otrzyma odpowiedź. Diagram sekwencji przypisania karty dostępowej został przedstawiony na rysunku \ref{fig:assignCard}.
 
 \begin{figure}[H]
     \centering
@@ -206,7 +204,7 @@ Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej.
 
 \subsection{Uruchomienie czytnika kart}
 
-Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu, czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
+Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu formularza czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
 
 \section{Połączenie modułów czytnika kart}
 
@@ -218,7 +216,7 @@ Do elementów pasywnych układu należą:
     \item Dioda LED RGB ze wspólną katodą, sygnalizująca stan czytnika.
 \end{itemize}
 
-Zgodnie z opisem diody do każdej anody diody podłączony jest rezystor ograniczający prąd. Zgodnie z zaleceniami producenta wartości te powinny wynosić:
+Zgodnie z opisem diody do każdej anody podłączony powinien być rezystor ograniczający prąd. Zgodnie z zaleceniami producenta ich rezystancja powinny wynosić:
 \begin{equation}
     \begin{cases}
         R_R=100\Omega \\
@@ -226,9 +224,9 @@ Zgodnie z opisem diody do każdej anody diody podłączony jest rezystor ogranic
         R_B=47\Omega
     \end{cases}
 \end{equation}
-z dokładnością do $5\%$. Niemożność uzyskania rezystora dla kanału zielonego spowodowała, że połączono równolegle dostępne rezystory o wartościach $100\Omega$, $1,2k\Omega$ i $1,2k\Omega$. Dzięki temu uzyskano rezystancję równą:
+z dokładnością do $5\%$. Niemożność uzyskania rezystora dla kanału zielonego spowodowała, że połączono równolegle dostępne rezystory o wartościach $100\Omega$, $1.2k\Omega$ i $1.2k\Omega$. Dzięki temu uzyskano rezystancję równą:
 \begin{equation}
-    R_G = \frac{1}{\frac{1}{100}+\frac{1}{1200}+\frac{1}{1200}} \approx 85,71\Omega
+    R_G = \frac{1}{\frac{1}{100}+\frac{1}{1200}+\frac{1}{1200}} \approx 85.71\Omega
 \end{equation}
 która odbiega od wartości zalecanej o mniej niż $5\%$.
 \begin{figure}[H]

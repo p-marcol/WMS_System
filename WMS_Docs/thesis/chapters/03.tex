@@ -18,6 +18,8 @@ Podczas tworzenia systemu przyjęto zbiór założeń, które miały na celu okr
 
 Projekt systemu zakłada spełnienie następujących wymagań funkcjonalnych:
 
+% \cite{bib:ResponseTimes}
+
 \begin{itemize}
     \item zarządzanie pracownikami: dodawanie, usuwanie, edycja, przypisywanie ról,
     \item zarządzanie zadaniami: dodawanie, usuwanie, edycja, konieczność akceptacji przez przełożonego,
@@ -32,16 +34,19 @@ Projekt systemu zakłada spełnienie następujących wymagań funkcjonalnych:
 
 \subsection{Wymagania niefunkcjonalne}
 
-Projekt systemu zakłada spełnienie następujących wymagań niefunkcjonalnych:
+Projekt systemu zakłada spełnienie wymienionych wymagań niefunkcjonalnych.
 
 \begin{itemize}
-    \item system dostępny jest przez 24 godziny na dobę, 7 dni w tygodniu, z wyjątkiem przerw na konserwację,
-    \item aplikacja działa płynnie i bez zacięć, nawet przy dużej ilości użytkowników,
-    \item system jest bezpieczny i odporny na ataki z zewnątrz,
-    \item aplikacja mobilna działa na systemach Android i iOS,
-    \item aplikacja jest intuicyjna i łatwa w obsłudze,
-    \item system jest łatwy w utrzymaniu i rozbudowie,
-    \item system jest zgodny z obowiązującymi przepisami prawa.
+    \item System dostępny jest przez 24 godziny na dobę, 7 dni w tygodniu, z wyjątkiem przerw na konserwację. Nie powinny one przekraczać 1 godziny w tygodniu, a w wypadku konieczności dłuższej przerwy, powinny być wcześniej zapowiedziane. Konserwacja obejmuje prace serwisowe oraz aktualizacje. W wypadku awarii, czas naprawy nie powinien przekraczać 1 dnia od zgłoszenia.
+    \item Aplikacja webowa działa na najpopularniejszych przeglądarkach internetowych: Google Chrome, Mozilla Firefox, Microsoft Edge, Safari itp.
+          % \item Aplikacja użytkownika działa płynnie i bez zacięć, nawet przy dużej ilości użytkowników.
+    \item Aplikacja reaguje na interakcje użytkownika w czasie krótszym niż 0.1 sekundy. Serwer typowo odpowiada na zapytania w czasie nieprzekraczającym jednej sekundy, a w wypadku wzmożonego ruchu nie dłuższym niż 5 sekund.
+    \item Serwer jest w stanie obsłużyć do 200 zapytań na sekundę.
+    \item Aplikacja mobilna działa na systemach Android i iOS.
+    \item Komunikacja w systemie jest szyfrowana i bezpieczna.
+    \item System jest odporny na ataki typu SQL Injection oraz Cross-Site Scripting.
+    \item Aplikacja jest intuicyjna i łatwa w obsłudze. Podstawowi użytkownicy powinni móc korzystać z systemu bez konieczności przeprowadzania szkoleń.
+    \item System jest łatwy w utrzymaniu i rozbudowie. Dodanie nowych funkcjonalności nie powinny wpłynąć na działanie pozostałych.
 \end{itemize}
 
 \section{Projekt systemu}
@@ -52,37 +57,37 @@ Poniżej przedstawiono główne technologie wraz z uzasadnieniem ich wyboru oraz
 
 \subsubsection*{MySQL}
 
-MySQL to relacyjna baza danych rozwijana aktualnie przez firmę Oracle. Jej najważniejszymi cechami są: popularność, szybkość, niezawodność oraz łatwość obsługi. Najnowsze wersje wspierają transakcje, widoki, procedury składowane i wiele innych funkcji, które zbliżają ją do baz danych typu Enterprise. Dodatkowo oferuje lepsze prędkości odczytu danych, niż konkurencyjne rozwiązania takie jak PostgreSQL \cite{bib:mysql}.
+MySQL \cite{bib:mysql} to relacyjna baza danych rozwijana aktualnie przez firmę Oracle. Jej najważniejszymi cechami są: popularność, szybkość, niezawodność oraz łatwość obsługi. Najnowsze wersje wspierają transakcje, widoki, procedury składowane i wiele innych funkcji, które zbliżają ją do baz danych typu Enterprise. Dodatkowo oferuje lepsze prędkości odczytu danych, niż konkurencyjne rozwiązania takie jak PostgreSQL.
 
 Baza danych MySQL została wybrana ze względu na możliwości jakie oferuje, a także jej przejrzystość, co może ułatwić migrację na inne rozwiązanie w przyszłości.
 
 \subsubsection*{Spring Framework}
 
-Spring to platforma, która dostarcza rozwiązania do tworzenia aplikacji typu Enterprise w języku Java. Jego asynchroniczna, nieblokująca architektura umożliwia tworzenie rozwiązań obsługujących duże ilości danych, przy jednoczesnym zachowaniu wysokiej wydajności. Składa się z wielu modułów obsługujących kluczowe aspekty działania systemu, takich jak: transakcje, bezpieczeństwo, obsługa danych, integracja z bazami danych, obsługa REST API, itp \cite{bib:spring}.
+Spring \cite{bib:spring} to platforma, która dostarcza rozwiązania do tworzenia aplikacji typu Enterprise w języku Java. Jego asynchroniczna, nieblokująca architektura umożliwia tworzenie rozwiązań obsługujących duże ilości danych, przy jednoczesnym zachowaniu wysokiej wydajności. Składa się z wielu modułów obsługujących kluczowe aspekty działania systemu, takich jak: transakcje, bezpieczeństwo, obsługa danych, integracja z bazami danych, obsługa REST API, itp.
 
 Spring Framework został wybrany ze względu na swoją popularność, wsparcie społeczności oraz bogatą dokumentację, co ułatwiło pracę nad projektem.
 
 \subsubsection*{Vue.js}
 
-Vue.js jest progresywnym frameworkiem JavaScript przeznaczonym do budowania interfejsów użytkownika. Charakteryzuje się lekkością, prostotą oraz wydajnością. Jego architektura oparta na komponentach umożliwia tworzenie skomplikowanych interfejsów, które są łatwe w utrzymaniu i rozbudowie. Dodatkowo oferuje udostępnienie aplikacji w formie SPA (ang. \english{Single Page Application}), dzięki czemu użytkownik widzi ją jako pojedynczą stronę internetową. Reakcje na interakcje użytkownika są szybkie i płynne, co zwiększa komfort korzystania, przypominając niejako aplikacje desktopowe \cite{bib:vuejs}.
+Vue.js \cite{bib:vuejs} jest progresywnym frameworkiem JavaScript przeznaczonym do budowania interfejsów użytkownika. Charakteryzuje się lekkością, prostotą oraz wydajnością. Jego architektura oparta na komponentach umożliwia tworzenie skomplikowanych interfejsów, które są łatwe w utrzymaniu i rozbudowie. Dodatkowo oferuje udostępnienie aplikacji w formie SPA (ang. \english{Single Page Application}), dzięki czemu użytkownik widzi ją jako pojedynczą stronę internetową. Reakcje na interakcje użytkownika są szybkie i płynne, co zwiększa komfort korzystania, przypominając niejako aplikacje desktopowe.
 
 Vue.js został wybrany ze względu na chęć poznania tej technologii, względnie niski próg wejścia oraz dużą popularność wśród programistów i firm.
 
 \subsubsection*{Expo}
 
-Expo to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie \texttt{React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając EAS (ang. \english{Expo Application Service}) \cite{bib:expo}.
+Expo \cite{bib:expo} to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie \texttt{React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając EAS (ang. \english{Expo Application Service}) \cite{bib:eas}.
 
 Expo zostało wybrane ze względu na wcześniejsze doświadczenie autora pracy z tą technologią, wieloplatformowość oraz możliwość szybkiego utworzenia i wdrożenia aplikacji na platformy mobilne.
 
 \subsubsection*{Raspberry Pi Pico W}
 
-Raspberry Pi Pico W jest najmniejszym modułem z rodziny Raspberry Pi, który może łączyć się z siecią. Posiada wbudowany kontroler Raspberry RP4020 oparty na architekturze ARM (ang. \english{Advanced RISC Machine}), co czyni go idealnym wyborem do zastosowań IoT (ang. \english{Internet of Things}). Układ wyposażony jest w 264 KB pamięci RAM, 2 MB pamięci flash oraz 26 pinów GPIO (ang. \english{General Purpose Input/Output}), dzięki którym bez problemu można podłączyć do niego wiele różnych czujników i urządzeń. Pico W posiada wbudowany moduł Wi-Fi oraz Bluetooth, co pozwala na łatwe łączenie się z siecią oraz innymi urządzeniami.
+Raspberry Pi Pico W \cite{bib:picoW} jest najmniejszym modułem z rodziny Raspberry Pi, który może łączyć się z siecią. Posiada wbudowany kontroler Raspberry RP4020 oparty na architekturze ARM (ang. \english{Advanced RISC Machine}), co czyni go idealnym wyborem do zastosowań IoT (ang. \english{Internet of Things}). Układ wyposażony jest w 264 KB pamięci RAM, 2 MB pamięci flash oraz 26 pinów GPIO (ang. \english{General Purpose Input/Output}), dzięki którym bez problemu można podłączyć do niego wiele różnych czujników i urządzeń. Pico W posiada wbudowany moduł Wi-Fi oraz Bluetooth, co pozwala na łatwe łączenie się z siecią oraz innymi urządzeniami.
 
-Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z siecią oraz duże możliwości rozbudowy \cite{bib:picoW}.
+Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z siecią oraz duże możliwości rozbudowy.
 
 \subsubsection*{MicroPython}
 
-MicroPython jest implementacją języka Python przeznaczoną dla mikrokontrolerów i systemów wbudowanych. Jest zoptymalizowany pod kątem niskiego zużycia zasobów - co czyni go idealnym wyborem dla urządzeń o ograniczonej mocy obliczeniowej i pamięci. MicroPython oferuje większość funkcji standardowego Pythona, umożliwiając szybkie i efektywne tworzenie oprogramowania dla mikrokontrolerów. Dzięki temu można korzystać z dobrze znanych narzędzi i bibliotek znacząco przyspieszając proces tworzenia programu i jego testowania \cite{bib:micropython}.
+MicroPython \cite{bib:micropython} jest implementacją języka Python przeznaczoną dla mikrokontrolerów i systemów wbudowanych. Jest zoptymalizowany pod kątem niskiego zużycia zasobów - co czyni go idealnym wyborem dla urządzeń o ograniczonej mocy obliczeniowej i pamięci. MicroPython oferuje większość funkcji standardowego Pythona, umożliwiając szybkie i efektywne tworzenie oprogramowania dla mikrokontrolerów. Dzięki temu można korzystać z dobrze znanych narzędzi i bibliotek znacząco przyspieszając proces tworzenia programu i jego testowania.
 
 MicroPython został wybrany ze względu na jego prostotę, elastyczność oraz możliwość szybkiego wdrożenia mikrokontrolera.
 

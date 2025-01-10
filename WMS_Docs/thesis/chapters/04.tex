@@ -3,7 +3,7 @@
 
 \section{Użytkownicy i ich role}
 
-W systemie zostały zdefiniowane 3 role użytkowników:
+W systemie zostały zdefiniowane trzy role użytkowników:
 
 \begin{itemize}
     \item Użytkownik,
@@ -18,21 +18,15 @@ Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dos
 
 \subsection{Użytkownik}
 
-\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami. Może przeglądać swoje dane, harmonogram pracy, oraz dodawać wpisy do timesheetu.
-
-Kolorem przypisanym do użytkownika jest kolor pomarańczowy.
+\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami. Może przeglądać swoje dane, harmonogram pracy, oraz dodawać wpisy do karty pracy (ang. \english{Timesheet}).
 
 \subsection{Manager}
 
-\textbf{Manager} posiada większe uprawnienia niż użytkownik. Oprócz możliwości przeglądania swoich danych, harmonogramu pracy, oraz dodawania wpisów do timesheetu, manager może również zarządzać harmonogramem pracy zespołu oraz przeglądać i akceptować timesheety pracowników. Manager nie ma możliwości zarządzania innymi managerami, administratorami oraz strukturą organizacyjną firmy.
-
-Kolorem przypisanym do managera jest zielony.
+\textbf{Manager} posiada większe uprawnienia niż użytkownik. Oprócz możliwości przeglądania swoich danych, harmonogramu pracy, oraz dodawania wpisów do karty pracy, manager może również zarządzać harmonogramem pracy zespołu oraz przeglądać i akceptować karty pracowników. Manager nie ma możliwości zarządzania innymi managerami, administratorami oraz strukturą organizacyjną firmy.
 
 \subsection{Administrator}
 
 \textbf{Administrator} jest użytkownikiem o największych uprawnieniach w systemie. Rozszerza możliwości managera o możliwość zarządzania poszczególnymi użytkownikami i ich rolami, strukturą organizacyjną firmy - dodawanie, edycja i usuwanie działów oraz stanowisk - oraz konfigurację systemu. Administrator ma dostęp do wszystkich danych i może nimi dowolnie zarządzać.
-
-Kolorem przypisanym do administratora jest niebieski.
 
 \section{Wygląd interfejsu użytkownika}
 
@@ -86,7 +80,7 @@ Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \subsection{Panel główny}
 
-Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do timesheetu. Przykładowy panel użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
+Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do karty pracy w danym dniu. Przykładowy panel użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
 
 \begin{figure}[H]
     \centering
@@ -124,30 +118,30 @@ Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe
     \label{fig:userDialogs}
 \end{figure}
 
-\subsection{Widok timesheetu}
+\subsection{Widok karty pracy}
 
-Widok timesheetu rozszerza funkcjonalności karty z panelu głównego. Oprócz możliwości dodawania wpisów, użytkownik może przeglądać swoje wpisy z wybranego przez siebie zakresu czasu. Informacje są sortowane zgodnie z chronologią ich dodawania. Widok timesheetu został przedstawiony na rysunku \ref{fig:timesheetView}. Dodawanie wpisów odbywa się poprzez formularz otwierany w oknie dialogowym po kliknięciu odpowiedniego przycisku. Został on ukazany na rysunku \ref{fig:timesheetDialog}.
+Widok karty pracy rozszerza funkcjonalności karty z panelu głównego. Oprócz możliwości dodawania wpisów, użytkownik może przeglądać swoje wpisy z wybranego przez siebie zakresu czasu. Informacje są sortowane zgodnie z chronologią ich dodawania. Wspomniany widok został przedstawiony na rysunku \ref{fig:timesheetView}. Dodawanie wpisów odbywa się poprzez formularz otwierany w oknie dialogowym po kliknięciu odpowiedniego przycisku. Został on ukazany na rysunku \ref{fig:timesheetDialog}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, frame]{graf/front/timesheet.png}
-    \caption{Widok timesheetu}
+    \caption{Widok karty pracy}
     \label{fig:timesheetView}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{graf/front/timesheetAddRecord.png}
-    \caption{Okno dialogowe dodawania wpisu do timesheetu}
+    \caption{Okno dialogowe dodawania wpisu do karty pracy}
     \label{fig:timesheetDialog}
 \end{figure}
 
-Administratorzy i managerowie mają możliwość przejścia do widoku wpisów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli timesheetów pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
+Administratorzy i managerowie mają możliwość przejścia do widoku wpisów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli kart pracy pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth, frame]{graf/front/timesheetManagerPending.png}
-    \caption{Widok timesheetów oczekujących na akceptację}
+    \caption{Widok wpisów oczekujących na akceptację}
     \label{fig:timesheetApprovalView}
 \end{figure}
 

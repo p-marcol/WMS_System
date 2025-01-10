@@ -30,7 +30,36 @@ Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dos
 
 \section{Wygląd interfejsu użytkownika}
 
-Interfejs użytkownika został zaprojektowany w sposób przejrzysty i intuicyjny. Przy wykonaniu projektu kierowano się tym, aby użytkownik mógł szybko i sprawnie dowiedzieć się tego, co go interesuje. Zadbano, aby interfejs nie był zbyt przeładowany informacjami, a jednocześnie nie brakowało w nim żadnych ważnych elementów. Pierwszym widokiem jaki użytkownik widzi po zalogowaniu jest panel główny.
+Interfejs użytkownika został zaprojektowany w taki sposób, aby osoba korzystająca z systemu mogła od razu zrozumieć, jakie funkcje są dla niej dostępne i co może zrobić. Wszystkie elementy interfejsu, z którymi użytkownik może wchodzić w interakcję, wyróżniają się na tle reszty, co ułatwia ich zauważenie. Skorzystano przy tym z zasady "mniej znaczy więcej", aby nie przytłoczyć użytkownika zbyt dużą ilością informacji. Wszystko, czego użytkownik może potrzebować, jest dostępne w jednym miejscu, a dostęp do mniej znaczących funkcjonalności jest dostępny poprzez dedykowane im widoki. Makieta głównego widoku dla managera została przedstawiona na rysunku \ref{fig:mainLayout}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth, frame]{graf/mainLayout.png}
+    \caption{Makieta głównego widoku dla managera}
+    \label{fig:mainLayout}
+\end{figure}
+
+W całej aplikacji zdecydowano użyć jednolitego kroju bezszeryfowej czcionki \texttt{Open\nolinebreak Sans}, która została zaprojektowana z myślą o czytelności na ekranach. Ta sama myśl przyświecała przy jej wyborze. Pomimo jej silnej inspiracji krojami klasycznymi, posiada nowoczesny charakter i zachowuje czytelność. Elementy nagłówkowe korzystają z jej wersji pogrubionej lub pół pogrubionej. Interfejs użytkownika automatycznie dostosowuje wielkość czcionek do preferencji użytkownika.
+
+Przy projektowaniu interfejsu skorzystano z podejścia Agile UX - metodologii, która zakłada tworzenie wysokiej jakości produktu w sposób iteracyjny. Stąd też interfejs użytkownika miał kilka wersji, zanim osiągnął obecną formę. Wszystkie zmiany były konsultowane z osobami niezwiązanymi z projektem, aby uzyskać jak największą użyteczność i zadowolenie użytkowników. Przykład zmian w karcie harmonogramu, na widoku głównym został przedstawiony na rysunku \ref{fig:uxChanges}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth, frame]{graf/sch1.png}
+        \caption{Wersja pierwotna}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth, frame]{graf/schE.png}
+        \caption{Wersja końcowa}
+    \end{subfigure}
+    \caption{Zmiany w interfejsie użytkownika}
+    \label{fig:uxChanges}
+\end{figure}
+
+Pierwsza wersja - mimo, że bogatsza - była uznana za zbyt skomplikowaną i nieczytelną, zwłaszcza jeżeli chodzi o użyte kolory. Wersja końcowa została pozbawiona części elementów, uzyskując w zamian bardziej przejrzysty i czytelny interfejs.
 
 \subsection{Kolorystyka}
 
@@ -68,7 +97,7 @@ Komponenty są umieszczane na obszarze głównym z wykorzystaniem siatki CSS Gri
 
 \subsection{Strona logowania}
 
-Logowanie do systemu odbywa się poprzez bardzo prosty formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawia się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a te - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
+Logowanie do systemu odbywa się poprzez formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawia się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a to - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
 Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \begin{figure}[H]
@@ -157,7 +186,7 @@ Widok został skonstruowany w taki sposób, aby nie ukazywać wszystkich informa
     \label{fig:unitsView}
 \end{figure}
 
-Kolumna akcji może zawierać maksymalnie cztery ikony: otwarcie szczegółów, edycję, przejście do podjednostek oraz otwarcie widoku pracowników. Ostatnia z akcji umożliwia przeglądanie użytkowników pracujących w danej jednostce wraz z ich rolami. W przypadku braku pracowników, tabela jest pusta. Kliknięcie przycisku w górnej części szuflady otwiera okno dialogowe, w którym możliwe jest dodanie nowych użytkowników do jednostki. Po wybraniu użytkowników aplikacja prosi o nadanie ról, a następnie dodaje ich do jednostki. Po zakończeniu operacji okno dialogowe zamyka się, a tabela jest odświeżana. Otwierane okna są ukazane na rysunku \ref{fig:unitDialogs2}.
+Kolumna akcji może zawierać maksymalnie cztery ikony: otwarcie szczegółów, edycję, przejście do podjednostek oraz otwarcie widoku pracowników (rys. \ref{fig:unitDialogs}). Ostatnia z akcji umożliwia przeglądanie użytkowników pracujących w danej jednostce wraz z ich rolami. W przypadku braku pracowników, tabela jest pusta. Kliknięcie przycisku w górnej części szuflady otwiera okno dialogowe, w którym możliwe jest dodanie nowych użytkowników do jednostki. Po wybraniu użytkowników aplikacja prosi o nadanie ról, a następnie dodaje ich do jednostki. Po zakończeniu operacji okno dialogowe zamyka się, a tabela jest odświeżana. Otwierane okna są ukazane na rysunku \ref{fig:unitDialogs2}.
 
 \begin{figure}[H]
     \centering
@@ -263,13 +292,13 @@ Następnie - w zależności od wyniku zapytania - możliwe jest usunięcie karty
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth, frame]{graf/mobile/nfcDisabled.jpg}
+        \includegraphics[width=0.7\textwidth, frame]{graf/mobile/nfcDisabled.jpg}
         \caption{Komunikat o konieczności włączenia NFC}
         \label{fig:cardNFC}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
         \centering
-        \includegraphics[width=0.8\textwidth, frame]{graf/mobile/success.jpg}
+        \includegraphics[width=0.7\textwidth, frame]{graf/mobile/success.jpg}
         \caption{Komunikat o powodzeniu operacji}
         \label{fig:cardSuccess}
     \end{subfigure}

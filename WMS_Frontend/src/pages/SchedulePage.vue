@@ -331,4 +331,8 @@ export default {
 .dates {
     cursor: default;
 }
+
+.day {
+    text-align: center;
+}
 </style>

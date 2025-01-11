@@ -5,15 +5,23 @@
 
 % \note{W tej części pracy należy opisać, jakie komponenty składają się na system. Należy zaznaczyć, jakie są relacje między nimi. Można również opisać, jakie wzorce projektowe zostały zastosowane. Głównie chodzi o to, aby czytelnik mógł zrozumieć, jak działa system.}
 
-Kompletny system składa się z czterech głównych komponentów, które komunikują się ze sobą w celu zapewnienia pełnej funkcjonalności. Poniżej zostały przedstawione opisy każdego z nich.
+Kompletny system składa się z czterech głównych komponentów oraz bazy danych, które komunikują się ze sobą w celu zapewnienia pełnej funkcjonalności. Diagram architektury został przedstawiony na rysunku \ref{fig:architecture}. Kolejne podrozdziały opisują każdy z komponentów oraz ich relacje.
+
+% //www.plantuml.com/plantuml/png/RLBDSjCm4BxhANPooQayG0zC4-Wm37Ge3J-7JWvhUPjiB4iQQOEn6Ouy1C_18z07OvMaIGpu9Ez-FxkVT9K5asnRPnmz24Y0nAkrGCs9h73mPWeV5TCnUIPeq5l6BBrTWsFFRAQvOHynOLiA97qa24dMmPmQDhGnUFAoaDuH56NqAqT6nL-bRUoXUKBy_jMPYBR15S5a5XqtQ3S87LMXmmbyCw3V_QSjFTla9M26-yzKmImgqcAPTsc-c_yfjA5YvqyIrrzZs0lSb0uLZJ5tGQcZT2GiOcA_Wda8ikVDRb-3OhvGMkuGx8NI0rgbtbqlFe3s9mLuHrdqFD9-CVJYkO46anmTRjYcO8EN59nJLIYKARm9xTO_RS6FF-lXB2zi6V1WJPkil-QVHE3YulbnYhDrnus_xSTTdUCsTFpuOq3FT3BK-u81yYugQiq1NgZZW9J_BjfDyEYKVmbrg7T25UesUjG7PMeKh31hF7CSy50zfTClth_T9_zoNcxgN7zlg7Mu18MPA_9rUTH_0000
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{graf/systemScheme.png}
+    \caption{Diagram architektury systemu}
+    \label{fig:architecture}
+\end{figure}
 
 \subsection{Aplikacja webowa}
 
-Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od jego roli, umożliwia wykonanie innych czynności. Aplikacja została zaprojektowana w taki sposób, aby była przejrzysta i intuicyjna w obsłudze. Dzięki temu, użytkownik może szybko i sprawnie wykonywać swoje codzienne obowiązki. Odrębne od siebie panele zostały umieszczone w kartach pojawiających się na widoku, dzięki czemu użytkownik wie dokładnie w którym miejscu aplikacji się znajduje i jakie ma możliwości. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
+Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od jego roli, umożliwia wykonanie innych czynności. Autoryzacja odbywa się poprzez tokeny JWT, które aplikacja przechowuje w pamięci przeglądarki. Wykorzystywana jest biblioteka \texttt{Vue Router} odpowiedzialna za ustalanie tras i widoków, a także \texttt{Axios} do prostszego wykonywania zapytań do serwera. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
 
 \subsection{Serwer}
 
-Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot} korzystając z architektury Model-Controller-Service. Zapewnia on komunikację między bazą danych, a pozostałymi komponentami systemu. Jest odpowiedzialny za przetwarzanie żądań klienckich oraz zwracanie odpowiedzi w formacie \texttt{JSON}. Serwer aplikacyjny odpowiada również za autoryzację i autentykację użytkowników oraz zarządzanie sesjami. Użytkownicy nie mają bezpośredniego dostępu do serwera.
+Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot} korzystając z architektury Controller-Service-Repository \cite{bib:ControllerServiceRepository}. Zapewnia on komunikację między bazą danych, a pozostałymi komponentami systemu. Jest odpowiedzialny za przetwarzanie żądań klienckich oraz zwracanie odpowiedzi w formacie \texttt{JSON}. Serwer aplikacyjny odpowiada również za autoryzację i autentykację użytkowników oraz zarządzanie sesjami. Użytkownicy nie mają bezpośredniego dostępu do serwera.
 
 \subsection{Aplikacja mobilna}
 
@@ -99,7 +107,14 @@ Dane mogą dodawać jedynie administratorzy systemu.
 
 % \note{W tej części pracy należy opisać, jakie modele danych zostały zastosowane w systemie. Należy zaznaczyć, jakie są relacje między nimi.}
 
-Dzięki użyciu w projekcie JPA (ang. \english{Java Persistence API}) oraz Hibernate, struktury danych w systemie odpowiadają strukturom tabel w bazie danych - każda z tabel bazy danych jest mapowana na odpowiadającą jej klasę w systemie. Oprócz tego zostały zaimplementowane klasy pomocnicze oraz klasy DTO (ang. \english{Data Transfer Object}),
+Dzięki użyciu w projekcie JPA (ang. \english{Java Persistence API}) oraz Hibernate, struktury danych w systemie odpowiadają strukturom tabel w bazie danych - każda z tabel bazy danych jest mapowana na odpowiadającą jej klasę w systemie. Oprócz tego zostały zaimplementowane klasy pomocnicze oraz klasy DTO (ang. \english{Data Transfer Object}), które upraszczają logikę biznesową. Diagram klas został przedstawiony na rysunku \ref{fig:entityDiagram}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{graf/classDiagram.png}
+    \caption{Diagram klas modeli}
+    \label{fig:entityDiagram}
+\end{figure}
 
 \subsection{Klasy encji}
 
@@ -125,13 +140,55 @@ Pakiet apimodels zawiera subpakiety odpowiadające kontrolerom, które wymagają
 \begin{itemize}
     \item \texttt{access\_card} - modele kart dostępowych,
     \item \texttt{auth} - modele autoryzacji i autentykacji,
+    \item \texttt{position} - modele stanowisk,
     \item \texttt{schedule} - modele harmonogramów,
     \item \texttt{timesheet} - modele kart pracy,
     \item \texttt{unit} - modele jednostek organizacyjnych,
     \item \texttt{user} - modele użytkowników.
 \end{itemize}
 
-\section{Algorytmy}
+\subsection{Klasy kontrolerów}
+
+Klasy kontrolerów odpowiadają za obsługę żądań HTTP przesyłanych do serwera. Realizują one komunikację między klientem a serwerem wywołując odpowiednie metody i zwracając dane. Każda została oznaczona adnotacją \texttt{@RestController} oraz przypisano jej ścieżkę. Nie zawierają one logiki biznesowej, a jedynie wywołania odpowiednich metod serwisów. Przykład metody kontrolera został przedstawiony na listingu \ref{lst:controllerMethod}.
+
+\begin{listing}[H]
+    \begin{minted}[linenos, breaklines]{java}
+@PostMapping("/add")
+public ResponseEntity<?> addUnit(@RequestBody AddUnitRequest request) {
+    try {
+        unitService.addUnit(request);
+        return ResponseEntity.ok("Unit added successfully");
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body("An error occurred");
+    }
+}
+\end{minted}
+    \caption{Metoda kontrolera jednostek organizacyjnych dodająca nową jednostkę}
+    \label{lst:controllerMethod}
+\end{listing}
+
+\subsection{Interfejsy i klasy serwisów}
+
+Serwisy są odpowiedzialne za logikę biznesową systemu. Każda z klas serwisów implementuje jego interfejs umożliwiając stworzenie kilku wariacji rozwiązania problemu. Dzięki temu możliwe jest łatwe dodanie nowych funkcji do systemu bez konieczności zmiany istniejącego już kodu. Metody interfejsów są publiczne, a niektóre klasy zawierają metody prywatne służące do przetwarzania danych. Adnotacją informującą platformę Spring o tym, że klasa jest serwisem jest \texttt{@Service}.
+
+\subsection{Repozytoria}
+
+Częścią, która odpowiada za komunikację pomiędzy serwerem, a bazą danych są repozytoria. Są one interfejsami rozszerzającymi interfejs \texttt{JpaRepository} udostępniany przez Spring Data JPA. Metody w nich zawarte są nazywane zgodnie z konwencją określoną przez twórców, co umożliwia automatyczne generowanie zapytań SQL. Kod repozytorium harmonogramów ukazano na listingu \ref{lst:repositoryInterface}.
+
+\begin{listing}[H]
+    \begin{minted}[linenos, breaklines]{java}
+public interface iScheduleRepository extends JpaRepository<Schedule, Long> {
+    List<Schedule> findAllByUnitId(Long unitId);
+    Schedule findFirstByUnitIdOrderByStartDateDesc(Long unitId);
+    Schedule findFirstByUserIdOrderByStartDateDesc(Long userId);
+    List<Schedule> findAllByUserId(Long id);
+}
+\end{minted}
+    \caption{Przykład interfejsu repozytorium harmonogramów}
+    \label{lst:repositoryInterface}
+\end{listing}
+
+\section{Wybrane algorytmy}
 
 \subsection{Rejestracja i pierwsze logowanie użytkownika}
 
@@ -145,7 +202,7 @@ Logowanie do systemu odbywa się poprzez przesłanie żądania HTTP z danymi log
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{graf/loginSequence.png}
-    \caption{Diagram czynności logowania}
+    \caption{Diagram sekwencji logowania}
     \label{fig:login}
 \end{figure}
 % //www.plantuml.com/plantuml/png/VP8nRiCm34LtdKB8dWju288CdOgYIz2PigX6iIC5jbJN7WFq43rBEzRtAeceK6pKcJpyh__9Hs_R04s8frf06NmZz-Dt7ohVELj9QAMBuaowBUqPN90FZNS1dMR9u4JQGLabHQ7G4411YtArWm6a1jUNXnMBMWaXN9Jh3IN8GZxwLz-1iyW3s3S8oCa6rnl5ylZryw5PbdKoGZPIaK9EqegiBtqxn0gECkOTifcBeGwJ1JdMje4-HnfPSHANBdfIcxdhCUnv9t9aseqN6byG5uhdZMOFSpdEvtpoNN-xYL24n4oHH3fUPv6Oo0EqumK4StFnhYaZuUkwoAd5_i-4oJI5gF7cJJfEiLmnUysJQqMRi-tgy8j7Ig0A-Um3PJPweDmv80RAa9ZlftQOGZEZkM3mdvja-vwRXZvWxQuGbhPNwRuSDHin_w2t3moABLN5K_qB
@@ -168,7 +225,7 @@ Harmonogramowanie jest częścią systemu, która pochłania najwięcej zasobów
 
 \subsubsection{Zapis harmonogramu}
 
-Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Następnie tworzona jest struktura danych odpowiadająca tabelom opisanym w rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu.
+Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Struktura wysyłana wraz z żądaniem musi być zgodna z odpowiadającym jej DTO i zawierać informacje o dacie rozpoczęcia, jednostce lub użytkowniku, którego dotyczy oraz blokach czasowych, jakie mają się w nim znaleźć. Następnie tworzona jest struktura danych odpowiadająca tabelom opisanym w rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu. W przypadku błędu, serwer zwraca kod 400 - \texttt{Bad Request}.
 
 \subsubsection{Odczyt harmonogramu}
 
@@ -179,7 +236,7 @@ Odczyt harmonogramu odbywa się poprzez wysłanie żądania \texttt{GET} na adre
 \end{itemize}
 Uzupełniając odpowiednio parametry w nawiasach klamrowych. Oba żądania działają w podobny sposób - pierwszy z nich uwzględnia wyłącznie harmonogramy jednostki, natomiast drugi łączy harmonogramy wszystkich jednostek przypisanych do użytkownika, a następnie nadpisuje je harmonogramami użytkownika. W odpowiedzi serwer zwraca dane w formacie \texttt{JSON}, które są przetwarzane przez aplikację kliencką i wyświetlane w odpowiednim widoku.
 
-Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostki organizacyjnej. Wymaga ono odczytu wszystkich jednostek, do których należał użytkownik w danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji tego procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}.
+Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostki organizacyjnej. Wymaga ono odczytu wszystkich jednostek, do których należał użytkownik w danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji tego procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}. \newpage
 
 \begin{figure}[H]
     \centering
@@ -205,7 +262,7 @@ Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej.
 \subsection{Uruchomienie czytnika kart}
 
 Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu formularza czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
-
+\newpage
 \section{Połączenie modułów czytnika kart}
 
 Czytnik kart składa się z dwóch modułów oraz kilku elementów pasywnych. Pierwszy z modułów to mikrokontroler \texttt{Raspberry Pi Pico W} odpowiedzialny za przetwarzanie danych i komunikację z serwerem aplikacyjnym. Drugi moduł - oznaczony symbolem \texttt{RFID-RC522} - odpowiada za odczytanie tagów NFC i przekazanie ich do mikrokontrolera. Oba układy są połączone ze sobą za pomocą interfejsu SPI (ang. \english{Serial Peripheral Interface}). Schemat połączeń czytnika kart został przedstawiony na rysunku \ref{fig:readerConnection}.
@@ -228,10 +285,16 @@ z dokładnością do $5\%$. Niemożność uzyskania rezystora dla kanału zielon
 \begin{equation}
     R_G = \frac{1}{\frac{1}{100}+\frac{1}{1200}+\frac{1}{1200}} \approx 85.71\Omega
 \end{equation}
-która odbiega od wartości zalecanej o mniej niż $5\%$.
+która odbiega od wartości zalecanej o mniej niż $5\%$. \newpage
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{graf/nfcReader.pdf}
     \caption{Schemat połączeń czytnika kart NFC}
     \label{fig:readerConnection}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth, frame]{graf/protoCzytnik.jpg}
+    \caption{Prototyp czytnika kart na płytce stykowej}
+    \label{fig:readerConfig}
 \end{figure}

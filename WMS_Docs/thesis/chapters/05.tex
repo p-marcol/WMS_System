@@ -5,7 +5,7 @@
 
 % \note{W tej części pracy należy opisać, jakie komponenty składają się na system. Należy zaznaczyć, jakie są relacje między nimi. Można również opisać, jakie wzorce projektowe zostały zastosowane. Głównie chodzi o to, aby czytelnik mógł zrozumieć, jak działa system.}
 
-Kompletny system składa się z czterech głównych komponentów oraz bazy danych, które komunikują się ze sobą w celu zapewnienia pełnej funkcjonalności. Diagram architektury został przedstawiony na rysunku \ref{fig:architecture}. Kolejne podrozdziały opisują każdy z komponentów oraz ich relacje.
+Kompletny system składa się z czterech głównych komponentów oraz bazy danych, które komunikują się ze sobą w celu zapewnienia pełnej funkcjonalności. Diagram architektury został przedstawiony na rysunku \ref{fig:architecture}. Kolejne podrozdziały opisują każdy z~komponentów oraz ich relacje.
 
 % //www.plantuml.com/plantuml/png/RLBDSjCm4BxhANPooQayG0zC4-Wm37Ge3J-7JWvhUPjiB4iQQOEn6Ouy1C_18z07OvMaIGpu9Ez-FxkVT9K5asnRPnmz24Y0nAkrGCs9h73mPWeV5TCnUIPeq5l6BBrTWsFFRAQvOHynOLiA97qa24dMmPmQDhGnUFAoaDuH56NqAqT6nL-bRUoXUKBy_jMPYBR15S5a5XqtQ3S87LMXmmbyCw3V_QSjFTla9M26-yzKmImgqcAPTsc-c_yfjA5YvqyIrrzZs0lSb0uLZJ5tGQcZT2GiOcA_Wda8ikVDRb-3OhvGMkuGx8NI0rgbtbqlFe3s9mLuHrdqFD9-CVJYkO46anmTRjYcO8EN59nJLIYKARm9xTO_RS6FF-lXB2zi6V1WJPkil-QVHE3YulbnYhDrnus_xSTTdUCsTFpuOq3FT3BK-u81yYugQiq1NgZZW9J_BjfDyEYKVmbrg7T25UesUjG7PMeKh31hF7CSy50zfTClth_T9_zoNcxgN7zlg7Mu18MPA_9rUTH_0000
 \begin{figure}[H]
@@ -17,7 +17,7 @@ Kompletny system składa się z czterech głównych komponentów oraz bazy danyc
 
 \subsection{Aplikacja webowa}
 
-Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a w zależności od jego roli, umożliwia wykonanie innych czynności. Autoryzacja odbywa się poprzez tokeny JWT, które aplikacja przechowuje w pamięci przeglądarki. Wykorzystywana jest biblioteka \texttt{Vue Router} odpowiedzialna za ustalanie tras i widoków, a także \texttt{Axios} do prostszego wykonywania zapytań do serwera. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
+Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a~w~zależności od jego roli, umożliwia wykonanie innych czynności. Autoryzacja odbywa się poprzez tokeny JWT, które aplikacja przechowuje w pamięci przeglądarki. Wykorzystywana jest biblioteka \texttt{Vue Router} odpowiedzialna za ustalanie tras i widoków, a także \texttt{Axios} do prostszego wykonywania zapytań do serwera. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
 
 \subsection{Serwer}
 
@@ -25,7 +25,7 @@ Serwer aplikacyjny został stworzony przy użyciu frameworka \texttt{Spring Boot
 
 \subsection{Aplikacja mobilna}
 
-Aplikacja mobilna umożliwia użytkownikom przeglądanie swoich danych bez konieczności korzystania z przeglądarki internetowej. Jej głównym zadaniem jest jednak możliwość dodawania kart dostępowych dla poszczególnych użytkowników. Odbywa się to poprzez przyłożenie tagu NFC do telefonu z zainstalowaną aplikacją, a następnie przypisanie go do konkretnego użytkownika. Szczegółowy opis tego procesu został opisany w rozdziale \ref{sec:addNfc}.
+Aplikacja mobilna umożliwia użytkownikom przeglądanie swoich danych bez konieczności korzystania z przeglądarki internetowej. Jej głównym zadaniem jest jednak możliwość dodawania kart dostępowych dla poszczególnych użytkowników. Odbywa się to poprzez przyłożenie tagu NFC do telefonu z zainstalowaną aplikacją, a następnie przypisanie go do konkretnego użytkownika. Szczegółowy opis tego procesu został opisany w~rozdziale \ref{sec:addNfc}.
 
 \subsection{Układ mikroprocesorowy}
 
@@ -33,7 +33,7 @@ Układ mikroprocesorowy jest odpowiedzialny za odczytywanie tagów NFC oraz prze
 
 \section{Struktura bazy danych}
 
-Baza danych obsługująca system składa się z kilkunastu tabel, które przechowują informacje o wszelkich danych w systemie. Na rysunku \ref{fig:dbDiagram} został przedstawiony jej uproszczony schemat, a w kolejnych podrozdziałach zostaną opisane najważniejsze tabele oraz ich relacje.
+Baza danych obsługująca system składa się z kilkunastu tabel, które przechowują informacje o wszelkich danych w systemie. Na rysunku \ref{fig:dbDiagram} został przedstawiony jej uproszczony schemat, a w kolejnych podrozdziałach zostaną opisane najważniejsze tabele oraz relacje, jakimi są połączone.
 
 \begin{figure}[H]
     \centering
@@ -44,7 +44,7 @@ Baza danych obsługująca system składa się z kilkunastu tabel, które przecho
 
 \subsection{Tabele użytkowników}
 
-Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło; oraz informacja o użytkowniku, który utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
+Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło; oraz informacja o~użytkowniku, który utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z~tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
 
 \begin{figure}[H]
     \centering
@@ -68,7 +68,7 @@ Wszystkie jednostki organizacyjne są przechowywane w tabeli \texttt{UNITS} zawi
 \label{ss:harmonogramy}
 
 
-Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHEDULES} oraz pewna liczba rekordów w tabeli \texttt{SCHEDULE\_BLOCKS}. Pierwsza z nich zawiera informacje o dacie rozpoczęcia i zakończenia harmonogramu, jego utworzenia oraz odwołanie do jednostki organizacyjnej lub użytkownika, którego dotyczy. Tabela \texttt{SCHEDULE\_BLOCKS} odpowiada za przechowywanie pojedynczych bloków czasowych w harmonogramie opisując jednostkę, której dotyczą, a także ich dzień i godzinę rozpoczęcia oraz zakończenia. Blok nie musi odpowiadać jednostce organizacyjnej, do której przypisany jest cały harmonogram. Tabele są powiazane relacją jeden do wielu - jeden harmonogram może zawierać wiele bloków czasowych. Przedstawienie tabel harmonogramów widoczne jest na rysunku \ref{fig:schedulesTable}.
+Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHEDULES} i~pewna liczba rekordów w tabeli \texttt{SCHEDULE\_BLOCKS}. Pierwsza z nich zawiera informacje o dacie rozpoczęcia i zakończenia harmonogramu, jego utworzenia oraz odwołanie do jednostki organizacyjnej lub użytkownika, którego dotyczy. Tabela \texttt{SCHEDULE\_BLOCKS} odpowiada za przechowywanie pojedynczych bloków czasowych w harmonogramie opisując jednostkę, której dotyczą, a także ich dzień i godzinę rozpoczęcia oraz zakończenia. Blok nie musi odpowiadać jednostce organizacyjnej, do której przypisany jest cały harmonogram. Tabele są powiazane relacją jeden do wielu - jeden harmonogram może zawierać wiele bloków czasowych. Przedstawienie tabel harmonogramów widoczne jest na rysunku \ref{fig:schedulesTable}.
 
 \begin{figure}[H]
     \centering
@@ -92,7 +92,7 @@ Tabela \texttt{DEVICES} przechowuje informacje o czytnikach kart - ich opis, dat
 
 \subsection{Tabele słownikowe}
 
-W bazie danych znajdują się trzy tabele słownikowe zawierające dane, które nie zmieniają się w czasie działania systemu. Każda z nich poprzedzona jest prefiksem \texttt{DICT\_}. Są to:
+W bazie danych znajdują się trzy tabele słownikowe zawierające dane, które nie zmieniają się w czasie działania systemu. Każda z nich poprzedzona jest prefiksem \texttt{DICT\_}. Są~to:
 \begin{itemize}
     \item \texttt{DICT\_AUTHORITIES} zawierająca role użytkowników, równoznaczne z uprawnieniami,
     \item \texttt{DICT\_ACCESS\_CARD\_TYPES} zawierająca typy kart dostępowych dla łatwiejszego rozróżnienia tagów NFC,
@@ -118,7 +118,7 @@ Dzięki użyciu w projekcie JPA (ang. \english{Java Persistence API}) oraz Hiber
 
 \subsection{Klasy encji}
 
-Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, z którą jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli jest odpowiednio oznaczone. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W klasach znajdują się również proste, publiczne metody przetwarzające dane, dzięki którym możliwe było uproszczenie logiki biznesowej.
+Zaimportowane zależności w projekcie umożliwiają tworzenie klas encji, które są mapowane na tabele w bazie danych. Każda z nich posiada adnotację \texttt{@Entity} - informującą JPA o tym, że klasa jest encją - oraz \texttt{@Table} z nazwą tabeli, z którą jest mapowana. Każde pole klasy, które odpowiada kolumnie w tabeli jest odpowiednio oznaczone. Do generowania metod \texttt{get} i \texttt{set} używane są adnotacje \texttt{@Getter} i \texttt{@Setter} z biblioteki \texttt{lombok}. W~klasach znajdują się również proste, publiczne metody przetwarzające dane, dzięki którym możliwe było uproszczenie logiki biznesowej.
 
 \subsection{Klasy pomocnicze}
 
@@ -134,7 +134,7 @@ Druga kategoria klas pomocniczych to klasy danych, które istnieją w celu upros
 
 \subsection{Klasy DTO}
 
-W pakiecie \texttt{apimodels}, odrębnym od głównego pakietu serwera znajdują się definicje klas DTO. Służą one do ustalania struktury obiektów przesyłanych między serwerem a klientem, zapewniając poprawne działanie systemu. Każda z nich jest zaimplementowana jako klasa Java, która posiadaja jedynie publiczne pola dostępowe. Nie jest na nich wykonywana żadna logika biznesowa, a dane są wpisywane bezpośrednio przed przesłaniem ich do odbiorcy.
+W pakiecie \texttt{apimodels}, odrębnym od głównego pakietu serwera znajdują się definicje klas DTO. Służą one do ustalania struktury obiektów przesyłanych między serwerem, a~klientem, zapewniając poprawne działanie systemu. Każda z nich jest zaimplementowana jako klasa Java, która posiadaja jedynie publiczne pola dostępowe. Nie jest na nich wykonywana żadna logika biznesowa, a dane są wpisywane bezpośrednio przed przesłaniem ich do odbiorcy.
 
 Pakiet apimodels zawiera subpakiety odpowiadające kontrolerom, które wymagają przesłania pełnego obiektu. Są to:
 \begin{itemize}
@@ -169,7 +169,7 @@ public ResponseEntity<?> addUnit(@RequestBody AddUnitRequest request) {
 
 \subsection{Interfejsy i klasy serwisów}
 
-Serwisy są odpowiedzialne za logikę biznesową systemu. Każda z klas serwisów implementuje jego interfejs umożliwiając stworzenie kilku wariacji rozwiązania problemu. Dzięki temu możliwe jest łatwe dodanie nowych funkcji do systemu bez konieczności zmiany istniejącego już kodu. Metody interfejsów są publiczne, a niektóre klasy zawierają metody prywatne służące do przetwarzania danych. Adnotacją informującą platformę Spring o tym, że klasa jest serwisem jest \texttt{@Service}.
+Serwisy są odpowiedzialne za logikę biznesową systemu. Każda z klas serwisów implementuje jego interfejs umożliwiając stworzenie kilku wariacji rozwiązania problemu. Dzięki temu możliwe jest łatwe dodanie nowych funkcji do systemu bez konieczności zmiany istniejącego już kodu. Metody interfejsów są publiczne, a niektóre klasy zawierają metody prywatne służące do przetwarzania danych. Adnotacją informującą platformę Spring o~tym, że klasa jest serwisem jest \texttt{@Service}.
 
 \subsection{Repozytoria}
 
@@ -192,12 +192,12 @@ public interface iScheduleRepository extends JpaRepository<Schedule, Long> {
 
 \subsection{Rejestracja i pierwsze logowanie użytkownika}
 
-Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, zostanie sprawdzone czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły tego procesu zostały opisane w rozdziale \ref{ss:logowanie}
+Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, zostanie sprawdzone czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły procesu zostały opisane w rozdziale \ref{ss:logowanie}
 
 \subsection{Logowanie}
 \label{ss:logowanie}
 
-Logowanie do systemu odbywa się poprzez przesłanie żądania HTTP z danymi logowania do serwera aplikacyjnego. Po jego otrzymaniu serwer zwraca się do bazy danych w celu znalezienia użytkownika o podanej nazwie. Jeżeli użytkownik nie istnieje, serwer zwraca kod błędu 401. W przeciwnym wypadku sprawdza, czy zahashowane hasło użytkownika jest zgodne z zapisanym w bazie. Jeżeli hasła się zgadzają, serwer generuje dwa tokeny JWT i zwraca je w odpowiedzi. Aplikacja kliencka zapisuje otrzymane tokeny w pamięci lokalnej przeglądarki i przechodzi do widoku panelu głównego. Diagram czynności logowania został przedstawiony na rysunku \ref{fig:login}.
+Logowanie do systemu odbywa się poprzez przesłanie żądania HTTP z danymi logowania do serwera aplikacyjnego. Po jego otrzymaniu serwer zwraca się do bazy danych w celu znalezienia użytkownika o podanej nazwie. Jeżeli użytkownik nie istnieje, serwer zwraca kod błędu 401. W przeciwnym wypadku sprawdza, czy zahashowane hasło użytkownika jest zgodne z zapisanym w bazie. Jeżeli hasła się zgadzają, serwer generuje dwa tokeny JWT i zwraca je w odpowiedzi. Aplikacja kliencka zapisuje otrzymane tokeny w~pamięci lokalnej przeglądarki i przechodzi do widoku panelu głównego. Diagram czynności logowania został przedstawiony na rysunku \ref{fig:login}.
 
 \begin{figure}[H]
     \centering
@@ -221,11 +221,11 @@ Klient po zalogowaniu się do systemu otrzymuje od serwera dwa tokeny JWT, któr
 
 \subsection{Harmonogramowanie}
 
-Harmonogramowanie jest częścią systemu, która pochłania najwięcej zasobów serwera - dane za każdym razem są przetwarzane na nowo. Odejście od praktyki wstępnego generowania harmonogramów i zapisywania ich w bazie danych umożliwiło zredukowanie ilości danych przechowywanych w bazie oraz konieczności ich aktualizacji w przypadku zmian w grafiku pracy.
+Harmonogramowanie jest częścią systemu, która pochłania najwięcej zasobów serwera, ponieważ dane za każdym razem są przetwarzane na nowo. Odejście od praktyki wstępnego generowania harmonogramów i zapisywania ich w bazie danych umożliwiło zredukowanie ilości danych przechowywanych w bazie oraz konieczności ich aktualizacji w przypadku zmian w grafiku pracy.
 
 \subsubsection{Zapis harmonogramu}
 
-Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Struktura wysyłana wraz z żądaniem musi być zgodna z odpowiadającym jej DTO i zawierać informacje o dacie rozpoczęcia, jednostce lub użytkowniku, którego dotyczy oraz blokach czasowych, jakie mają się w nim znaleźć. Następnie tworzona jest struktura danych odpowiadająca tabelom opisanym w rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu. W przypadku błędu, serwer zwraca kod 400 - \texttt{Bad Request}.
+Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania HTTP z danymi harmonogramu do serwera aplikacyjnego. Struktura wysyłana wraz z żądaniem musi być zgodna z odpowiadającym jej DTO i zawierać informacje o dacie rozpoczęcia, jednostce lub użytkowniku, którego dotyczy oraz blokach czasowych, jakie mają się w~nim znaleźć. Następnie tworzona jest struktura danych odpowiadająca tabelom opisanym w~rozdziale \ref{ss:harmonogramy} i zapisywana w bazie danych. Po zakończeniu procesu, serwer zwraca kod 200 - \texttt{OK}, a aplikacja kliencka przechodzi do widoku harmonogramu. W przypadku błędu, serwer zwraca kod 400 - \texttt{Bad Request}.
 
 \subsubsection{Odczyt harmonogramu}
 
@@ -234,9 +234,9 @@ Odczyt harmonogramu odbywa się poprzez wysłanie żądania \texttt{GET} na adre
     \item \texttt{/schedule/getUnit/\{id\}/\{startDate\}/\{endDate\}} - dla harmonogramu jednostki organizacyjnej,
     \item \texttt{/schedule/getUser/\{id\}/\{startDate\}/\{endDate\}} - dla harmonogramu użytkownika,
 \end{itemize}
-Uzupełniając odpowiednio parametry w nawiasach klamrowych. Oba żądania działają w podobny sposób - pierwszy z nich uwzględnia wyłącznie harmonogramy jednostki, natomiast drugi łączy harmonogramy wszystkich jednostek przypisanych do użytkownika, a następnie nadpisuje je harmonogramami użytkownika. W odpowiedzi serwer zwraca dane w formacie \texttt{JSON}, które są przetwarzane przez aplikację kliencką i wyświetlane w odpowiednim widoku.
+Uzupełniając odpowiednio parametry w nawiasach klamrowych. Oba żądania działają w~podobny sposób - pierwszy z nich uwzględnia wyłącznie harmonogramy jednostki, natomiast drugi łączy harmonogramy wszystkich jednostek przypisanych do użytkownika, a~następnie nadpisuje je harmonogramami użytkownika. W odpowiedzi serwer zwraca dane w formacie \texttt{JSON}, które są przetwarzane przez aplikację kliencką i wyświetlane w~odpowiednim widoku.
 
-Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostki organizacyjnej. Wymaga ono odczytu wszystkich jednostek, do których należał użytkownik w danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji tego procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}. \newpage
+Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostki organizacyjnej. Wymaga ono odczytu wszystkich jednostek, do których należał użytkownik w danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}. \newpage
 
 \begin{figure}[H]
     \centering
@@ -249,7 +249,7 @@ Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostk
 \subsection{Przypisanie  karty dostępowej}
 \label{sec:addNfc}
 
-Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje o jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni listę rozwijaną z jego wyborem. Po zatwierdzeniu, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika i otrzyma odpowiedź. Diagram sekwencji przypisania karty dostępowej został przedstawiony na rysunku \ref{fig:assignCard}.
+Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej. Po zalogowaniu się do systemu administrator powinien wybrać zakładkę \texttt{CARDS}, a następnie rozpocząć skanowanie tagu NFC. Po pozytywnym odczytaniu danych aplikacja wyśle do serwera żądanie o informacje na temat karty, a w kolejnym kroku wyświetli informacje o jej właścicielu. Jeżeli karta jest już przypisana do użytkownika, aplikacja umożliwi jej usunięcie, a w przeciwnym wypadku udostępni listę rozwijaną z jego wyborem. Po zatwierdzeniu, aplikacja wyśle do serwera żądanie przypisania karty do użytkownika i~otrzyma odpowiedź. Diagram sekwencji przypisania karty dostępowej do użytkownika został przedstawiony na rysunku \ref{fig:assignCard}.
 
 \begin{figure}[H]
     \centering
@@ -261,7 +261,7 @@ Przypisanie karty dostępowej odbywa się przy wykorzystaniu aplikacji mobilnej.
 
 \subsection{Uruchomienie czytnika kart}
 
-Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu formularza czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
+Uruchomienie czytnika kart odbywa się poprzez podłączenie go do zasilania. Następnie czytnik stara się połączyć z siecią bezprzewodową, która jest zapisana w jego pamięci. Po pozytywnym połączeniu, czytnik wysyła do serwera aplikacyjnego żądanie o informacje na swój temat dołączając do niego adres MAC. Serwer zwraca informacje o czytniku, a ten przechodzi do trybu oczekiwania na odczytanie karty. Jeżeli któryś z kroków nie powiedzie się, czytnik przechodzi w stan błędu i udostępnia sieć Wi-Fi o nazwie \texttt{WMS-AP} z hasłem \texttt{123456789} w celu ręcznego skonfigurowania połączenia. Po połączeniu się innym urządzeniem z siecią czytnika, należy wpisać w przeglądarce adres \texttt{192.168.4.1} i~wprowadzić dane dostępowe do sieci ogólnej. Widok strony konfiguracyjnej czytnika został przedstawiony na rysunku \ref{fig:readerConfig}. Po zatwierdzeniu formularza czytnik zapisuje dane, restartuje się i ponawia opisany wcześniej proces.
 \newpage
 \section{Połączenie modułów czytnika kart}
 

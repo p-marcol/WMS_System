@@ -22,23 +22,23 @@ Projekt systemu zakłada spełnienie następujących wymagań funkcjonalnych:
 
 \begin{itemize}
     \item zarządzanie pracownikami: dodawanie, usuwanie, edycja, przypisywanie ról,
-    \item zarządzanie zadaniami: dodawanie, usuwanie, edycja, konieczność akceptacji przez przełożonego,
+    \item zarządzanie zadaniami: dodawanie, usuwanie, edycja, przegląd, wymagana akceptacja przez przełożonego,
     \item zarządzanie czasem pracy: harmonogramowanie czasu pracy,
     \item zarządzanie strukturą firmy: dodawanie, usuwanie, edycja działów, stanowisk i ról,
-    \item rejestracja czasu pracy pracowników: odczyt kart zbliżeniowych, zapisywanie czasu pracy,
-    \item kontrola dostępu do pomieszczeń: autoryzacja kart zbliżeniowych, przyznawanie dostępu,
+    \item rejestracja czasu pracy: odczyt kart zbliżeniowych, zapisywanie czasu pracy,
+    \item kontrola dostępu: autoryzacja kart zbliżeniowych, przyznawanie dostępu,
     \item generowanie raportów: raporty z czasu pracy, zadań, działania systemu,
     \item wnioski: składanie, akceptacja, odrzucanie, komunikacja,
-    \item automatyczne śledzenie czasu pracy pracowników: rozpoznawanie aktywności pracownika.
+    \item śledzenie czasu pracy pracowników: rozpoznawanie aktywności pracownika.
 \end{itemize}
-
+\newpage
 \subsection{Wymagania niefunkcjonalne}
 
 Projekt systemu zakłada spełnienie wymienionych wymagań niefunkcjonalnych.
 
 \begin{itemize}
     \item System dostępny jest przez 24 godziny na dobę, 7 dni w tygodniu, z wyjątkiem przerw na konserwację. Nie powinny one przekraczać 1 godziny w tygodniu, a w wypadku konieczności dłuższej przerwy, powinny być wcześniej zapowiedziane. Konserwacja obejmuje prace serwisowe oraz aktualizacje. W wypadku awarii, czas naprawy nie powinien przekraczać 1 dnia od zgłoszenia.
-    \item Aplikacja webowa działa na najpopularniejszych przeglądarkach internetowych: Google Chrome, Mozilla Firefox, Microsoft Edge, Safari itp.
+    \item Aplikacja webowa działa na najpopularniejszych przeglądarkach internetowych:\linebreak Google Chrome, Mozilla Firefox, Microsoft Edge, Safari itp.
           % \item Aplikacja użytkownika działa płynnie i bez zacięć, nawet przy dużej ilości użytkowników.
     \item Aplikacja reaguje na interakcje użytkownika w czasie krótszym niż 0.1 sekundy. Serwer typowo odpowiada na zapytania w czasie nieprzekraczającym jednej sekundy, a w wypadku wzmożonego ruchu nie dłuższym niż 5 sekund.
     \item Serwer jest w stanie obsłużyć do 200 zapytań na sekundę.
@@ -75,7 +75,7 @@ Vue.js został wybrany ze względu na chęć poznania tej technologii, względni
 
 \subsubsection*{Expo}
 
-Expo \cite{bib:expo} to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie \texttt{React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika, jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając EAS (ang. \english{Expo Application Service}) \cite{bib:eas}.
+Expo \cite{bib:expo} to platforma, która umożliwia tworzenie wieloplatformowych aplikacji mobilnych w językach JavaScript i TypeScript. Została stworzona na bazie \texttt{React Native} i oferuje wiele gotowych rozwiązań dotyczących zarówno interfejsu użytkownika,\linebreak jak i ustawień aplikacji. Platforma umożliwia również szybkie wdrożenie aplikacji dzięki wbudowanemu serwerowi deweloperskiemu oraz narzędziom do kompilacji i publikacji aplikacji na platformach Android i iOS używając rozwiązania EAS (ang. \english{Expo Application Service}) \cite{bib:eas}.
 
 Expo zostało wybrane ze względu na wcześniejsze doświadczenie autora pracy z tą technologią, wieloplatformowość oraz możliwość szybkiego utworzenia i wdrożenia aplikacji na platformy mobilne.
 
@@ -83,7 +83,7 @@ Expo zostało wybrane ze względu na wcześniejsze doświadczenie autora pracy z
 
 Raspberry Pi Pico W \cite{bib:picoW} jest najmniejszym modułem z rodziny Raspberry Pi, który może łączyć się z siecią. Posiada wbudowany kontroler Raspberry RP4020 oparty na architekturze ARM (ang. \english{Advanced RISC Machine}), co czyni go idealnym wyborem do zastosowań IoT (ang. \english{Internet of Things}). Układ wyposażony jest w 264 KB pamięci RAM, 2 MB pamięci flash oraz 26 pinów GPIO (ang. \english{General Purpose Input/Output}), dzięki którym bez problemu można podłączyć do niego wiele różnych czujników i urządzeń. Pico W posiada wbudowany moduł Wi-Fi oraz Bluetooth, co pozwala na łatwe łączenie się z siecią oraz innymi urządzeniami.
 
-Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z siecią oraz duże możliwości rozbudowy.
+Raspberry Pi Pico W został wybrany ze względu na możliwość połączenia z siecią\linebreak oraz duże możliwości rozbudowy.
 
 \subsubsection*{MicroPython}
 
@@ -93,54 +93,24 @@ MicroPython został wybrany ze względu na jego prostotę, elastyczność oraz m
 
 \subsubsection*{Inne technologie}
 
-W projekcie wykorzystano również mniej znaczące technologie, które przedstawiono w tabelach \ref{tab:backend-tech}, \ref{tab:frontend-tech} oraz \ref{tab:embed-tech}.
+W projekcie wykorzystano również mniej znaczące technologie, które przedstawiono w tabelach \ref{tab:backend-tech}, \ref{tab:embed-tech} oraz \ref{tab:frontend-tech}.
 
 \begin{tabularx}{\textwidth}{|p{4cm}|X|l|p{3cm}|}
-    \caption{Biblioteki i frameworki wykorzystane w części backend}\label{tab:backend-tech}                                                                 \\
+    \caption{Biblioteki i frameworki wykorzystane w części backend}\label{tab:backend-tech}                                                             \\
     \hline
-    \textbf{Technologia} & \textbf{Opis}                                                                              & \textbf{Autor} & \textbf{Licencja}  \\
+    \textbf{Technologia} & \textbf{Opis}                                                                          & \textbf{Autor} & \textbf{Licencja}  \\
     \hline
-    Spring Boot          & Framework do tworzenia aplikacji w języku Java \cite{bib:springBoot}                       & Spring         & Apache License 2.0 \\
+    Spring Boot          & Framework do tworzenia aplikacji w języku Java \cite{bib:springBoot}                   & Spring         & Apache License 2.0 \\
     \hline
-    Spring Security      & Framework do zarządzania bezpieczeństwem aplikacji \cite{bib:springSecurity}               & Spring         & Apache License 2.0 \\
+    Spring Security      & Framework do zarządzania bezpieczeństwem aplikacji \cite{bib:springSecurity}           & Spring         & Apache License 2.0 \\
     \hline
-    Springdoc OpenAPI    & Biblioteka do generowania dokumentacji API oraz dostępu do Swagger-ui \cite{bib:springdoc} & Springdoc      & Apache License 2.0 \\
+    Springdoc OpenAPI    & Biblioteka do generowania dokumentacji oraz dostępu do Swagger-ui \cite{bib:springdoc} & Springdoc      & Apache License 2.0 \\
     \hline
-    MySQL Connector      & Sterownik do łączenia się z bazą danych MySQL \cite{bib:mysqlConnector}                    & Oracle         & GPL 2.0            \\
+    MySQL Connector      & Sterownik do łączenia się z bazą danych MySQL \cite{bib:mysqlConnector}                & Oracle         & GPL 2.0            \\
     \hline
-    Lombok               & Biblioteka do generowania kodu Java \cite{bib:lombok}                                      & Project Lombok & MIT                \\
+    Lombok               & Biblioteka do generowania kodu Java \cite{bib:lombok}                                  & Project Lombok & MIT                \\
     \hline
-    JJWT                 & Biblioteka do obsługi tokenów JWT \cite{bib:jjwt}                                          & jwtk           & Apache License 2.0 \\
-    \hline
-\end{tabularx}
-\newpage
-
-\begin{tabularx}{\textwidth}{|p{3cm}|X|l|l|}
-    \caption{Biblioteki i frameworki wykorzystane w części frontend oraz aplikacji mobilnej}\label{tab:frontend-tech}                                                                \\
-    \hline
-    \textbf{Technologia}          & \textbf{Opis}                                                                                             & \textbf{Autor}   & \textbf{Licencja} \\
-    \hline
-    Axios                         & Biblioteka do wykonywania zapytań HTTP \cite{bib:axios}                                                   & Axios            & MIT               \\
-    \hline
-    Heroicons                     & Zestaw ikon SVG \cite{bib:heroicons}                                                                      & Tailwind Labs    & MIT               \\
-    \hline
-    PrimeVue                      & Biblioteka komponentów do Vue.js \cite{bib:primevue}                                                      & PrimeTek         & MIT               \\
-    \hline
-    Luxon                         & Biblioteka do obsługi dat i czasu \cite{bib:luxon}                                                        & Moment.js        & MIT               \\
-    \hline
-    Valibot                       & Biblioteka do walidacji formularzy \cite{bib:valibot}                                                     & Fabian Hiller    & MIT               \\
-    \hline
-    Vue i18n                      & Biblioteka do obsługi wielojęzyczności \cite{bib:vuei18n}                                                 & Intlify          & MIT               \\
-    \hline
-    Vue Router                    & Biblioteka do zarządzania trasami w aplikacji Vue.js \cite{bib:vueRouter}                                 & Vue              & MIT               \\
-    \hline
-    TailwindCSS                   & Biblioteka do stylowania aplikacji internetowych \cite{bib:tailwindcss}                                   & Tailwind Labs    & MIT               \\
-    \hline
-    Nativewind                    & Biblioteka umożliwiająca używanie TailwindCSS w aplikacjach opartych o React Native \cite{bib:nativewind} & Nativewind       & MIT               \\
-    \hline
-    React Native  Gesture Handler & Biblioteka do obsługi gestów w aplikacjach opartych o React Native \cite{bib:reactNativeGestureHandler}   & Software Mansion & MIT               \\
-    \hline
-    react native nfc manager      & Biblioteka do obsługi NFC w aplikacjach opartych o React Native \cite{bib:reactNativeNfcManager}          & RevtelTech       & MIT               \\
+    JJWT                 & Biblioteka do obsługi tokenów JWT \cite{bib:jjwt}                                      & jwtk           & Apache License 2.0 \\
     \hline
 \end{tabularx}
 
@@ -154,6 +124,36 @@ W projekcie wykorzystano również mniej znaczące technologie, które przedstaw
     picozero             & Biblioteka do obsługi modułów peryferyjnych z Raspberry Pi Pico \cite{bib:picozero} & Raspberry Pi Foundation    & MIT                \\
     \hline
     Requests             & Biblioteka do wykonywania zapytań HTTP w Python \cite{bib:requests}                 & Python Software Foundation & Apache License 2.0 \\
+    \hline
+\end{tabularx}
+\newpage
+
+\begin{tabularx}{\textwidth}{|p{3cm}|X|l|l|}
+    \caption{Biblioteki i frameworki wykorzystane w części frontend oraz aplikacji mobilnej}\label{tab:frontend-tech}                                                                \\
+    \hline
+    \textbf{Technologia}          & \textbf{Opis}                                                                                             & \textbf{Autor}   & \textbf{Licencja} \\
+    \hline
+    Axios                         & Biblioteka do wykonywania zapytań HTTP \cite{bib:axios}                                                   & Axios            & MIT               \\
+    \hline
+    Heroicons                     & Zestaw ikon SVG \cite{bib:heroicons}                                                                      & Tailwind Labs    & MIT               \\
+    \hline
+    PrimeVue                      & Biblioteka komponentów \cite{bib:primevue}                                                                & PrimeTek         & MIT               \\
+    \hline
+    Luxon                         & Biblioteka do obsługi dat \cite{bib:luxon}                                                                & Moment.js        & MIT               \\
+    \hline
+    Valibot                       & Biblioteka do walidacji \cite{bib:valibot}                                                                & Fabian Hiller    & MIT               \\
+    \hline
+    Vue i18n                      & Biblioteka do obsługi wielojęzyczności \cite{bib:vuei18n}                                                 & Intlify          & MIT               \\
+    \hline
+    Vue Router                    & Biblioteka do zarządzania trasami w aplikacji Vue.js \cite{bib:vueRouter}                                 & Vue              & MIT               \\
+    \hline
+    TailwindCSS                   & Biblioteka do stylowania aplikacji internetowych \cite{bib:tailwindcss}                                   & Tailwind Labs    & MIT               \\
+    \hline
+    Nativewind                    & Biblioteka umożliwiająca używanie TailwindCSS w aplikacjach opartych o React Native \cite{bib:nativewind} & Nativewind       & MIT               \\
+    \hline
+    React Native  Gesture Handler & Biblioteka do obsługi gestów w aplikacjach React Native \cite{bib:reactNativeGestureHandler}              & Software Mansion & MIT               \\
+    \hline
+    react native nfc manager      & Biblioteka do obsługi NFC w aplikacjach React Native \cite{bib:reactNativeNfcManager}                     & RevtelTech       & MIT               \\
     \hline
 \end{tabularx}
 

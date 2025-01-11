@@ -30,7 +30,7 @@ Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dos
 
 \section{Wygląd interfejsu użytkownika}
 
-Interfejs użytkownika został zaprojektowany w taki sposób, aby osoba korzystająca z systemu mogła od razu zrozumieć, jakie funkcje są dla niej dostępne i co może zrobić. Wszystkie elementy interfejsu, z którymi użytkownik może wchodzić w interakcję, wyróżniają się na tle reszty, co ułatwia ich zauważenie. Skorzystano przy tym z zasady "mniej znaczy więcej", aby nie przytłoczyć użytkownika zbyt dużą ilością informacji. Wszystko, czego użytkownik może potrzebować, jest dostępne w jednym miejscu, a dostęp do mniej znaczących funkcjonalności jest dostępny poprzez dedykowane im widoki. Makieta głównego widoku dla managera została przedstawiona na rysunku \ref{fig:mainLayout}.
+Interfejs użytkownika został zaprojektowany w taki sposób, aby osoba korzystająca z~systemu mogła od razu zrozumieć, jakie funkcje są dla niej dostępne i co może zrobić. Wszystkie elementy interfejsu, z którymi użytkownik może wchodzić w interakcję, wyróżniają się na tle reszty, co ułatwia ich zauważenie. Skorzystano przy tym z zasady "mniej znaczy więcej", aby nie przytłoczyć użytkownika zbyt dużą ilością informacji. Wszystko, czego użytkownik może potrzebować, jest dostępne w jednym miejscu, a dostęp do mniej znaczących funkcjonalności jest dostępny poprzez dedykowane im widoki. Makieta głównego widoku dla managera została przedstawiona na rysunku \ref{fig:mainLayout}.
 
 \begin{figure}[H]
     \centering
@@ -40,8 +40,8 @@ Interfejs użytkownika został zaprojektowany w taki sposób, aby osoba korzysta
 \end{figure}
 
 W całej aplikacji zdecydowano użyć jednolitego kroju bezszeryfowej czcionki \texttt{Open\nolinebreak Sans}, która została zaprojektowana z myślą o czytelności na ekranach. Ta sama myśl przyświecała przy jej wyborze. Pomimo jej silnej inspiracji krojami klasycznymi, posiada nowoczesny charakter i zachowuje czytelność. Elementy nagłówkowe korzystają z jej wersji pogrubionej lub pół pogrubionej. Interfejs użytkownika automatycznie dostosowuje wielkość czcionek do preferencji użytkownika.
-
-Przy projektowaniu interfejsu skorzystano z podejścia Agile UX - metodologii, która zakłada tworzenie wysokiej jakości produktu w sposób iteracyjny. Stąd też interfejs użytkownika miał kilka wersji, zanim osiągnął obecną formę. Wszystkie zmiany były konsultowane z osobami niezwiązanymi z projektem, aby uzyskać jak największą użyteczność i zadowolenie użytkowników. Przykład zmian w karcie harmonogramu, na widoku głównym został przedstawiony na rysunku \ref{fig:uxChanges}.
+\newpage
+Przy projektowaniu interfejsu skorzystano z podejścia Agile UX - metodologii, która zakłada tworzenie wysokiej jakości produktu w sposób iteracyjny. Stąd też interfejs użytkownika miał kilka wersji, zanim osiągnął obecną formę. Wszystkie zmiany były konsultowane z osobami niezwiązanymi z projektem, aby uzyskać jak największą użyteczność i~zadowolenie użytkowników. Przykład zmian w karcie harmonogramu, na widoku głównym został przedstawiony na rysunku \ref{fig:uxChanges}.
 
 \begin{figure}[H]
     \centering
@@ -63,7 +63,7 @@ Pierwsza wersja - mimo, że bogatsza - była uznana za zbyt skomplikowaną i nie
 
 \subsection{Kolorystyka}
 
-Przy projektowaniu interfejsu użytkownika zdecydowano się na użycie ciepłych kolorów, które są przyjemne dla oka i nie męczą wzroku. Wśród nich wybrano trzy, które reprezentują poszczególne role w systemie oraz dodają charakteru interfejsowi. Użyto również kilku odcieni do oznaczania elementów informacyjnych. Kolorami używanymi w systemie są:
+Przy projektowaniu interfejsu użytkownika zdecydowano się na użycie ciepłych kolorów, które są przyjemne dla oka i nie męczą wzroku. Wśród nich wybrano trzy, które reprezentują poszczególne role w systemie oraz dodają charakteru interfejsowi. Użyto również kilku odcieni do oznaczania elementów informacyjnych. W aplikacji używane są następujące kolory:
 \begin{itemize}
     \item \texttt{\#FCAB10} - pomarańczowy, kolor użytkownika,
     \item \texttt{\#ACE849} - zielony, kolor managera,
@@ -109,7 +109,7 @@ Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \subsection{Panel główny}
 
-Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do karty pracy w danym dniu. Przykładowy panel użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
+Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Przy projektowaniu zdecydowano, że na panelu głównym znajdą się informacje, które użytkownik będzie najczęściej potrzebował. W związku z tym umieszczono na nim skład aktualnego zespołu, harmonogram pracy w bieżącym tygodniu, oraz szybki dostęp do karty pracy w~danym dniu. Przykładowy panel użytkownika został przedstawiony na rysunku \ref{fig:userDashboard}.
 
 \begin{figure}[H]
     \centering
@@ -120,7 +120,7 @@ Panel główny jest pierwszym widokiem, który widzi zalogowany użytkownik. Prz
 
 \subsection{Widok użytkowników}
 
-Po przejściu do widoku użytkowników, administratorowi wyświetlana jest lista wszystkich kont zarejestrowanych w systemie. Istnieje możliwość filtrowania wyników wpisując dane użytkownika w pole wyszukiwania. W tabeli znajdują się skrócone informacje o użytkowniku, przedostatnia kolumna przedstawia aktualną rolę użytkownika, a ostatnia kolumna umożliwia wykonywanie akcji otwarcia szczegółów, edycji, archiwizacji oraz usunięcia konta. Widoczność poszczególnych akcji zależy od statusu danego konta i jest ustalana przez serwer. Widok użytkowników został przedstawiony na rysunku \ref{fig:usersView}. Kliknięcie w ikony akcji otwiera odpowiednie okno dialogowe, szufladę lub wykonuje ją bezpośrednio. Akcje krytyczne z punktu widzenia bezpieczeństwa, wymagają potwierdzenia w osobnym oknie dialogowym.
+Po przejściu do widoku użytkowników, administratorowi wyświetlana jest lista wszystkich kont zarejestrowanych w systemie. Istnieje możliwość filtrowania wyników wpisując dane użytkownika w pole wyszukiwania. W tabeli znajdują się skrócone informacje o~użytkowniku, przedostatnia kolumna przedstawia aktualną rolę użytkownika, a ostatnia kolumna umożliwia wykonywanie akcji otwarcia szczegółów, edycji, archiwizacji oraz usunięcia konta. Widoczność poszczególnych akcji zależy od statusu danego konta i jest ustalana przez serwer. Widok użytkowników został przedstawiony na rysunku \ref{fig:usersView}. Kliknięcie w ikony akcji otwiera odpowiednie okno dialogowe, szufladę lub wykonuje ją bezpośrednio. Akcje krytyczne z punktu widzenia bezpieczeństwa, wymagają potwierdzenia w osobnym oknie dialogowym.
 
 \begin{figure}[H]
     \centering
@@ -129,7 +129,7 @@ Po przejściu do widoku użytkowników, administratorowi wyświetlana jest lista
     \label{fig:usersView}
 \end{figure}
 
-Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe pola są oznaczone gwiazdką, a przesłanie formularza z niepoprawnymi danymi skutkuje wyświetleniem komunikatu o błędzie. W przypadku poprawnego przesłania formularza, użytkownik zostaje poinformowany o sukcesie operacji, okno dialogowe zamyka się, a tabela użytkowników jest odświeżana.
+Otwarcie widoku edycji użytkownika umożliwia zmianę jego danych. Obowiązkowe pola są oznaczone gwiazdką, a przesłanie formularza z niepoprawnymi danymi skutkuje wyświetleniem komunikatu o błędzie. W przypadku poprawnego przesłania formularza, użytkownik zostaje poinformowany o sukcesie operacji, okno dialogowe zamyka się, a~tabela użytkowników jest odświeżana.
 
 \begin{figure}[H]
     \centering
@@ -165,7 +165,7 @@ Widok karty pracy rozszerza funkcjonalności karty z panelu głównego. Oprócz 
     \label{fig:timesheetDialog}
 \end{figure}
 
-Administratorzy i managerowie mają możliwość przejścia do widoku wpisów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli kart pracy pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
+Administratorzy i managerowie mają możliwość przejścia do widoku wpisów oczekujących na akceptację. Mogą z tego miejsca ręcznie zatwierdzać lub odrzucać wpisy, lub~automatycznie zaakceptować wszystkie z nich. W zależności od statusu wpisu, w tabeli kart pracy pojawiają się odpowiednie oznaczenia. Widok wpisów oczekujących na akceptację został przedstawiony na rysunku \ref{fig:timesheetApprovalView}.
 
 \begin{figure}[H]
     \centering
@@ -247,7 +247,7 @@ Administratorzy oraz managerowie mają możliwość podglądu harmonogramu użyt
 
 \subsection{Widok dodawania karty}
 
-Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji mobilnej. Po przejściu do odpowiedniej zakładki użytkownik musi zeskanować kartę, a następnie aplikacja wysyła do serwera zapytanie na jej temat. Widok jest różny w zależności od tego, czy karta jest już przypisana do użytkownika, czy nie. Jeżeli w urządzeniu jest wyłączona funkcja NFC (ang. \english{Near Field Communication}), aplikacja wyświetla komunikat o konieczności jej włączenia ukazany na rysunku \ref{fig:cardNFC}. Widoki zostały przedstawione na rysunku \ref{fig:cardView}.
+Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji mobilnej. Po przejściu do odpowiedniej zakładki użytkownik musi zeskanować kartę, a następnie aplikacja wysyła do serwera zapytanie na jej temat. Widok jest różny w zależności od tego, czy karta jest już przypisana do użytkownika, czy nie. Jeżeli w urządzeniu jest wyłączona funkcja NFC (ang. \english{Near Field Communication}), aplikacja wyświetla komunikat o konieczności jej włączenia ukazany na rysunku \ref{fig:cardNFC}. Widoki zostały przedstawione na~rysunkach~\ref{fig:cardView}.
 
 \begin{figure}[H]
     \centering
@@ -270,7 +270,7 @@ Karty zbliżeniowe może dodawać administrator wyłącznie za pomocą aplikacji
     \label{fig:cardView}
 \end{figure}
 
-Następnie - w zależności od wyniku zapytania - możliwe jest usunięcie karty z systemu lub przypisanie jej do użytkownika. W przypadku przypisania, administrator musi wybrać użytkownika z rozwijanej listy. Po zatwierdzeniu operacji, karta zostaje przypisana, a administrator otrzymuje informację zwrotną o powodzeniu operacji. Widoki przypisania karty zostały przedstawione na rysunkach \ref{fig:cardDialogs}, a komunikat o powodzeniu operacji na rysunku \ref{fig:cardSuccess}.
+Następnie - w zależności od wyniku zapytania - możliwe jest usunięcie karty z systemu lub przypisanie jej do użytkownika. W przypadku przypisania, administrator musi wybrać użytkownika z rozwijanej listy. Po zatwierdzeniu operacji, karta zostaje przypisana, a~administrator otrzymuje informację zwrotną o powodzeniu operacji. Widoki przypisania karty zostały przedstawione na rysunkach \ref{fig:cardDialogs}, a komunikat o powodzeniu operacji na~rysunku \ref{fig:cardSuccess}.
 
 \begin{figure}
     \centering
@@ -311,9 +311,7 @@ Czytnik kart jest prostym układem mikroprocesorowym, który kontaktuje się z s
 
 \subsection{Uruchomienie}
 
-Czytnik uruchamia się automatycznie po podłączeniu do zasilania. Podczas tego procesu dioda LED (ang. \english{Light Emitting Diode}) świeci się na żółto. Jeżeli czytnik napotka jakikolwiek problem podczas uruchamiania, dioda LED zacznie świecić na zielono, a mikrokontroler udostępni sieć bezprzewodową, do której można się połączyć i otworzyć stronę konfiguracyjną. Widok strony konfiguracyjnej został przedstawiony na rysunku \ref{fig:readerConfig}.
-
-Po poprawnym uruchomieniu, dioda LED zmienia kolor na niebieski.
+Czytnik uruchamia się automatycznie po podłączeniu do zasilania. Podczas tego procesu dioda LED (ang. \english{Light Emitting Diode}) świeci się na żółto. Jeżeli czytnik napotka jakikolwiek problem podczas uruchamiania, dioda LED zacznie świecić na zielono, a~mikrokontroler udostępni sieć bezprzewodową, do której można się połączyć i otworzyć stronę konfiguracyjną. Widok strony konfiguracyjnej został przedstawiony na rysunku \ref{fig:readerConfig}.
 
 \begin{figure}[H]
     \centering
@@ -321,6 +319,8 @@ Po poprawnym uruchomieniu, dioda LED zmienia kolor na niebieski.
     \caption{Widok strony konfiguracyjnej czytnika.}
     \label{fig:readerConfig}
 \end{figure}
+
+Po poprawnym uruchomieniu, dioda LED zmienia kolor na niebieski.
 
 \subsection{Odczyt karty}
 

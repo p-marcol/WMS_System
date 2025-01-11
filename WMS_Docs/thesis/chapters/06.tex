@@ -7,7 +7,7 @@ Walidacja danych przesyłanych pomiędzy serwerem, a klientem jest jednym z kluc
 
 \subsection{Walidacja po stronie klienta}
 
-Walidacja po stronie klienta jest realizowana przy pomocy biblioteki \texttt{Valibot}. Opiera się ona na obiektach walidujących, którymi sprawdzany jest formularz przed jego wysłaniem. Tworzenie obiektów jest bardzo proste i intuicyjne - polega na tworzeniu potoków, które zawierają kolejne funkcje walidujące. Przykład walidacji został przedstawiony na listingu \ref{lst:valibot}.
+Walidacja po stronie klienta jest realizowana przy pomocy biblioteki \texttt{Valibot}. Opiera się ona na obiektach walidujących, którymi sprawdzany jest formularz przed jego wysłaniem. Tworzenie obiektów jest bardzo proste i intuicyjne - polega na tworzeniu potoków, które zawierają kolejne funkcje walidujące. Przykład walidacji z użyciem biblioteki został przedstawiony na listingu \ref{lst:valibot}.
 
 \begin{listing}[H]
     \begin{minted}[linenos, breaklines]{js}
@@ -39,7 +39,7 @@ private LocalDate dateOfBirth;
 
 \section{Testy}
 
-Testowanie aplikacji jest kluczowym elementem wytwarzania oprogramowania. Pozwala ono na wczesne wykrycie błędów, które na etapie produkcji mogły by prowadzić do poważnych problemów, czy nawet awarii systemu. Nie powinno się jednak zapominać o ciągłej konieczności testowania aplikacji, nawet po dłuższym czasie od jej wdrożenia.
+Testowanie aplikacji jest kluczowym elementem wytwarzania oprogramowania. Pozwala ono na wczesne wykrycie błędów, które na etapie produkcji mogły by prowadzić do poważnych problemów, czy nawet awarii systemu. Nie powinno się jednak zapominać o~ciągłej konieczności testowania aplikacji, nawet po dłuższym czasie od jej wdrożenia.
 
 System został przetestowany aby upewnić się, że działa on poprawnie. Zdecydowano się na przeprowadzenie ręcznych testów punktów końcowych, systemowych oraz akceptacyjnych w symulowanym środowisku produkcyjnym. Przetestowano również czytnik kart zbliżeniowych pod kątem poprawności odczytu danych.
 
@@ -51,7 +51,7 @@ Często zdarzało się, że serwer poprawnie obsługiwał żądania wysłane prz
 
 \subsection{Testy czytnika kart zbliżeniowych}
 
-Działanie czytnika kart zostało przetestowane przy użyciu tagów MifareClassic oraz MifareUltralight. Oba typy tagów działały poprawnie i były rozpoznawane przez czytnik. Przy próbie emulacji tagów na urządzeniu z systemem Android, czytnik nie był w stanie odczytać numeru uid. Problem ten nie został rozwiązany, ponieważ wiązało by się to z koniecznością modyfikacji systemu operacyjnego lub zmianą sposobu autoryzacji użytkownika.
+Działanie czytnika kart zostało przetestowane przy użyciu tagów MifareClassic oraz MifareUltralight. Oba typy tagów działały poprawnie i były rozpoznawane przez czytnik. Przy próbie emulacji tagów na urządzeniu z systemem Android, czytnik nie był w~stanie odczytać numeru uid. Problem ten nie został rozwiązany, ponieważ wiązałoby się to z~koniecznością modyfikacji systemu operacyjnego lub zmianą sposobu autoryzacji przy instalacji aplikacji, co w ogólnym przypadku nie jest zalecane.
 
 \subsection{Testy systemowe}
 
@@ -63,7 +63,7 @@ W celu weryfikacji, czy aplikacja spełnia wymagania użytkowników wykonano ser
 
 \section{Bezpieczeństwo}
 
-Kluczowym aspektem aplikacji operującej na danych osobowych, tzw. danych wrażliwych, jest zabezpieczenie ich przed nieautoryzowanym dostępem. W tym celu podjęto szereg działań, których celem było zabezpieczenie aplikacji na różnych poziomach. Wdrożono również mechanizmy, które zapobiegają części ataków. Zastosowano następujące rozwiązania:
+Kluczowym aspektem aplikacji operującej na danych osobowych, jest zabezpieczenie ich przed nieautoryzowanym dostępem. W tym celu podjęto szereg działań, których celem było zabezpieczenie aplikacji na różnych poziomach. Wdrożono również mechanizmy, które zapobiegają części ataków. Zastosowano następujące rozwiązania:
 
 \begin{itemize}
     \item szyfrowanie komunikacji między modułami za pomocą protokołu HTTPS,

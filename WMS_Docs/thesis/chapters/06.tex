@@ -51,15 +51,15 @@ Często zdarzało się, że serwer poprawnie obsługiwał żądania wysłane prz
 
 \subsection{Testy czytnika kart zbliżeniowych}
 
-Działanie czytnika kart zostało przetestowane przy użyciu tagów MifareClassic oraz MifareUltralight. Oba typy tagów działały poprawnie i były rozpoznawane przez czytnik. Przy próbie emulacji tagów na urządzeniu z systemem Android, czytnik nie był w~stanie odczytać numeru uid. Problem ten nie został rozwiązany, ponieważ wiązałoby się to z~koniecznością modyfikacji systemu operacyjnego lub zmianą sposobu autoryzacji przy instalacji aplikacji, co w ogólnym przypadku nie jest zalecane.
+Działanie czytnika kart zostało przetestowane przy użyciu tagów MifareClassic oraz MifareUltralight. Oba typy tagów działały poprawnie i były rozpoznawane przez czytnik. Przy próbie emulacji tagów na urządzeniu z systemem Android, czytnik nie był w~stanie odczytać numeru uid. Problem ten nie został rozwiązany, ponieważ wiązałoby się to z~koniecznością zmiany sposobu autoryzacji lub modyfikacji systemu operacyjnego urządzenia mobilnego, co w ogólnym przypadku nie jest zalecane.
 
 \subsection{Testy systemowe}
 
-Testy systemowe miały na celu weryfikację działającego systemu jako całości. Sprawdzono przede wszystkim czy poszczególne moduły współpracują ze sobą poprawnie oraz czy poprawnie zrealizowano kluczowe procesy. Przeprowadzono je w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzono: integralność modułów, obsługę błędów oraz kompatybilność z różnymi urządzeniami i przeglądarkami. Potwierdziły one poprawność działania wszystkich modułów w standardowych przypadkach użycia.
+Testy systemowe miały na celu weryfikację działającego systemu jako całości. Sprawdzono przede wszystkim czy poszczególne moduły współpracują ze sobą oraz czy poprawnie zrealizowano kluczowe procesy. Przeprowadzono je w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzono: integralność modułów, obsługę błędów oraz kompatybilność z różnymi urządzeniami i przeglądarkami. Potwierdziły one poprawność działania wszystkich modułów w standardowych przypadkach użycia.
 
 \subsection{Testy akceptacyjne}
 
-W celu weryfikacji, czy aplikacja spełnia wymagania użytkowników wykonano serię testów akceptacyjnych. Wykonano je w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzano, czy aplikacja w poprawny sposób obsługuje scenariusze: rejestracji użytkownika, logowania, zarządzania pracownikami, zadaniami, czasem pracy i strukturą firmy. Testy akceptacyjne potwierdziły, że aplikacja spełnia postawione wymagania.
+W celu weryfikacji, czy aplikacja spełnia wymagania użytkowników wykonano serię testów akceptacyjnych w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzano, czy aplikacja w poprawny sposób obsługuje scenariusze: rejestracji użytkownika, logowania, zarządzania pracownikami, zadaniami, czasem pracy i strukturą firmy. Testy akceptacyjne potwierdziły, że aplikacja poprawnie spełnia postawione wymagania.
 
 \section{Bezpieczeństwo}
 
@@ -68,8 +68,7 @@ Kluczowym aspektem aplikacji operującej na danych osobowych, jest zabezpieczeni
 \begin{itemize}
     \item szyfrowanie komunikacji między modułami za pomocą protokołu HTTPS,
     \item hashowanie danych uwierzytelniających użytkownika,
-    \item użytkownicy mają dostęp wyłącznie do swoich danych,
-    \item autoryzacja przy pomocy tokenów JWT o krótkim ważności zapobiegając atakom typu \english{replay},
+    \item autoryzacja przy pomocy tokenów JWT o krótkim okresie ważności zapobiegając atakom typu \english{replay},
     \item zapytania generowane przez zaufane biblioteki oraz JPA zapobiegając atakom typu \english{SQL Injection},
     \item wprowadzenie zabezpieczeń przed atakami typu \english{Cross-Site Scripting} (XSS).
 \end{itemize}

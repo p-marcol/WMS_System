@@ -106,7 +106,7 @@ def connect_to_wifi():
 def send_uid(uid):
     setRGB(1, 1, 0)
     try:
-        res = requests.get(f"http://{server}:{port}/access/{symbol}/{uid}")
+        res = requests.get(f"https://{server}:{port}/access/{symbol}/{uid}")
     except:
         return False
     if res.text == "true":
@@ -119,7 +119,7 @@ def send_uid(uid):
 def handshake():
     mac_address = ubinascii.hexlify(network.WLAN().config('mac'),':').decode()
     try:
-        res = requests.get(f"http://{server}:{port}/connection/handshake/{mac_address}")
+        res = requests.get(f"https://{server}:{port}/connection/handshake/{mac_address}")
         print(res.text)
         return res.text
     except:

@@ -1,13 +1,17 @@
 <script setup>
 import i18nMesssages from '@/assets/localization/i18nMain'
+import InputContainer from './ItemLabel.vue'
+import Select from 'primevue/select'
 </script>
 
 <template>
-    <select @change="updateLocale" v-model="$i18n.locale">
-        <option v-for="(locale, i) in locales" :key="`locale-${i}`" :value="locale">
-            {{ locale.toUpperCase() }}
-        </option>
-    </select>
+    <InputContainer :label="$t('settings.language')">
+        <Select v-model="$i18n.locale" :options="locales">
+            <template #option="{ option }">
+                <span>{{ option.toUpperCase() }}</span>
+            </template>
+        </Select>
+    </InputContainer>
 </template>
 
 <script>
@@ -27,11 +31,6 @@ export default {
         } else {
             localStorage.setItem('locale', this.$i18n.locale)
         }
-    },
-    methods: {
-        updateLocale() {
-            localStorage.setItem('locale', this.$i18n.locale)
-        },
     },
 }
 </script>

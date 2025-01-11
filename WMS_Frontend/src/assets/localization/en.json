@@ -144,5 +144,9 @@
     },
     "br": {
         "home": "Home"
+    },
+    "settings": {
+        "settings": "Settings",
+        "language": "Language"
     }
 }

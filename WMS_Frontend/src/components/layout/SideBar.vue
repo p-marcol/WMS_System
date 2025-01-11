@@ -2,6 +2,7 @@
 import IconWithLabel from '@/components/IconWithLabel.vue'
 import { ArrowRightStartOnRectangleIcon, Cog6ToothIcon } from '@heroicons/vue/24/outline'
 import userType from '@/data/usertypeSidebar'
+import SettingsDialog from '../dialog/SettingsDialog.vue'
 </script>
 
 <template>
@@ -17,7 +18,7 @@ import userType from '@/data/usertypeSidebar'
             </IconWithLabel>
         </div>
         <div class="lower bar">
-            <IconWithLabel :label="$t('sidebar.settings')">
+            <IconWithLabel :label="$t('sidebar.settings')" @click="openSettingsDialog">
                 <Cog6ToothIcon />
             </IconWithLabel>
             <IconWithLabel :label="$t('sidebar.logout')" @click="logout">
@@ -25,6 +26,7 @@ import userType from '@/data/usertypeSidebar'
             </IconWithLabel>
         </div>
     </div>
+    <SettingsDialog ref="settingsDialog" />
 </template>
 
 <script>
@@ -53,6 +55,9 @@ export default {
             localStorage.removeItem('token')
             localStorage.removeItem('refresh')
             this.$router.push('/login')
+        },
+        openSettingsDialog() {
+            this.$refs.settingsDialog.open()
         },
     },
     data() {

@@ -39,4 +39,37 @@ private LocalDate dateOfBirth;
 
 \section{Testy}
 
-System został przetestowany aby upewnić się, że działa on poprawnie. Podczas prac zrezygnowano z testów jednostkowych, ponieważ ich wyniki nie byłyby miarodajne. Możliwe byłoby przetestowanie jedynie warstwy serwisowej która nie realizuje pełnej logiki biznesowej - część z niej jest realizowana poprzez repozytoria. W związku z tym zdecydowano się na przeprowadzenie jednie testów akceptacyjnych w symulowanym środowisku produkcyjnym. Dzięki nim stwierdzono, że aplikacja działa poprawnie i spełnia założenia.
+Testowanie aplikacji jest kluczowym elementem wytwarzania oprogramowania. Pozwala ono na wczesne wykrycie błędów, które na etapie produkcji mogły by prowadzić do poważnych problemów, czy nawet awarii systemu. Nie powinno się jednak zapominać o ciągłej konieczności testowania aplikacji, nawet po dłuższym czasie od jej wdrożenia.
+
+System został przetestowany aby upewnić się, że działa on poprawnie. Zdecydowano się na przeprowadzenie ręcznych testów punktów końcowych, systemowych oraz akceptacyjnych w symulowanym środowisku produkcyjnym. Przetestowano również czytnik kart zbliżeniowych pod kątem poprawności odczytu danych.
+
+\subsection{Testy punktów końcowych API}
+
+Testy punktów końcowych pozwalają na sprawdzenie poprawności działania serwera pod kątem: obsługi danych, zależności czasowych, utraty danych czy innych niepożądanych efektów ubocznych. Poprawność działania wszystkich punktów końcowych API została sprawdzona przy użyciu narzędzia \texttt{Swagger}. Umożliwia ono automatyczną generację zapytań bazując na kodzie źródłowym. Szczególną uwagę przyłożono do warunków brzegowych. W trakcie ręcznego testowania napotkano kilka błędów, które zostały od razu poprawione. Dotyczyły one głównie przypadków, gdy do serwera trafiały wartości brakujące które nie były obsługiwane przez aplikację.
+
+Często zdarzało się, że serwer poprawnie obsługiwał żądania wysłane przy pomocy narzędzia \texttt{Swagger}, ale zwracał błędy w aplikacji klienckiej. Było to najczęściej spowodowane pośpiechem przy wysyłaniu kolejnych żądań. W takich sytuacjach aplikacja nie mając jeszcze danych wysyłała zapytania do serwera uzupełniając je wartością \texttt{null} lub \texttt{undefined}. W celu uniknięcia takich sytuacji dodano kolejkowanie żądań. Największym błędem jaki przy tym wystąpił był brak odświeżenia widoku po wylogowaniu i zalogowaniu się innego użytkownika. Rozwiązano go dopiero po ręcznym debugowaniu aplikacji.
+
+\subsection{Testy czytnika kart zbliżeniowych}
+
+Działanie czytnika kart zostało przetestowane przy użyciu tagów MifareClassic oraz MifareUltralight. Oba typy tagów działały poprawnie i były rozpoznawane przez czytnik. Przy próbie emulacji tagów na urządzeniu z systemem Android, czytnik nie był w stanie odczytać numeru uid. Problem ten nie został rozwiązany, ponieważ wiązało by się to z koniecznością modyfikacji systemu operacyjnego lub zmianą sposobu autoryzacji użytkownika.
+
+\subsection{Testy systemowe}
+
+Testy systemowe miały na celu weryfikację działającego systemu jako całości. Sprawdzono przede wszystkim czy poszczególne moduły współpracują ze sobą poprawnie oraz czy poprawnie zrealizowano kluczowe procesy. Przeprowadzono je w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzono: integralność modułów, obsługę błędów oraz kompatybilność z różnymi urządzeniami i przeglądarkami. Potwierdziły one poprawność działania wszystkich modułów w standardowych przypadkach użycia.
+
+\subsection{Testy akceptacyjne}
+
+W celu weryfikacji, czy aplikacja spełnia wymagania użytkowników wykonano serię testów akceptacyjnych. Wykonano je w symulowanym środowisku produkcyjnym. W ich trakcie sprawdzano, czy aplikacja w poprawny sposób obsługuje scenariusze: rejestracji użytkownika, logowania, zarządzania pracownikami, zadaniami, czasem pracy i strukturą firmy. Testy akceptacyjne potwierdziły, że aplikacja spełnia postawione wymagania.
+
+\section{Bezpieczeństwo}
+
+Kluczowym aspektem aplikacji operującej na danych osobowych, tzw. danych wrażliwych, jest zabezpieczenie ich przed nieautoryzowanym dostępem. W tym celu podjęto szereg działań, których celem było zabezpieczenie aplikacji na różnych poziomach. Wdrożono również mechanizmy, które zapobiegają części ataków. Zastosowano następujące rozwiązania:
+
+\begin{itemize}
+    \item szyfrowanie komunikacji między modułami za pomocą protokołu HTTPS,
+    \item hashowanie danych uwierzytelniających użytkownika,
+    \item użytkownicy mają dostęp wyłącznie do swoich danych,
+    \item autoryzacja przy pomocy tokenów JWT o krótkim ważności zapobiegając atakom typu \english{replay},
+    \item zapytania generowane przez zaufane biblioteki oraz JPA zapobiegając atakom typu \english{SQL Injection},
+    \item wprowadzenie zabezpieczeń chroniących przed atakami typu \english{Cross-Site Scripting} (XSS).
+\end{itemize}

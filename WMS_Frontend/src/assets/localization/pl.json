@@ -1,42 +1,152 @@
 {
+    "title": {
+        "timesheet": "Timesheet",
+        "units": "Jednostki"
+    },
+    "sidebar": {
+        "home": "Strona Główna",
+        "schedule": "Harmonogram",
+        "timesheet": "Timesheet",
+        "reports": "Raporty",
+        "teams": "Zespoły",
+        "users": "Użytkownicy",
+        "units": "Jednostki",
+        "settings": "Ustawienia",
+        "logout": "Wyloguj"
+    },
     "login": {
-        "login": "Login",
-        "usernameOrEmail": "Nazwa użytkownika lub Email",
+        "login": "Zaloguj Się",
+        "usernameOrEmail": "Nazwa Użytkownika lub Email",
         "password": "Hasło",
-        "confirmPassword": "Potwierdź hasło",
+        "confirmPassword": "Potwierdź Hasło",
         "forgotPassword": "Zapomniałeś hasła?",
         "invalid": "Nieprawidłowa nazwa użytkownika lub hasło",
         "noPassword": "Musisz ustawić hasło",
-        "passwordMismatch": "Hasła nie są takie same"
+        "passwordMismatch": "Hasła nie pasują"
     },
     "card": {
-        "yourTeam": "Twój zespół",
-        "myTeam": "Mój zespół",
+        "yourTeam": "Twój Zespół",
+        "myTeam": "Mój Zespół",
         "schedule": "Harmonogram",
-        "timesheet": "Timesheet"
+        "timesheet": "Timesheet",
+        "pending": "Oczekuje",
+        "mySchedule": "Mój Harmonogram",
+        "teamSchedule": "Harmonogram Zespołu",
+        "userSchedule": "Harmonogram Użytkownika",
+        "loading": "Ładowanie..."
+    },
+    "schedule": {
+        "showTeam": "Pokaż zespół",
+        "showUsers": "Pokaż użytkowników",
+        "showMy": "Pokaż mój"
     },
     "users": {
+        "unit": "Jednostka",
         "users": "Użytkownicy",
         "newUser": "Nowy użytkownik",
         "editUser": "Edytuj użytkownika",
         "username": "Nazwa użytkownika",
         "firstName": "Imię",
         "lastName": "Nazwisko",
+        "shortName": "Krótka nazwa",
         "email": "Email",
         "role": "Rola",
-        "addNewUser": "Dodaj nowego użytkownika"
+        "addNewUser": "Dodaj nowego użytkownika",
+        "userDetails": "Szczegóły użytkownika",
+        "id": "ID Użytkownika",
+        "status": "Status",
+        "archived": "Użytkownik zarchiwizowany",
+        "active": "Aktywny",
+        "birthdate": "Data urodzenia",
+        "phone": "Telefon",
+        "authority": "Uprawnienia",
+        "userData": "Dane użytkownika",
+        "position": "Stanowisko",
+        "currentPosition": "Obecne stanowisko",
+        "unitName": "Nazwa jednostki",
+        "confirm": {
+            "delete": "Czy na pewno chcesz usunąć tego użytkownika?",
+            "archiveHeader": "Archiwizuj użytkownika",
+            "archive": "Czy na pewno chcesz zarchiwizować tego użytkownika?"
+        }
     },
     "table": {
-        "actions": "Akcje"
+        "actions": "Akcje",
+        "date": "Data",
+        "description": "Opis",
+        "duration": "Czas trwania",
+        "durationHours": "Czas trwania (godziny)",
+        "unit": "Jednostka",
+        "approved": "Zatwierdzone",
+        "rejected": "Odrzucone"
     },
     "filter": {
         "clear": "Wyczyść filtry",
         "search": "Szukaj"
     },
     "form": {
+        "next": "Dalej",
         "save": "Zapisz",
+        "delete": "Usuń",
+        "archive": "Archiwizuj",
         "cancel": "Anuluj",
         "fieldRequired": "To pole jest wymagane",
-        "invalidFormat": "Nieprawidłowy format"
+        "invalidFormat": "Nieprawidłowy format",
+        "cantChangeHere": "Nie możesz tego tutaj zmienić"
+    },
+    "weekday": {
+        "monday": "Poniedziałek",
+        "tuesday": "Wtorek",
+        "wednesday": "Środa",
+        "thursday": "Czwartek",
+        "friday": "Piątek",
+        "saturday": "Sobota",
+        "sunday": "Niedziela",
+        "short": {
+            "monday": "Pon",
+            "tuesday": "Wto",
+            "wednesday": "Śr",
+            "thursday": "Czw",
+            "friday": "Pt",
+            "saturday": "Sob",
+            "sunday": "Ndz"
+        }
+    },
+    "timesheet": {
+        "nothingHere": "Nic tu jeszcze nie ma...",
+        "openTS": "Otwórz TS",
+        "addRecord": "Dodaj wpis",
+        "changeDateRange": "Zmień zakres dat",
+        "showPending": "Pokaż oczekujące",
+        "approveAll": "Zatwierdź wszystkie",
+        "showMy": "Pokaż moje"
+    },
+    "units": {
+        "id": "ID Jednostki",
+        "newUnit": "Nowa jednostka",
+        "name": "Nazwa",
+        "unitDetails": "Szczegóły jednostki",
+        "description": "Opis",
+        "workersCount": "Pracownicy",
+        "subunitCount": "Podjednostki",
+        "status": "Status",
+        "working": "Pracująca",
+        "notWorking": "Niepracująca",
+        "unitUsers": "Użytkownicy jednostki",
+        "addWorkers": "Dodaj pracowników",
+        "selectWorkers": "Wybierz pracowników",
+        "setPositions": "Ustaw stanowiska",
+        "hierarchy": "Hierarchia",
+        "confirm": {
+            "deleteHeader": "Zwolnić pracownika nr {id}",
+            "delete": "Czy chcesz kontynuować?"
+        }
+    },
+    "br": {
+        "home": "Strona Główna"
+    },
+    "settings": {
+        "settings": "Ustawienia",
+        "language": "Język"
     }
 }

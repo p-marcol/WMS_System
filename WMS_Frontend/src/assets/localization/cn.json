@@ -1,0 +1,152 @@
+{
+    "title": {
+        "timesheet": "时间表",
+        "units": "单位"
+    },
+    "sidebar": {
+        "home": "主页",
+        "schedule": "日程",
+        "timesheet": "时间表",
+        "reports": "报告",
+        "teams": "团队",
+        "users": "用户",
+        "units": "单位",
+        "settings": "设置",
+        "logout": "登出"
+    },
+    "login": {
+        "login": "登录",
+        "usernameOrEmail": "用户名或邮箱",
+        "password": "密码",
+        "confirmPassword": "确认密码",
+        "forgotPassword": "忘记密码？",
+        "invalid": "用户名或密码无效",
+        "noPassword": "您必须设置密码",
+        "passwordMismatch": "密码不匹配"
+    },
+    "card": {
+        "yourTeam": "你的团队",
+        "myTeam": "我的团队",
+        "schedule": "日程",
+        "timesheet": "时间表",
+        "pending": "待处理",
+        "mySchedule": "我的日程",
+        "teamSchedule": "团队日程",
+        "userSchedule": "用户日程",
+        "loading": "加载中..."
+    },
+    "schedule": {
+        "showTeam": "显示团队的",
+        "showUsers": "显示用户的",
+        "showMy": "显示我的"
+    },
+    "users": {
+        "unit": "单位",
+        "users": "用户",
+        "newUser": "新用户",
+        "editUser": "编辑用户",
+        "username": "用户名",
+        "firstName": "名",
+        "lastName": "姓",
+        "shortName": "简称",
+        "email": "邮箱",
+        "role": "角色",
+        "addNewUser": "添加新用户",
+        "userDetails": "用户详情",
+        "id": "用户ID",
+        "status": "状态",
+        "archived": "用户已归档",
+        "active": "活跃",
+        "birthdate": "出生日期",
+        "phone": "电话",
+        "authority": "权限",
+        "userData": "用户数据",
+        "position": "职位",
+        "currentPosition": "当前职位",
+        "unitName": "单位名称",
+        "confirm": {
+            "delete": "您确定要删除此用户吗？",
+            "archiveHeader": "归档用户",
+            "archive": "您确定要归档此用户吗？"
+        }
+    },
+    "table": {
+        "actions": "操作",
+        "date": "日期",
+        "description": "描述",
+        "duration": "时长",
+        "durationHours": "时长（小时）",
+        "unit": "单位",
+        "approved": "已批准",
+        "rejected": "已拒绝"
+    },
+    "filter": {
+        "clear": "清除过滤器",
+        "search": "搜索"
+    },
+    "form": {
+        "next": "下一步",
+        "save": "保存",
+        "delete": "删除",
+        "archive": "归档",
+        "cancel": "取消",
+        "fieldRequired": "此字段为必填项",
+        "invalidFormat": "格式无效",
+        "cantChangeHere": "您不能在此更改"
+    },
+    "weekday": {
+        "monday": "星期一",
+        "tuesday": "星期二",
+        "wednesday": "星期三",
+        "thursday": "星期四",
+        "friday": "星期五",
+        "saturday": "星期六",
+        "sunday": "星期日",
+        "short": {
+            "monday": "周一",
+            "tuesday": "周二",
+            "wednesday": "周三",
+            "thursday": "周四",
+            "friday": "周五",
+            "saturday": "周六",
+            "sunday": "周日"
+        }
+    },
+    "timesheet": {
+        "nothingHere": "这里还没有内容...",
+        "openTS": "打开时间表",
+        "addRecord": "添加记录",
+        "changeDateRange": "更改日期范围",
+        "showPending": "显示待处理",
+        "approveAll": "批准所有",
+        "showMy": "显示我的"
+    },
+    "units": {
+        "id": "单位ID",
+        "newUnit": "新单位",
+        "name": "名称",
+        "unitDetails": "单位详情",
+        "description": "描述",
+        "workersCount": "工作人员",
+        "subunitCount": "子单位",
+        "status": "状态",
+        "working": "工作中",
+        "notWorking": "未工作",
+        "unitUsers": "单位用户",
+        "addWorkers": "添加工作人员",
+        "selectWorkers": "选择工作人员",
+        "setPositions": "设置职位",
+        "hierarchy": "层级",
+        "confirm": {
+            "deleteHeader": "解雇工作人员编号 {id}",
+            "delete": "您想继续吗？"
+        }
+    },
+    "br": {
+        "home": "主页"
+    },
+    "settings": {
+        "settings": "设置",
+        "language": "语言"
+    }
+}

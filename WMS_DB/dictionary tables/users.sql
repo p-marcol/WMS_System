@@ -1,0 +1,1 @@
+INSERT INTO WMS_DB.users (id, date_of_birth, email, first_name, last_name, password, phone, username, is_archived, authority_id, creator_id, last_password_reset_date) VALUES (1, null, 'admin@admin.pl', null, null, '$2a$10$hXxxc5N57HvDm4TvEGJIW.MRR0RCl2Ac2v.Rb.hQonmDZj6zPFKzS', null, 'admin', 0, 2, null, '2024-10-05');

@@ -13,7 +13,7 @@ W systemie zostały zdefiniowane trzy role użytkowników:
 
 Każda rola posiada inne uprawnienia i możliwości. Do każdej z nich został przypisany kolor, który umożliwia ich łatwe rozróżnienie. Widoczny jest on na pasku nawigacyjnym aplikacji mobilnej i webowej, a także w tabeli użytkowników.
 
-Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dostęp użytkownika do systemu. Wiąże się to również z usunięciem danych określonych przez ustawę RODO. Poniżej zostały przedstawione informacje na temat każdej z ról.
+Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dostęp użytkownika do systemu. Wiąże się to również z usunięciem danych określonych przez rozporządzenie UE~2016/679 (RODO). Poniżej zostały przedstawione informacje na temat każdej z ról.
 
 
 \subsection{Użytkownik}
@@ -97,8 +97,7 @@ Komponenty są umieszczane na obszarze głównym z wykorzystaniem siatki CSS Gri
 
 \subsection{Strona logowania}
 
-Logowanie do systemu odbywa się poprzez formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawi się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a to - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
-Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
+Logowanie do systemu odbywa się poprzez formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. Jeżeli do systemu loguje się nowy użytkownik wymagane jest od niego powtórne wprowadzenie hasła. W przypadku zgodności zostanie ono zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza. Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \begin{figure}[H]
     \centering
@@ -324,7 +323,7 @@ Po poprawnym uruchomieniu, dioda LED zmienia kolor na niebieski.
 
 \subsection{Odczyt karty}
 
-Podczas normalnego trybu pracy czytnik oczekuje na zbliżenie karty. Po jej odczycie dioda LED zmienia kolor na żółty, kiedy to czytnik oczekuje na odpowiedź serwera. Następnie przez krótką chwilę świeci na zielono - jeśli odczyt się powiódł - lub na czerwono - jeśli wystąpił błąd. Po zakończeniu procesu, czytnik wraca do trybu oczekiwania na odczyt karty.
+Podczas normalnego trybu pracy czytnik oczekuje na zbliżenie karty. Po jej odczycie urządzenie wysyła dane i oczekuje na odpowiedź serwera dioda. Dioda LED emituje wtedy kolor żółty. Następnie przez krótką chwilę świeci na zielono - jeśli odczyt się powiódł - lub na czerwono, jeśli wystąpił błąd. Po zakończeniu procesu, czytnik wraca do trybu oczekiwania na odczyt karty.
 
 \section{Dostępność}
 

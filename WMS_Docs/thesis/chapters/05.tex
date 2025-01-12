@@ -44,7 +44,7 @@ Baza danych obsługująca system składa się z kilkunastu tabel, które przecho
 
 \subsection{Tabele użytkowników}
 
-Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło; oraz informacja o~użytkowniku, który utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z~tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
+Główną tabelą przechowującą informacje o użytkownikach jest tabela \texttt{USERS}. Zawiera ona dane personalne, takie jak imię, nazwisko, adres e-mail i numer telefonu. Dodatkowo do tabeli wpisane są dane do logowania: nazwa użytkownika i hasło oraz informacja o~użytkowniku, który utworzył dany wpis. Każdy użytkownik ma przypisaną jedną z ról z~tabeli \texttt{DICT\_AUTHORITIES}, która określa jego uprawnienia w systemie. Relacją jeden do jednego jest połączona tabela \texttt{USER\_PAYOFF\_DATA} zawierające dane o koncie bankowym użytkownika. W tabeli \texttt{USERS} znajduje się również pole \texttt{is\_archived}, które określa, czy użytkownik jest aktywny w systemie. Przedstawienie graficzne tabel użytkowników znajduje się na rysunku \ref{fig:usersTable}.
 
 \begin{figure}[H]
     \centering

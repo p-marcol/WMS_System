@@ -30,8 +30,7 @@ public class AccessCardService implements iAccessCardService {
     @Override
     public List<AccessCard> getUserAccessCards(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
-        List<AccessCard> accessCards = accessCardRepository.findAllByUser(user);
-        return accessCards;
+        return accessCardRepository.findAllByUser(user);
     }
 
     @Override

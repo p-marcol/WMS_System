@@ -1,7 +1,10 @@
 package com.inz.WMS_Backend.service;
 
+import com.inz.WMS_Backend.entity.AccessCard;
 import com.inz.WMS_Backend.entity.Device;
+import com.inz.WMS_Backend.entity.UserAccess;
 import com.inz.WMS_Backend.repository.iDeviceRepository;
+import com.inz.WMS_Backend.repository.iUserAccessRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class DeviceService implements iDeviceService {
 
     private final iDeviceRepository deviceRepository;
+    private final iUserAccessRepository userAccessRepository;
 
     @Override
     public Device getDeviceByMacAddress(String macAddress) {
@@ -24,7 +28,18 @@ public class DeviceService implements iDeviceService {
     }
 
     @Override
-    public void getDeviceBySymbol(String symbol) {
-        deviceRepository.findBySymbol(symbol).orElseThrow();
+    public Device getDeviceBySymbol(String symbol) {
+        return deviceRepository.findBySymbol(symbol).orElseThrow();
+    }
+
+    @Override
+    public void saveAccess(Device device, AccessCard ac) {
+        UserAccess ua = UserAccess.builder()
+                .device(device)
+                .accessCard(ac)
+                .user(ac.getUser())
+                .accessGranted(true)
+                .build();
+        userAccessRepository.save(ua);
     }
 }

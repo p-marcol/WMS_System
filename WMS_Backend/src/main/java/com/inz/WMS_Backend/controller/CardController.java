@@ -51,7 +51,6 @@ public class CardController {
             }
             accessCardService.deleteCard(ac);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body("An error occurred");
         }
         return ResponseEntity.ok().body("Card deleted");
@@ -63,7 +62,12 @@ public class CardController {
             List<AccessCard> accessCards = accessCardService.getUserAccessCards(userId);
             List<GetUserAccessCardsResponse> response = accessCards.stream()
                     .filter(AccessCard::getActive)
-                    .map(ac -> new GetUserAccessCardsResponse(ac.getId(), ac.getCardUid(), ac.getType().getType(), ac.getDescription()))
+                    .map(ac -> GetUserAccessCardsResponse.builder()
+                            .id(ac.getId())
+                            .cardUid(ac.getCardUid())
+                            .type(ac.getType() == null ? null : ac.getType().getType())
+                            .description(ac.getDescription())
+                            .build())
                     .toList();
             return ResponseEntity.ok(response);
         } catch (Exception e) {

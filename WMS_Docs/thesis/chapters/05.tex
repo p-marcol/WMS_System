@@ -79,7 +79,7 @@ Na każdy z harmonogramów składa się pojedynczy rekord w tabeli \texttt{SCHED
 
 \subsection{Tabele kart dostępowych}
 
-Karty dostępowe użytkowników są przechowywane w tabeli \texttt{ACCESS\_CARDS} zawierającej informacje o numerze seryjnym, jej właścicielu, opisie, typie karty oraz statusie. Dzięki ostatniej z właściwości możliwe jest przypisanie dwóm użytkownikom jednej karty w różnych okresach czasu. Każda autoryzacja użytkownika jest zapisywana w tabeli \texttt{USER\_ACCESS} wpisując do niej datę i godzinę, id użytkownika, id czytnika, id karty dostępowej oraz status autoryzacji. Umożliwia to późniejsze analizowanie historii dostępu. Wizualizacja tabel kart dostępowych znajduje się na rysunku \ref{fig:accessCardsTable}.
+Karty dostępowe użytkowników są przechowywane w tabeli \texttt{ACCESS\_CARDS} zawierającej informacje o numerze seryjnym, właścicielu, opisie, typie karty oraz statusie. Dzięki ostatniej z właściwości możliwe jest przypisanie jednej karty dwóm użytkownikom w różnych okresach czasu. Każda autoryzacja użytkownika jest zapisywana w tabeli \texttt{USER\_ACCESS} wpisując do niej datę i godzinę, id użytkownika, id czytnika, id karty dostępowej oraz status autoryzacji. Umożliwia to późniejsze analizowanie historii dostępu. Wizualizacja tabel kart dostępowych znajduje się na rysunku \ref{fig:accessCardsTable}.
 
 \begin{figure}[H]
     \centering
@@ -92,7 +92,7 @@ Tabela \texttt{DEVICES} przechowuje informacje o czytnikach kart - ich opis, dat
 
 \subsection{Tabele słownikowe}
 
-W bazie danych znajdują się trzy tabele słownikowe zawierające dane, które nie zmieniają się w czasie działania systemu. Każda z nich poprzedzona jest prefiksem \texttt{DICT\_}. Są~to:
+W bazie danych znajdują się trzy tabele słownikowe zawierające dane, które nie zmieniają się w czasie działania systemu. Nazwa każdej z nich poprzedzona jest prefiksem \texttt{DICT\_}. Są~to:
 \begin{itemize}
     \item \texttt{DICT\_AUTHORITIES} zawierająca role użytkowników, równoznaczne z uprawnieniami,
     \item \texttt{DICT\_ACCESS\_CARD\_TYPES} zawierająca typy kart dostępowych dla łatwiejszego rozróżnienia tagów NFC,
@@ -126,8 +126,8 @@ Aby zapewnić poprawne działanie systemu, niezbędne było zaimplementowanie kl
 
 Klasy należące do pierwszej z kategorii zawierają jedynie metody statyczne i nie wymagają tworzenia instancji ich obiektu. Istnieją dwie takie klasy:
 \begin{itemize}
-    \item \texttt{DateUtils} - zawierająca metody do zmiany dat z formatu \texttt{java.time.LocalDate} na \texttt{java.util.Date} oraz \texttt{java.sql.Date},
-    \item \texttt{JwtTokenUtils} - zawierająca metody do generowania, weryfikacji i wyłuskiwania danych z tokenów JWT (ang. \english{JSON Web Token}).
+    \item \texttt{DateUtils} --- zawierająca metody do zmiany dat z formatu \texttt{java.time.LocalDate} na \texttt{java.util.Date} oraz \texttt{java.sql.Date},
+    \item \texttt{JwtTokenUtils} --- zawierająca metody do generowania, weryfikacji i wyłuskiwania danych z tokenów JWT (ang. \english{JSON Web Token}).
 \end{itemize}
 
 Druga kategoria klas pomocniczych to klasy danych, które istnieją w celu uproszczenia przechowywania danych w systemie. Służą najczęściej jako kontenery na dane, które następnie zostaną przetworzone na obiekty klas DTO. Najważniejszą z nich jest klasa \texttt{Calendar}, reprezentująca harmonogramy w formie kalendarza. Przechowuje ona dane dla każdego dnia tygodnia w ustalonym przedziale czasowym i dodatkowo posiada metody do sortowania, nadpisywania dni oraz uzupełniania pustych miejsc w kalendarzu.
@@ -138,13 +138,13 @@ W pakiecie \texttt{apimodels}, odrębnym od głównego pakietu serwera znajdują
 
 Pakiet apimodels zawiera subpakiety odpowiadające kontrolerom, które wymagają przesłania pełnego obiektu. Są to:
 \begin{itemize}
-    \item \texttt{access\_card} - modele kart dostępowych,
-    \item \texttt{auth} - modele autoryzacji i autentykacji,
-    \item \texttt{position} - modele stanowisk,
-    \item \texttt{schedule} - modele harmonogramów,
-    \item \texttt{timesheet} - modele kart pracy,
-    \item \texttt{unit} - modele jednostek organizacyjnych,
-    \item \texttt{user} - modele użytkowników.
+    \item \texttt{access\_card} --- modele kart dostępowych,
+    \item \texttt{auth} --- modele autoryzacji i autentykacji,
+    \item \texttt{position} --- modele stanowisk,
+    \item \texttt{schedule} --- modele harmonogramów,
+    \item \texttt{timesheet} --- modele kart pracy,
+    \item \texttt{unit} --- modele jednostek organizacyjnych,
+    \item \texttt{user} --- modele użytkowników.
 \end{itemize}
 
 \subsection{Klasy kontrolerów}
@@ -231,12 +231,12 @@ Harmonogramowanie pracy użytkowników odbywa się poprzez wysłanie żądania H
 
 Odczyt harmonogramu odbywa się poprzez wysłanie żądania \texttt{GET} na adres odpowiednio:
 \begin{itemize}
-    \item \texttt{/schedule/getUnit/\{id\}/\{startDate\}/\{endDate\}} - dla harmonogramu jednostki organizacyjnej,
-    \item \texttt{/schedule/getUser/\{id\}/\{startDate\}/\{endDate\}} - dla harmonogramu użytkownika,
+    \item \texttt{/schedule/getUnit/\{id\}/\{startDate\}/\{endDate\}} --- dla harmonogramu jednostki organizacyjnej,
+    \item \texttt{/schedule/getUser/\{id\}/\{startDate\}/\{endDate\}} --- dla harmonogramu użytkownika,
 \end{itemize}
-Uzupełniając odpowiednio parametry w nawiasach klamrowych. Oba żądania działają w~podobny sposób - pierwszy z nich uwzględnia wyłącznie harmonogramy jednostki, natomiast drugi łączy harmonogramy wszystkich jednostek przypisanych do użytkownika, a~następnie nadpisuje je harmonogramami użytkownika. W odpowiedzi serwer zwraca dane w formacie \texttt{JSON}, które są przetwarzane przez aplikację kliencką i wyświetlane w~odpowiednim widoku.
+uzupełniając odpowiednio parametry w nawiasach klamrowych. Oba żądania działają w~podobny sposób - pierwsze z nich uwzględnia wyłącznie harmonogramy jednostki, natomiast drugie łączy harmonogramy wszystkich jednostek przypisanych do użytkownika, a~następnie nadpisuje je harmonogramami użytkownika. W odpowiedzi serwer zwraca dane w formacie \texttt{JSON}, które są przetwarzane przez aplikację kliencką i wyświetlane w~odpowiednim widoku.
 
-Odczytanie harmonogramu użytkownika jest dużo bardziej złożone niż jednostki organizacyjnej. Wymaga ono odczytu wszystkich jednostek, do których należał użytkownik w danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}. \newpage
+Odczyt harmonogramu użytkownika jest dużo bardziej złożony niż jednostki organizacyjnej. Wymaga on pobrania wszystkich jednostek, do których należał użytkownik w~danym okresie czasu, następnie dla każdej z nich odczytania harmonogramu i połączenia ich w jeden widok przechowywany w klasie pomocniczej \texttt{Calendar}. Jeżeli użytkownik posiada również własny harmonogram, serwer generuje jego widok i nadpisuje dane przechowywane w klasie. Diagram sekwencji procesu został przedstawiony na rysunku \ref{fig:scheduleSequence}. \newpage
 
 \begin{figure}[H]
     \centering
@@ -270,10 +270,10 @@ Czytnik kart składa się z dwóch modułów oraz kilku elementów pasywnych. Pi
 Do elementów pasywnych układu należą:
 \begin{itemize}
     \item Rezystory ograniczające prąd,
-    \item Dioda LED RGB (ang. \english{Red, Green, Blue}) ze wspólną katodą, sygnalizująca stan czytnika.
+    \item Dioda LED RGB (ang. \english{Red, Green, Blue}) ze wspólną katodą, która sygnalizuje stan wewnętrzny czytnika.
 \end{itemize}
 
-Zgodnie z opisem diody do każdej anody podłączony powinien być rezystor ograniczający prąd. Zgodnie z zaleceniami producenta ich rezystancja powinny wynosić:
+Zgodnie z sposobem podłączania diod do każdej anody powinien być dołączony rezystor ograniczający prąd. Producent zaleca następujące wartości rezystorów:
 \begin{equation}
     \begin{cases}
         R_R=100\Omega \\

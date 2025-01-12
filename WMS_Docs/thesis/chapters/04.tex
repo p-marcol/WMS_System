@@ -18,7 +18,7 @@ Dodatkowo, każde konto użytkownika może zostać zarchiwizowane, blokując dos
 
 \subsection{Użytkownik}
 
-\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami. Może przeglądać swoje dane, harmonogram pracy, oraz dodawać wpisy do karty pracy (ang. \english{Timesheet}).
+\textbf{Użytkownik} jest podstawową rolą w systemie i posiada najmniej uprawnień. Ma dostęp wyłącznie do tego, co jest związane z jego kontem i obowiązkami. Może przeglądać swoje dane, harmonogram pracy oraz dodawać wpisy do karty pracy (ang. \english{Timesheet}).
 
 \subsection{Manager}
 
@@ -39,7 +39,7 @@ Interfejs użytkownika został zaprojektowany w taki sposób, aby osoba korzysta
     \label{fig:mainLayout}
 \end{figure}
 
-W całej aplikacji zdecydowano użyć jednolitego kroju bezszeryfowej czcionki \texttt{Open\nolinebreak Sans}, która została zaprojektowana z myślą o czytelności na ekranach. Ta sama myśl przyświecała przy jej wyborze. Pomimo jej silnej inspiracji krojami klasycznymi, posiada nowoczesny charakter i zachowuje czytelność. Elementy nagłówkowe korzystają z jej wersji pogrubionej lub pół pogrubionej. Interfejs użytkownika automatycznie dostosowuje wielkość czcionek do preferencji użytkownika.
+W całej aplikacji zdecydowano użyć jednolitego kroju bezszeryfowej czcionki \texttt{Open\nolinebreak Sans}, która została zaprojektowana z myślą o czytelności na ekranach. Ta sama myśl przyświecała przy jej wyborze. Pomimo jej silnej inspiracji krojami klasycznymi, posiada nowoczesny charakter i zachowuje czytelność. Elementy nagłówkowe korzystają z jej wersji pogrubionej lub półpogrubionej. Interfejs użytkownika automatycznie dostosowuje wielkość czcionek do preferencji użytkownika.
 \newpage
 Przy projektowaniu interfejsu skorzystano z podejścia Agile UX - metodologii, która zakłada tworzenie wysokiej jakości produktu w sposób iteracyjny. Stąd też interfejs użytkownika miał kilka wersji, zanim osiągnął obecną formę. Wszystkie zmiany były konsultowane z osobami niezwiązanymi z projektem, aby uzyskać jak największą użyteczność i~zadowolenie użytkowników. Przykład zmian w karcie harmonogramu, na widoku głównym został przedstawiony na rysunku \ref{fig:uxChanges}.
 
@@ -59,20 +59,20 @@ Przy projektowaniu interfejsu skorzystano z podejścia Agile UX - metodologii, k
     \label{fig:uxChanges}
 \end{figure}
 
-Pierwsza wersja - mimo, że bogatsza - była uznana za zbyt skomplikowaną i nieczytelną, zwłaszcza jeżeli chodzi o użyte kolory. Wersja końcowa została pozbawiona części elementów, uzyskując w zamian bardziej przejrzysty i czytelny interfejs.
+Pierwsza wersja - mimo, że bogatsza - była uznana za zbyt skomplikowaną i nieczytelną, zwłaszcza jeśli chodzi o użyte kolory. Wersja końcowa została pozbawiona części elementów, uzyskując w zamian bardziej przejrzysty i czytelny interfejs.
 
 \subsection{Kolorystyka}
 
 Przy projektowaniu interfejsu użytkownika zdecydowano się na użycie ciepłych kolorów, które są przyjemne dla oka i nie męczą wzroku. Wśród nich wybrano trzy, które reprezentują poszczególne role w systemie oraz dodają charakteru interfejsowi. Użyto również kilku odcieni do oznaczania elementów informacyjnych. W aplikacji używane są następujące kolory:
 \begin{itemize}
-    \item \texttt{\#FCAB10} - pomarańczowy, kolor użytkownika,
-    \item \texttt{\#ACE849} - zielony, kolor managera,
-    \item \texttt{\#3772FF} - niebieski, kolor administratora,
-    \item \texttt{\#FFFFFA} - kolor tła,
-    \item \texttt{\#4BB543} - kolor potwierdzenia,
-    \item \texttt{\#DC3545} - kolor błędu,
-    \item \texttt{\#FFC107} - kolor ostrzeżenia,
-    \item \texttt{\#E6EDFF} - kolor uzupełniający.
+    \item \texttt{\#FCAB10} --- pomarańczowy, kolor użytkownika,
+    \item \texttt{\#ACE849} --- zielony, kolor managera,
+    \item \texttt{\#3772FF} --- niebieski, kolor administratora,
+    \item \texttt{\#FFFFFA} --- kolor tła,
+    \item \texttt{\#4BB543} --- kolor potwierdzenia,
+    \item \texttt{\#DC3545} --- kolor błędu,
+    \item \texttt{\#FFC107} --- kolor ostrzeżenia,
+    \item \texttt{\#E6EDFF} --- kolor uzupełniający.
 \end{itemize}
 
 \subsection{Struktura widoku}
@@ -93,11 +93,11 @@ Makieta struktury widoku została przedstawiona na rysunku \ref{fig:layout}.
     \label{fig:layout}
 \end{figure}
 
-Komponenty są umieszczane na obszarze głównym z wykorzystaniem siatki CSS Grid, o 12 kolumnach i 10 wierszach. Dzięki czemu możliwe jest ich łatwe i elastyczne pozycjonowanie na stronie.
+Komponenty są umieszczane na obszarze głównym z wykorzystaniem siatki CSS Grid, o 12 kolumnach i 10 wierszach, dzięki czemu możliwe jest ich łatwe i elastyczne pozycjonowanie na stronie.
 
 \subsection{Strona logowania}
 
-Logowanie do systemu odbywa się poprzez formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawia się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a to - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
+Logowanie do systemu odbywa się poprzez formularz, w którym użytkownik musi podać swoją nazwę użytkownika oraz hasło. W przypadku, gdy użytkownik nie ma jeszcze ustawionego hasła pojawi się dodatkowe pole. Użytkownik musi potwierdzić wcześniej wpisane hasło, a to - jeżeli jest zgodne - zostanie zapamiętane w systemie. Wszelkie błędy związane z logowaniem są wyświetlane w formie komunikatów pod polami formularza.
 Widok strony logowania został przedstawiony na rysunku \ref{fig:loginPage}.
 
 \begin{figure}[H]
@@ -311,7 +311,7 @@ Czytnik kart jest prostym układem mikroprocesorowym, który kontaktuje się z s
 
 \subsection{Uruchomienie}
 
-Czytnik uruchamia się automatycznie po podłączeniu do zasilania. Podczas tego procesu dioda LED (ang. \english{Light Emitting Diode}) świeci się na żółto. Jeżeli czytnik napotka jakikolwiek problem podczas uruchamiania, dioda LED zacznie świecić na zielono, a~mikrokontroler udostępni sieć bezprzewodową, do której można się połączyć i otworzyć stronę konfiguracyjną. Widok strony konfiguracyjnej został przedstawiony na rysunku \ref{fig:readerConfig}.
+Czytnik uruchamia się automatycznie po podłączeniu do zasilania. Podczas tego procesu dioda LED (ang. \english{Light Emitting Diode}) świeci się na żółto. Jeżeli czytnik napotka jakikolwiek problem podczas uruchamiania, dioda LED zmieni kolor na zielony, a~mikrokontroler udostępni sieć bezprzewodową, do której można się połączyć i otworzyć stronę konfiguracyjną. Widok strony konfiguracyjnej został przedstawiony na rysunku \ref{fig:readerConfig}.
 
 \begin{figure}[H]
     \centering
@@ -324,7 +324,7 @@ Po poprawnym uruchomieniu, dioda LED zmienia kolor na niebieski.
 
 \subsection{Odczyt karty}
 
-Podczas normalnego trybu pracy, czytnik oczekuje na zbliżenie karty. Po jej odczycie, dioda LED zmienia kolor na żółty, kiedy to czytnik oczekuje na odpowiedź serwera. Następnie przez krótką chwilę świeci na zielono - jeśli odczyt się powiódł - lub na czerwono - jeśli wystąpił błąd. Po zakończeniu procesu, czytnik wraca do trybu oczekiwania na odczyt karty.
+Podczas normalnego trybu pracy czytnik oczekuje na zbliżenie karty. Po jej odczycie dioda LED zmienia kolor na żółty, kiedy to czytnik oczekuje na odpowiedź serwera. Następnie przez krótką chwilę świeci na zielono - jeśli odczyt się powiódł - lub na czerwono - jeśli wystąpił błąd. Po zakończeniu procesu, czytnik wraca do trybu oczekiwania na odczyt karty.
 
 \section{Dostępność}
 

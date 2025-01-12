@@ -13,7 +13,14 @@ public class DeviceService implements iDeviceService {
 
     @Override
     public Device getDeviceByMacAddress(String macAddress) {
-        return deviceRepository.findByMacAddress(macAddress).orElseThrow();
+        Device device = deviceRepository.findByMacAddress(macAddress).orElseThrow(() -> {
+            deviceRepository.save(new Device(macAddress));
+            return new RuntimeException("Device not found");
+        });
+        if (device.getSymbol() == null || device.getSymbol().isEmpty()) {
+            throw new RuntimeException("Device not found");
+        }
+        return device;
     }
 
     @Override

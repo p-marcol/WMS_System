@@ -32,4 +32,8 @@ public class Device {
 
     @Basic
     private String description;
+
+    public Device(String macAddress) {
+        this.macAddress = macAddress;
+    }
 }

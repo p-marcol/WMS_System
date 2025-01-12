@@ -24,7 +24,11 @@ public class ConnectionController {
 
     @GetMapping("/handshake/{mac}")
     public ResponseEntity<?> handshake(@PathVariable String mac) {
-        Device device =  deviceService.getDeviceByMacAddress(mac);
-        return ResponseEntity.ok(device.getSymbol());
+        try {
+            Device device = deviceService.getDeviceByMacAddress(mac);
+            return ResponseEntity.ok(device.getSymbol());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(false);
+        }
     }
 }

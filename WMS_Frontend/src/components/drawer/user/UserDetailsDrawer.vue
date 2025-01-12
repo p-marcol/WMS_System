@@ -2,6 +2,7 @@
 import ItemLabel from '@/components/ItemLabel.vue'
 import Checkbox from 'primevue/checkbox'
 import AccessCardAccordion from '@/components/AccessCardAccordion.vue'
+import { DateTime } from 'luxon'
 </script>
 
 <!-- eslint-disable vue/no-mutating-props -->
@@ -57,7 +58,7 @@ import AccessCardAccordion from '@/components/AccessCardAccordion.vue'
         </ItemLabel>
     </div>
     <hr />
-    <AccessCardAccordion :cards="cards" @refresh="fetchCards" />
+    <AccessCardAccordion :cards="cards" :accesses="accesses" @refresh="fetchCards" />
 </template>
 
 <script>
@@ -65,6 +66,7 @@ export default {
     data() {
         return {
             cards: [],
+            accesses: [],
         }
     },
     props: {
@@ -76,6 +78,7 @@ export default {
     async mounted() {
         await this.fetchUser()
         await this.fetchCards()
+        await this.fetchAccesses()
     },
     methods: {
         async fetchUser() {
@@ -89,10 +92,32 @@ export default {
                 })
         },
         async fetchCards() {
+            console.log('fetching cards')
             await this.axios
                 .get(`card/user/${this.user.id}`)
                 .then((response) => {
                     this.cards = response.data
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+        },
+        async fetchAccesses() {
+            await this.axios
+                .get(`/access/user/${this.user.id}`)
+                .then((response) => {
+                    this.accesses = response.data
+                        .map((access) => {
+                            return {
+                                ...access,
+                                at: DateTime.fromISO(access.at).toLocaleString(
+                                    DateTime.DATETIME_SHORT
+                                ),
+                            }
+                        })
+                        .sort((a, b) => {
+                            return a.at < b.at ? 1 : -1
+                        })
                 })
                 .catch((error) => {
                     console.error(error)

@@ -15,13 +15,13 @@ import * as v from 'valibot'
         </template>
 
         <Form id="modalBody" @submit="submit">
-            <InputContainer :label="$t('users.username')">
+            <InputContainer :label="$t('users.username')" required>
                 <InputText v-model="username" :invalid="usernameInvalid" required />
                 <Message v-if="errors.usernameInvalid" severity="error" text="Invalid username">
                     {{ errors.usernameInvalid }}
                 </Message>
             </InputContainer>
-            <InputContainer :label="$t('users.email')">
+            <InputContainer :label="$t('users.email')" required>
                 <InputText v-model="email" :invalid="emailInvalid" required />
                 <Message v-if="errors.emailInvalid" severity="error" text="Invalid username">
                     {{ errors.emailInvalid }}

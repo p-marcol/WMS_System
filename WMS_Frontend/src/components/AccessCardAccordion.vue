@@ -15,7 +15,7 @@ import { TrashIcon } from '@heroicons/vue/24/outline'
                 {{ $t('users.cards') }}
             </AccordionHeader>
             <AccordionContent>
-                <DataTable :value="cards" v-if="cards.length">
+                <DataTable :value="cards" v-if="cards.length" :paginator="true" :rows="10">
                     <Column field="cardUid" :header="$t('cards.uid')" />
                     <Column field="type" :header="$t('cards.type')" />
                     <Column field="description" :header="$t('cards.description')" />
@@ -32,11 +32,15 @@ import { TrashIcon } from '@heroicons/vue/24/outline'
         </AccordionPanel>
         <AccordionPanel value="1">
             <AccordionHeader>
-                <!-- TODO! -->
                 {{ $t('users.accesses') }}
             </AccordionHeader>
             <AccordionContent>
-                <span>{{ $t('users.noAccesses') }}</span>
+                <DataTable v-if="accesses.length" :value="accesses" :paginator="true" :rows="10">
+                    <Column field="id" :header="$t('id')" />
+                    <Column field="deviceSymbol" :header="$t('device.symbol')" />
+                    <Column field="at" :header="$t('cards.at')" />
+                </DataTable>
+                <span v-else>{{ $t('users.noAccesses') }}</span>
             </AccordionContent>
         </AccordionPanel>
     </Accordion>
@@ -49,6 +53,10 @@ export default {
             type: Array,
             required: true,
         },
+        accesses: {
+            type: Array,
+            required: true,
+        },
     },
     methods: {
         deleteCard(data) {
@@ -56,13 +64,32 @@ export default {
             this.$confirm.require({
                 message: this.$t('cards.confirm.delete'),
                 header: this.$t('cards.confirm.deleteHeader', { uid: data.uid }),
-                accept: () => this.deleteCardById(data.id),
+                accept: () => this.deleteCardById(data.cardUid),
                 reject: () => {},
             })
             this.$emit('refresh')
         },
-        async deleteCardById(id) {
-            console.log(id)
+        async deleteCardById(uid) {
+            this.axios
+                .delete(`card/delete/${uid}`)
+                .then(() => {
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: this.$t('cards.success.delete'),
+                        life: 3000,
+                    })
+                })
+                .catch((error) => {
+                    console.error(error)
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: this.$t('cards.error.delete'),
+                        life: 3000,
+                    })
+                })
+                .finally(() => {
+                    this.$emit('refresh')
+                })
         },
     },
     emits: ['refresh'],

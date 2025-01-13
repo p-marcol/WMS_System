@@ -17,7 +17,7 @@ Kompletny system składa się z czterech głównych komponentów oraz bazy danyc
 
 \subsection{Aplikacja webowa}
 
-Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a~w~zależności od jego roli, umożliwia wykonanie innych czynności. Autoryzacja odbywa się poprzez tokeny JWT, które aplikacja przechowuje w pamięci przeglądarki. Wykorzystywana jest biblioteka \texttt{Vue Router} odpowiedzialna za ustalanie tras i widoków, a także \texttt{Axios} do prostszego wykonywania zapytań do serwera. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
+Głównym interfejsem użytkownika jest aplikacja webowa stworzona przy użyciu frameworka \texttt{Vue.js}. Zapewnia użytkownikowi dostęp do większości funkcji systemu, a~w~zależności od jego roli, umożliwia wykonanie innych czynności. Autoryzacja odbywa się poprzez tokeny JWT  (ang. \english{JSON Web Token}) \cite{bib:rfc7519}, które aplikacja przechowuje w pamięci przeglądarki. Wykorzystywana jest biblioteka \texttt{Vue Router} odpowiedzialna za ustalanie tras i~widoków, a także \texttt{Axios} do prostszego wykonywania zapytań do serwera. Frontend komunikuje się z serwerem aplikacyjnym wysyłając żądania HTTP (ang. \english{Hypertext Transfer Protocol}) i odbierając odpowiedzi w formacie \texttt{JSON} (ang. \english{JavaScript Object Notation}).
 
 \subsection{Serwer}
 
@@ -127,7 +127,7 @@ Aby zapewnić poprawne działanie systemu, niezbędne było zaimplementowanie kl
 Klasy należące do pierwszej z kategorii zawierają jedynie metody statyczne i nie wymagają tworzenia instancji ich obiektu. Istnieją dwie takie klasy:
 \begin{itemize}
     \item \texttt{DateUtils} --- zawierająca metody do zmiany dat z formatu \texttt{java.time.LocalDate} na \texttt{java.util.Date} oraz \texttt{java.sql.Date},
-    \item \texttt{JwtTokenUtils} --- zawierająca metody do generowania, weryfikacji i wyłuskiwania danych z tokenów JWT (ang. \english{JSON Web Token}).
+    \item \texttt{JwtTokenUtils} --- zawierająca metody do generowania, weryfikacji i wyłuskiwania danych z tokenów JWT.
 \end{itemize}
 
 Druga kategoria klas pomocniczych to klasy danych, które istnieją w celu uproszczenia przechowywania danych w systemie. Służą najczęściej jako kontenery na dane, które następnie zostaną przetworzone na obiekty klas DTO. Najważniejszą z nich jest klasa \texttt{Calendar}, reprezentująca harmonogramy w formie kalendarza. Przechowuje ona dane dla każdego dnia tygodnia w ustalonym przedziale czasowym i dodatkowo posiada metody do sortowania, nadpisywania dni oraz uzupełniania pustych miejsc w kalendarzu.
@@ -192,7 +192,7 @@ public interface iScheduleRepository extends JpaRepository<Schedule, Long> {
 
 \subsection{Rejestracja i pierwsze logowanie użytkownika}
 
-Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, zostanie sprawdzone czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły procesu zostały opisane w rozdziale \ref{ss:logowanie}
+Rejestracja użytkownika może zostać dokonana jedynie przez administratora systemu. W tym celu powinien on wypełnić formularz rejestracyjny wprowadzając nazwę użytkownika oraz jego adres email. Po zatwierdzeniu formularza, w widoku wszystkich użytkowników pojawi się nowy rekord z danymi właśnie utworzonego użytkownika. Następnie administrator powinien przekazać nowo zarejestrowanemu użytkownikowi jego nazwę, którą musi wpisać na ekranie logowania - nie jest wymagane przy tym wpisywanie hasła. Po zatwierdzeniu formularza, i wysłaniu danych do serwera, zostanie sprawdzone czy użytkownik o podanej nazwie istnieje w bazie danych i czy ma przypisane hasło. Jeżeli nie, zwróci kod 206 - \texttt{Partial Content}, a aplikacja udostępni użytkownikowi możliwość ustawienia hasła. Po jego wpisaniu, potwierdzeniu i zatwierdzeniu formularza, użytkownik zostanie zalogowany do systemu. Diagram sekwencji pierwszego logowania użytkownika został przedstawiony na rysunku \ref{fig:login}, a szczegóły procesu zostały opisane w rozdziale \ref{ss:logowanie}.
 
 \subsection{Logowanie}
 \label{ss:logowanie}

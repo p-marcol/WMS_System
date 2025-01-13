@@ -139,7 +139,7 @@ public class ScheduleService implements iScheduleService {
     }
 
     @Override
-    public void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks) {
+    public void createNewSchedule(Long unitId, Long userId, LocalDate startDate, LocalDate endDate, List<ScheduleBlockDTO> scheduleBlocks) {
         if ((unitId == null && userId == null) || (unitId != null && userId != null)) {
             throw new IllegalArgumentException("Exactly one of unitId or userId must be non-null");
         }
@@ -151,6 +151,12 @@ public class ScheduleService implements iScheduleService {
         }
         if (startDate.isBefore(LocalDate.now())) {
             throw new IllegalArgumentException("Start date cannot be in the past");
+        }
+        if (endDate != null && endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("End date must be after start date");
+        }
+        if (unitId != null && endDate != null) {
+            throw new IllegalArgumentException("End date can't be set for unit schedules");
         }
 
         User user = null;
@@ -207,6 +213,7 @@ public class ScheduleService implements iScheduleService {
 
         Schedule newSchedule = new Schedule();
         newSchedule.setStartDate(startDate);
+        newSchedule.setEndDate(endDate);
         newSchedule.setCreatedBy(creator);
         newSchedule.setUnit(unit);
         newSchedule.setUser(user);
@@ -222,13 +229,16 @@ public class ScheduleService implements iScheduleService {
             newBlock.setEndHour(Time.valueOf(block.getEndHour()));
             newBlock.setSchedule(newSchedule);
             newBlock.setUnit(unitRepository.findById(block.unitId).orElse(null));
+            newBlock.setUnit(null);
             newScheduleBlocks.add(newBlock);
         }
 
         scheduleBlockRepository.saveAll(newScheduleBlocks);
 
         if (lastSchedule != null) {
-            lastSchedule.setEndDate(startDate);
+            if (lastSchedule.getEndDate() == null) {
+                lastSchedule.setEndDate(startDate);
+            }
             scheduleRepository.save(lastSchedule);
         }
     }

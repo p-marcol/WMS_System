@@ -9,10 +9,12 @@ import java.util.List;
 
 @Getter
 public class CreateNewScheduleRequest {
-    private LocalDate startDate;
-    private List<ScheduleBlockDTO> scheduleBlocks;
+    public LocalDate startDate;
     @Nullable
-    private Long unitId;
+    public LocalDate endDate;
+    public List<ScheduleBlockDTO> scheduleBlocks;
     @Nullable
-    private Long userId;
+    public Long unitId;
+    @Nullable
+    public Long userId;
 }

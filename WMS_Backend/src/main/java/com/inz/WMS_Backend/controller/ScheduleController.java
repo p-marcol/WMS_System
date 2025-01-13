@@ -53,6 +53,7 @@ public class ScheduleController {
                     request.getUnitId(),
                     request.getUserId(),
                     request.getStartDate(),
+                    request.getEndDate(),
                     request.getScheduleBlocks()
             );
             return ResponseEntity.ok("Schedule created");

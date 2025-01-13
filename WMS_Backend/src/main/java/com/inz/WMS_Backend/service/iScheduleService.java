@@ -14,7 +14,7 @@ public interface iScheduleService {
 
     List<ScheduleWrapper> getAllUnitSchedulesInDateRange(Long unitId, LocalDate startDate, LocalDate endDate);
 
-    void createNewSchedule(Long unitId, Long userId, LocalDate startDate, List<ScheduleBlockDTO> scheduleBlocks);
+    void createNewSchedule(Long unitId, Long userId, LocalDate startDate, LocalDate endDate, List<ScheduleBlockDTO> scheduleBlocks);
 
     List<ScheduleWrapper> getAllUserSchedulesInDateRange(Long id, LocalDate startDate, LocalDate endDate);
 }

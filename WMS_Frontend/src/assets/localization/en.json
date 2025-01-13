@@ -39,7 +39,14 @@
     "schedule": {
         "showTeam": "Show team's",
         "showUsers": "Show users'",
-        "showMy": "Show my"
+        "showMy": "Show my",
+        "addToUnit": "Add schedule to unit {id}",
+        "addToUser": "Add schedule to user {id}",
+        "startDay": "Begin day",
+        "endDay": "End day",
+        "startTime": "Start time",
+        "endTime": "End time",
+        "unit": "Unit"
     },
     "users": {
         "unit": "Unit",

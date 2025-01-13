@@ -11,6 +11,7 @@ import {
 import Button from 'primevue/button'
 import { DateTime } from 'luxon'
 import ScheduleBarV from '@/components/ScheduleBarV.vue'
+import AddScheduleDialog from '@/components/dialog/AddScheduleDialog.vue'
 </script>
 
 <template>
@@ -28,7 +29,16 @@ import ScheduleBarV from '@/components/ScheduleBarV.vue'
                     <ChevronRightIcon class="icon" @click="weekForward" />
                 </div>
                 <div id="headerRight">
-                    <Cog6ToothIcon class="icon" v-if="showManagement" />
+                    <Cog6ToothIcon
+                        class="icon"
+                        v-if="showManagement && !selectedUserId"
+                        @click="
+                            openAddScheduleDialog(
+                                showTeamSchedule ? unitId : this.user.id,
+                                !showTeamSchedule
+                            )
+                        "
+                    />
                     <Button
                         type="button"
                         :label="showTeamSchedule ? $t('schedule.showMy') : $t('schedule.showTeam')"
@@ -81,11 +91,12 @@ import ScheduleBarV from '@/components/ScheduleBarV.vue'
             <div class="userContainer" v-for="user in team" :key="user.userId">
                 <TeamCardUserView :user="user" @click="setSelectedUser(user.userId)" />
                 <div v-if="selectedUserId === user.userId">
-                    <Cog6ToothIcon class="icon" />
+                    <Cog6ToothIcon class="icon" @click="openAddScheduleDialog(user.userId, true)" />
                     <XMarkIcon class="icon" @click="setSelectedUser(null)" />
                 </div>
             </div>
         </CardContainer>
+        <AddScheduleDialog ref="addScheduleDialogRef" />
     </MainLayout>
 </template>
 
@@ -223,6 +234,9 @@ export default {
                 })
             })
             return scheduleArray
+        },
+        openAddScheduleDialog(id, setUser) {
+            this.$refs.addScheduleDialogRef.open(id, setUser)
         },
     },
     watch: {

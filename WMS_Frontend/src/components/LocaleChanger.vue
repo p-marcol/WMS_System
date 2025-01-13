@@ -6,7 +6,11 @@ import Select from 'primevue/select'
 
 <template>
     <InputContainer :label="$t('settings.language')">
-        <Select v-model="$i18n.locale" :options="locales">
+        <Select
+            v-model="$i18n.locale"
+            :options="locales"
+            @onChange="(locale) => localStorage.setItem('locale', locale)"
+        >
             <template #option="{ option }">
                 <span>{{ option.toUpperCase() }}</span>
             </template>

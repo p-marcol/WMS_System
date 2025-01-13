@@ -4,7 +4,7 @@ import cn from './cn.json'
 
 const i18nMesssages = {
     en: en,
-    pl: pl,
+    // pl: pl,
     cn: cn,
 }
 

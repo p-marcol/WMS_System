@@ -36,7 +36,7 @@ public class ScheduleController {
                         .isMultiDay(scheduleBlockListItem.isMultiDay())
                         .startHour(scheduleBlockListItem.getStartHour().toLocalTime().toString())
                         .endHour(scheduleBlockListItem.getEndHour().toLocalTime().toString())
-                        .unitName(scheduleBlockListItem.getUnit().getName())
+                        .unitName(scheduleBlockListItem.getUnit() != null ? scheduleBlockListItem.getUnit().getName() : null)
                         .isPrivate(calendarListItem.getIsPrivate() ? true : null)
                         .build()
                 );

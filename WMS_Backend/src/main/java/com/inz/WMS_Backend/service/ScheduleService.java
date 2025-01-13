@@ -229,7 +229,6 @@ public class ScheduleService implements iScheduleService {
             newBlock.setEndHour(Time.valueOf(block.getEndHour()));
             newBlock.setSchedule(newSchedule);
             newBlock.setUnit(unitRepository.findById(block.unitId).orElse(null));
-            newBlock.setUnit(null);
             newScheduleBlocks.add(newBlock);
         }
 

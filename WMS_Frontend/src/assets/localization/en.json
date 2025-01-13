@@ -42,6 +42,8 @@
         "showMy": "Show my",
         "addToUnit": "Add schedule to unit {id}",
         "addToUser": "Add schedule to user {id}",
+        "startDate": "Start date",
+        "endDate": "End date",
         "startDay": "Begin day",
         "endDay": "End day",
         "startTime": "Start time",
@@ -72,11 +74,20 @@
         "position": "Position",
         "currentPosition": "Current position",
         "unitName": "Unit name",
+        "cards": "User cards",
+        "accesses": "User accesses",
         "confirm": {
             "delete": "Are you sure you want to delete this user?",
             "archiveHeader": "Archive user",
             "archive": "Are you sure you want to archive this user?"
-        }
+        },
+        "noAccesses": "No accesses"
+    },
+    "cards": {
+        "type": "Card type",
+        "description": "Description",
+        "noContent": "No content",
+        "at": "Access time"
     },
     "table": {
         "actions": "Actions",
@@ -156,5 +167,8 @@
     "settings": {
         "settings": "Settings",
         "language": "Language"
+    },
+    "device": {
+        "symbol": "Device symbol"
     }
 }

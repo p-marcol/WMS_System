@@ -201,7 +201,15 @@ export default {
                     this.schedule = this.processResponse(res)
                 })
                 .catch((err) => {
-                    console.error(err)
+                    this.schedule = []
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail:
+                            err.response?.data?.message ||
+                            'An error occurred while fetching the schedule.',
+                        life: 3000,
+                    })
                 })
         },
         async fetchTeamSchedule() {

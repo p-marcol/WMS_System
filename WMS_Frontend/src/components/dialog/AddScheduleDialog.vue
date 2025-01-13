@@ -23,24 +23,10 @@ import Select from 'primevue/select'
         <div :class="userId && 'wms-col-2'">
             <InputContainer :label="$t('schedule.startDate')" required>
                 <DatePicker v-model="startDate" />
-                <!-- <Message
-                v-if="errors.startDateInvalid"
-                severity="error"
-                :text="$t('schedule.invalidStartDate')"
-            >
-                {{ errors.startDateInvalid }}
-            </Message> -->
             </InputContainer>
 
             <InputContainer v-if="userId" :label="$t('schedule.endDate')">
                 <DatePicker v-model="endDate" />
-                <!-- <Message
-                v-if="errors.endDateInvalid"
-                severity="error"
-                :text="$t('schedule.invalidEndDate')"
-            >
-                {{ errors.endDateInvalid }}
-            </Message> -->
             </InputContainer>
         </div>
         <div class="block" v-for="block in blocks" :key="block.id">
@@ -175,14 +161,26 @@ export default {
                 }),
             }
             console.log(result)
-
             this.axios
                 .put('/schedule/create', result)
                 .then(() => {
                     console.log('success')
+                    this.$toast.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Schedule created successfully',
+                        life: 3000,
+                    })
+                    this.close()
                 })
                 .catch((error) => {
                     console.error(error)
+                    this.$toast.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'Failed to create schedule',
+                        life: 3000,
+                    })
                 })
         },
     },

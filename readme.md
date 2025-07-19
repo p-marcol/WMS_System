@@ -607,8 +607,8 @@ The aim of this thesis was to develop a workforce management system for a compan
 
 **Piotr Marcol**
 - GitHub: [@p-marcol](https://github.com/p-marcol)
-- University Email: [Student email through university portal]
-- LinkedIn: [Professional profile if available]
+- University Email: [pm300463@student.polsl.pl](pm300463@student.polsl.pl)
+- LinkedIn: [in/piotr-marcol-51b263264](https://www.linkedin.com/in/piotr-marcol-51b263264/)
 
 **Academic Supervisor**
 - Dr inż. Marcin Połomski

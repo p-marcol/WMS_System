@@ -14,7 +14,7 @@
     "@heroicons/vue": "^2.1.5",
     "@primevue/forms": "^4.2.1",
     "@primevue/themes": "^4.0.7",
-    "axios": "^1.7.7",
+    "axios": "^1.15.0",
     "luxon": "^3.5.0",
     "primevue": "^4.0.7",
     "valibot": "^0.42.1",
